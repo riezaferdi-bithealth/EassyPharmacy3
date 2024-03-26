@@ -1,0 +1,1 @@
+export 'package:flutter_eassypharmacy/core/core.dart';
