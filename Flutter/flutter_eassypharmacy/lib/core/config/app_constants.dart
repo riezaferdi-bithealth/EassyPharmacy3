@@ -9,5 +9,9 @@ const String splashNav = "/splash";
 
 //id lang
 const String eassyPharmacy = "EassyPharmacy";
+
 const String home = "Home";
+const String stock = "Stock: ";
+const String addToCart = "Add to Cart";
+
 const String profile = "Profile";

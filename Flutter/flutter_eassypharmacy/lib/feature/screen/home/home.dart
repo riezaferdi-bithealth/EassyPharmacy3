@@ -12,13 +12,21 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            ColumnDivider(padding: topBarPadding),
-            Text(eassyPharmacy),
-          ],
+    return Scaffold(
+      body: Container(
+        color: systemWhiteColor,
+        height: double.infinity,
+        child: const SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: [
+              ColumnDivider(padding: topBarPadding),
+              Text(eassyPharmacy),
+              ColumnDivider(padding: space16),
+              ListMedicines(),
+            ],
+          ),
         ),
       ),
     );

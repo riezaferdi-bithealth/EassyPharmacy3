@@ -67,3 +67,5 @@ class CompanyColors {
 Color systemPrimaryColor = CompanyColors.primary[900]!;
 
 Color systemBlackColor = Colors.black;
+
+Color systemWhiteColor = Colors.white;
