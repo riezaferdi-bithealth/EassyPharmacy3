@@ -25,7 +25,7 @@ class BottomBar extends StatelessWidget {
       onTap: onClicked,
       selectedItemColor: systemPrimaryColor,
       // backgroundColor: Colors.blue,
-      unselectedItemColor: Colors.black,
+      unselectedItemColor: systemBlackColor,
       items: const [
         BottomNavigationBarItem(
           label: home,

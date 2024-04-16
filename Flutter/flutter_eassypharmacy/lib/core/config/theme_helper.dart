@@ -66,6 +66,13 @@ class CompanyColors {
 
 Color systemPrimaryColor = CompanyColors.primary[900]!;
 
+Color systemAccentColor = CompanyColors.accent[900]!;
+Color systemAccent500Color = CompanyColors.accent[500]!;
+
 Color systemBlackColor = Colors.black;
 
 Color systemWhiteColor = Colors.white;
+
+Color systemGreyColor = Colors.grey;
+
+Color systemRedColor = Colors.red;
