@@ -27,6 +27,7 @@ const String emailNotValid = "Your Email is not valid!";
 
 //login
 const String login = "Login";
+const String loginMessage = "Login to access everything";
 const String loginBottomMessageOne = "No Account? ";
 const String loginBottomMessageTwo = "Register Here";
 

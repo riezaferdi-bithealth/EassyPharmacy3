@@ -10,34 +10,48 @@ class LoginOrRegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(space16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            // const ColumnDivider(padding: topBarPadding),
             Image.asset(
               Assets.landingPageLogo,
               height: splashHeight,
               width: splashWidth,
             ),
-            const Text(loginOrRegister),
+            Text(loginOrRegister, style: p30.primary.bold),
             const ColumnDivider(padding: space16),
-            GestureDetector(
-              onTap: () {
+            GeneralButton.text(
+              login,
+              padding: const EdgeInsets.symmetric(vertical: space12),
+              buttonSize: ButtonSize.large,
+              backgroundColor: systemPrimaryColor,
+              width: double.infinity,
+              height: 56,
+              circular: space12,
+              onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return const LoginPage();
+                  return LoginPage();
                 }));
               },
-              child: const Text(login),
             ),
             const ColumnDivider(padding: space16),
-            GestureDetector(
-              onTap: () {
+            GeneralButton.text(
+              register,
+              padding: const EdgeInsets.symmetric(vertical: space12),
+              buttonSize: ButtonSize.large,
+              backgroundColor: systemPrimaryColor,
+              width: double.infinity,
+              height: 56,
+              circular: space12,
+              onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return RegisterPage();
                 }));
               },
-              child: const Text(register),
             ),
           ],
         ),
