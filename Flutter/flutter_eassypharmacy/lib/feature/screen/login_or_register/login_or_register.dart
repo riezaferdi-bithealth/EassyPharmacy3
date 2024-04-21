@@ -10,6 +10,17 @@ class LoginOrRegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_rounded,
+            color: systemPrimaryColor,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(space16),
         child: Column(

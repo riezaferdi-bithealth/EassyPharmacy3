@@ -7,16 +7,23 @@
 const String homeNav = "/home";
 const String splashNav = "/splash";
 
-//id lang
+//en lang
 const String eassyPharmacy = "EassyPharmacy";
 const String fontDefault = "Inter";
 
+//home
 const String home = "Home";
 const String stock = "Stock: ";
 const String addToCart = "Add to Cart";
 
+//profile
 const String profile = "Profile";
+const String hello = "Hello, ";
+const String profileDetail = "Profile Detail";
+const String listOrder = "List Order";
+const String logout = "Logout";
 
+//login or register
 const String loginOrRegister = "Login or Register";
 const String email = "Email";
 const String emailMessage = "Enter your Email";
