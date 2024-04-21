@@ -13,15 +13,16 @@ class SplashPage extends StatelessWidget {
     });
 
     return Scaffold(
-        body: Center(
-      // Add your splash screen UI components here
-      child: ClipRRect(
-        child: Image.asset(
-          Assets.landingPageLogo,
-          height: splashHeight,
-          width: splashWidth,
+      body: Center(
+        // Add your splash screen UI components here
+        child: ClipRRect(
+          child: Image.asset(
+            Assets.landingPageLogo,
+            height: splashHeight,
+            width: splashWidth,
+          ),
         ),
       ),
-    ));
+    );
   }
 }

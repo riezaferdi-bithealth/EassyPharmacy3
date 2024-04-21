@@ -3,15 +3,17 @@ import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
 
 void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    initialRoute: splashNav,
-    routes: {
-      splashNav: (context) => const SplashPage(),
-      homeNav: (context) => const MainApp(),
-      // Add other routes for your app screens here
-    },
-  ));
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: splashNav,
+      routes: {
+        splashNav: (context) => const SplashPage(),
+        homeNav: (context) => const MainApp(),
+        // Add other routes for your app screens here
+      },
+    ),
+  );
 }
 
 class MainApp extends StatefulWidget {

@@ -14,18 +14,11 @@ class BottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      // currentIndex: index,
-      // onTap: (value) {
-      //   print(value);
-      //   setState(() {
-      //     index = value;
-      //   });
-      // },
       currentIndex: selectedIndex,
       onTap: onClicked,
       selectedItemColor: systemPrimaryColor,
       // backgroundColor: Colors.blue,
-      unselectedItemColor: Colors.black,
+      unselectedItemColor: systemBlackColor,
       items: const [
         BottomNavigationBarItem(
           label: home,
