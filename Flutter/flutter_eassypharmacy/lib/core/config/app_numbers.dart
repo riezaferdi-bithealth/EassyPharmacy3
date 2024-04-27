@@ -2,6 +2,7 @@
 int indexStart = 0;
 
 //padding
+const space4 = 4.0;
 const space8 = 8.0;
 const space12 = 12.0;
 const space16 = 16.0;
@@ -18,3 +19,5 @@ const splashTimer = 5;
 
 //icon profile size
 const iconProfileSize = 36.0;
+
+const imageScaleListMedicine = 2.5;

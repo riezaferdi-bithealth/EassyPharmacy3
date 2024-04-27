@@ -27,3 +27,21 @@ List<int> stockMedicines = [
   10,
   20,
 ];
+
+List<String> listOrderName = [
+  "Paramex",
+  "Panadol",
+  "Flukadex",
+];
+
+List<int> listOrderQty = [
+  2,
+  1,
+  3,
+];
+
+List<int> listOrderPrice = [
+  1700,
+  1450,
+  2100,
+];

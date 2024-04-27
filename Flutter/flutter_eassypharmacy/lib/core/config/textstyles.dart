@@ -202,7 +202,9 @@ class TextStyleExtension extends TextStyle {
 
   // get lightGrey => copyWithFunct(color: systemLightGreyColor);
 
-  // get yellow => copyWithFunct(color: systemYellowColor);
+  get yellow => copyWithFunct(color: systemYellowColor);
+
+  get orange => copyWithFunct(color: systemOrangeColor);
   
   // get gold => copyWithFunct(color: systemGoldColor);
 

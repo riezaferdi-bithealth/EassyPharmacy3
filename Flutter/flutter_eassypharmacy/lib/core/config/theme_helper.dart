@@ -78,3 +78,7 @@ Color systemGreyColor = Colors.grey;
 // Color? systemGrey50Color = Colors.grey[500];
 
 Color systemRedColor = Colors.red;
+
+Color systemOrangeColor = Colors.orange;
+
+Color systemYellowColor = Colors.yellow;

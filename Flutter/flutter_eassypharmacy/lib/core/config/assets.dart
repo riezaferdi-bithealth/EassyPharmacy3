@@ -10,6 +10,7 @@ class Assets {
   static const Icon cartIcon = Icon(Icons.shopping_cart);
   static const Icon homeIcon = Icon(Icons.home);
   static const Icon profileIcon = Icon(Icons.person);
+  static const Icon search = Icon(Icons.search);
 
   //profile
   static const IconData profileDetailIcon = Icons.account_circle_rounded;
