@@ -58,3 +58,8 @@ const String nameLength = "Your Name is not valid!";
 const String createAccount = "Create Account";
 const String registerBottomMessageOne = "Have Account? ";
 const String registerBottomMessageTwo = "Login Here";
+
+//bloc
+const String unknown = '...';
+const String systemError = 'Kesalahan sistem';
+const String dataNotFound = 'Data tidak ditemukan';

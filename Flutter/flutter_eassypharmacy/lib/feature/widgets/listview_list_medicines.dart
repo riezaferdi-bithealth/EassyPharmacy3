@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_eassypharmacy/core/core.dart';
-import 'package:flutter_eassypharmacy/feature/features.dart';
-import 'package:flutter_eassypharmacy/feature/screen/profile/blank.dart';
 
 import '../screen/home/detail_page.dart';
 
@@ -35,7 +33,7 @@ class ListViewListMedicines extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => DetailPage(),
+                    builder: (context) => const DetailPage(),
                   ),
                 );
               },

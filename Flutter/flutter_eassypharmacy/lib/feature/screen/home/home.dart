@@ -14,6 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int tabController = 0;
+  bool isViewTypeGrid = true;
 
   @override
   Widget build(BuildContext context) {
@@ -67,18 +68,27 @@ class _HomePageState extends State<HomePage> {
                     // height: 56,
                     circular: space12,
                     onPressed: () {
-                      // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                      //   return const Blank();
-                      // }));
+                      if (isViewTypeGrid == false) {
+                        isViewTypeGrid = true;
+                      } else {
+                        isViewTypeGrid = false;
+                      }
+                      setState(() {});
                     },
                     child: Container(
                       color: systemPrimaryColor,
                       padding: const EdgeInsets.all(space8),
-                      child: const Row(
+                      child: Row(
                         children: [
-                          Icon(Icons.grid_view_rounded),
-                          RowDivider(padding: space4),
-                          Text(gridView),
+                          Icon(
+                            isViewTypeGrid == true
+                                ? Icons.grid_view_rounded
+                                : Icons.list_rounded,
+                          ),
+                          const RowDivider(padding: space4),
+                          Text(
+                            isViewTypeGrid == true ? gridView : listView,
+                          ),
                         ],
                       ),
                     ),
@@ -87,11 +97,13 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             const ColumnDivider(padding: space8),
-            const Expanded(
+            Expanded(
               child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.vertical,
-                child: GridViewListMedicines(),
+                child: isViewTypeGrid == true
+                    ? const GridViewListMedicines()
+                    : const ListViewListMedicines(),
               ),
             ),
           ],
