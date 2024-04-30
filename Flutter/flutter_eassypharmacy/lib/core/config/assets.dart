@@ -16,4 +16,8 @@ class Assets {
   static const IconData profileDetailIcon = Icons.account_circle_rounded;
   static const IconData listOrderIcon = Icons.list_alt_rounded;
   static const IconData logoutIcon = Icons.logout_rounded;
+
+  //login_register
+  static const IconData passVisible = Icons.visibility;
+  static const IconData passNotVisible = Icons.visibility_off;
 }

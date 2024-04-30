@@ -36,7 +36,7 @@ class ListMedicines extends Model {
   factory ListMedicines.fromJson(Map<String, dynamic> json) => ListMedicines(
       id: Model.castInt(json['id']),
       name: Model.castString(json['name']),
-      desc: Model.castString(json['desc']),
+      desc: Model.castString(json['description']),
       price: Model.castInt(json['price']),
       stock: Model.castInt(json['stock']),
       image: Model.castString(json['image']));

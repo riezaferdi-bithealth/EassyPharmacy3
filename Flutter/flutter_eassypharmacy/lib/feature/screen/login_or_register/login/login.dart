@@ -7,6 +7,7 @@ class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   void _submitLogin(BuildContext context) async {
     if (emailController.text.isEmpty) {
@@ -17,6 +18,14 @@ class LoginPage extends StatelessWidget {
       Commons().snackbarError(context, emailNotValid);
       return;
     }
+    if (passwordController.text.isEmpty) {
+      Commons().snackbarError(context, passwordNeed);
+      return;
+    }
+    if (!_validatePassword(passwordController.text)) {
+      Commons().snackbarError(context, passwordNotValid);
+      return;
+    }
 
     Commons().snackbarSuccess(context, "Login Successful");
     return;
@@ -24,6 +33,12 @@ class LoginPage extends StatelessWidget {
 
   bool _validateEmail(String value) {
     Pattern pattern = emailRegexPattern;
+    RegExp regex = RegExp(pattern.toString());
+    return regex.hasMatch(value);
+  }
+
+  bool _validatePassword(String value) {
+    Pattern pattern = passwordRegexPattern;
     RegExp regex = RegExp(pattern.toString());
     return regex.hasMatch(value);
   }
@@ -69,6 +84,15 @@ class LoginPage extends StatelessWidget {
           emailMessage,
           emailController,
         ),
+        const ColumnDivider(padding: space16),
+        FormInputPassword(
+          id: password,
+          message: passwordMessage,
+          controller: passwordController,
+        ),
+        // const ColumnDivider(padding: space8),
+        // Text(passwordRequirements, style: p12.primary.normal),
+        // Center(child: Text("Or Login Using Phone Number"),),
       ],
     );
   }

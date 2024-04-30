@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
-import 'package:flutter_eassypharmacy/feature/screen/login_or_register/login_or_register.dart';
 
 import 'list_order.dart';
 
@@ -12,7 +12,8 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   int tabController = 0;
   bool isViewTypeGrid = true;
 
@@ -102,8 +103,20 @@ class _HomePageState extends State<HomePage> {
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 child: isViewTypeGrid == true
-                    ? const GridViewListMedicines()
-                    : const ListViewListMedicines(),
+                    ? MultiBlocProvider(
+                        providers: [
+                          BlocProvider(
+                              create: (context) => GetListMedicinesCubit())
+                        ],
+                        child: const GridViewListMedicines(),
+                      )
+                    : MultiBlocProvider(
+                        providers: [
+                          BlocProvider(
+                              create: (context) => GetListMedicinesCubit())
+                        ],
+                        child: const ListViewListMedicines(),
+                      ),
               ),
             ),
           ],

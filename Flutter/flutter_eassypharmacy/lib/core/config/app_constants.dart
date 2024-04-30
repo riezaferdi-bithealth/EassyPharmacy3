@@ -41,6 +41,18 @@ const String emailNeed = "Email Required!";
 const String emailRegexPattern =
     r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
 const String emailNotValid = "Your Email is not valid!";
+const String phone = "Phone Number";
+const String phoneMessage = "Enter your phone Number";
+const String phoneNeed = "Phone Number Required!";
+const String phoneLength = "Your Phone Number must under 16 Characters!";
+const String password = "Password";
+const String passwordMessage = "Enter your password";
+const String passwordNeed = "Password Required!";
+const String passwordRegexPattern =
+    r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$';
+const String passwordNotValid = "Your Password is not valid!";
+const String passwordRequirements =
+    "Your password is must follow at least: \n* Minimum eight characters \n* One uppercase letter \n* One lowercase letter \n* One number \n* One of special characters: @\$!%*?&";
 
 //login
 const String login = "Login";
@@ -54,7 +66,7 @@ const String registerMessage = "Create an account, it's free";
 const String name = "Name";
 const String nameMessage = "Enter your Name";
 const String fullNameNeed = "Full Name Required!";
-const String nameLength = "Your Name is not valid!";
+const String nameLength = "Your Name must under 60 Characters!";
 const String createAccount = "Create Account";
 const String registerBottomMessageOne = "Have Account? ";
 const String registerBottomMessageTwo = "Login Here";

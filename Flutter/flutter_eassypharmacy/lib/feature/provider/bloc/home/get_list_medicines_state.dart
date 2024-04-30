@@ -12,7 +12,7 @@ class InitialGetListMedicines extends GetListMedicinesState {}
 class LoadingGetListMedicines extends GetListMedicinesState {}
 
 class LoadedGetListMedicines extends GetListMedicinesState {
-  final ListMedicines listData;
+  final GetListMedicines listData;
   const LoadedGetListMedicines({required this.listData});
 
   @override

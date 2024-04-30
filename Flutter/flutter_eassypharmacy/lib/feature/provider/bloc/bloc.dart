@@ -1,6 +1,7 @@
 export 'package:flutter_eassypharmacy/feature/provider/bloc/bloc.dart';
 
 export 'authentication/authentication_cubit.dart';
+export 'home/get_list_medicines_cubit.dart';
 
 import 'package:logger/logger.dart';
 

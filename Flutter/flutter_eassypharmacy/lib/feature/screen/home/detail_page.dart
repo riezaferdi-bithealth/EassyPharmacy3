@@ -4,8 +4,19 @@ import 'package:flutter_eassypharmacy/feature/features.dart';
 
 class DetailPage extends StatelessWidget {
   final int? id;
+  final String? name;
+  final String? desc;
+  final int? prices;
+  final int? stocks;
+  final String? image;
+
   const DetailPage({
     this.id,
+    this.name,
+    this.desc,
+    this.prices,
+    this.stocks,
+    this.image,
     super.key,
   });
 
@@ -32,7 +43,7 @@ class DetailPage extends StatelessWidget {
             ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(space8)),
               child: Image.network(
-                "https://picsum.photos/250?image=$id",
+                image!,
                 fit: BoxFit.fill,
                 // scale: imageScaleListMedicine,
                 height: MediaQuery.of(context).size.height / 3,
@@ -40,7 +51,7 @@ class DetailPage extends StatelessWidget {
               ),
             ),
             Text(
-              listMedicinePharm[id!],
+              name!,
               style: p16.primary.normal,
             ),
             const ColumnDivider(padding: space4),
@@ -51,7 +62,7 @@ class DetailPage extends StatelessWidget {
                   style: p14.primary.normal,
                 ),
                 Text(
-                  stockMedicines[id!].toString(),
+                  stocks.toString(),
                   style: p14.primary.normal,
                 ),
               ],
@@ -64,10 +75,15 @@ class DetailPage extends StatelessWidget {
                   style: p14.primary.normal,
                 ),
                 Text(
-                  "Rp 20.000,-",
+                  prices.toString(),
                   style: p14.primary.normal,
                 ),
               ],
+            ),
+            const ColumnDivider(padding: space4),
+            Text(
+              "desc: ${desc!}",
+              style: p16.primary.normal,
             ),
             const ColumnDivider(padding: 50),
             GeneralButton.text(

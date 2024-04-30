@@ -20,4 +20,4 @@ const splashTimer = 5;
 //icon profile size
 const iconProfileSize = 36.0;
 
-const imageScaleListMedicine = 2.5;
+const imageScaleListMedicine = 4.5;
