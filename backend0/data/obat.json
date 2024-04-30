@@ -1,0 +1,163 @@
+[
+    {
+        "id": 1,
+        "name": "paracetamol",
+        "description": "Obat penurun demam dan pereda nyeri",
+        "price": 5000,
+        "stock": 100,
+        "image": "https://d2qjkwm11akmwu.cloudfront.net/products/782475_23-3-2020_14-28-1-1665778689.jpeg"
+      },
+      {
+        "id": 2,
+        "name": "Mylanta",
+        "description": "Obat pereda maag",
+        "price": 1000,
+        "stock": 100,
+        "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2022/10/7/50dd3df9-3f0f-4da1-be14-46d21d977ab3.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Siladex",
+        "description": "Obat pereda batuk",
+        "price": 7000,
+        "stock": 50,
+        "image": "https://d3bbrrd0qs69m4.cloudfront.net/images/product/large/apotek_online_k24klik_20201020030249359225_SILADEX-30-ML.jpg"
+      },
+      {
+        "id": 4,
+        "name": "Vitacimin",
+        "description": "Vitamin C berbentuk tablet",
+        "price": 2000,
+        "stock": 30,
+        "image": "https://lifepack.id/wp-content/uploads/2020/12/88.jpg"
+      },
+      {
+        "id": 5,
+        "name": "Imboost Force",
+        "description": "Vitamin untuk daya tahan tubuh",
+        "price": 5000,
+        "stock": 50,
+        "image": "https://www.k24klik.com/blog/wp-content/uploads/2022/04/imboost-force-1.png"
+      },
+      {
+        "id": 6,
+        "name": "Counterpain",
+        "description": "Salep pereda rasa nyeri otot",
+        "price": 5000,
+        "stock": 50,
+        "image": "https://lifepack.id/wp-content/uploads/2021/02/rug-1614236682565-6.jpeg.jpg"
+      },
+      {
+        "id": 7,
+        "name": "Amoxicillin",
+        "description": "Antibiotik untuk mengobati infeksi bakteri, seperti infeksi saluran pernapasan, kulit, dan infeksi THT.",
+        "price": 25000,
+        "stock": 50,
+        "image": "https://images.tokopedia.net/img/cache/700/OJWluG/2022/7/13/15ed638c-fb24-4f17-a438-8639649ed10b.jpg"
+      },
+      {
+        "id": 8,
+        "name": "Cetirizine",
+        "description": "Obat antihistamin untuk meredakan gejala alergi, seperti pilek, bersin, mata gatal, dan ruam kulit.",
+        "price": 20000,
+        "stock": 80,
+        "image": "https://d3bbrrd0qs69m4.cloudfront.net/images/product/large/apotek_online_k24klik_20230406105349359225_CETIRIZINE-KF.png"
+      },
+      {
+        "id": 9,
+        "name": "Omeprazole",
+        "description": "Obat untuk mengurangi produksi asam lambung, digunakan untuk mengobati sakit maag, GERD, dan tukak lambung.",
+        "price": 30000,
+        "stock": 60,
+        "image": "https://storage.googleapis.com/rxstorage/Product/Photos/farmaku_omeprazole-20-mg-capsule-novell-01.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Ibuprofen",
+        "description": "Obat antiinflamasi nonsteroid (OAINS) untuk meredakan nyeri, peradangan, dan demam.",
+        "price": 18000,
+        "stock": 70,
+        "image": "https://img.lazcdn.com/g/ff/kf/Se3cc5bcd27064e05ba01b364e1165f734.jpg_720x720q80.jpg"
+      },
+      {
+        "id": 11,
+        "name": "Salbutamol",
+        "description": "Obat bronkodilator untuk meredakan gejala asma, bronkitis, dan penyakit paru obstruktif kronis (PPOK).",
+        "price": 22000,
+        "stock": 40,
+        "image": "https://storage.googleapis.com/rxstorage/Product/Photos/farmaku_salbutamol-2-mg-tablet-yarindo-01.jpg"
+      },
+      {
+        "id": 12,
+        "name": "Metformin",
+        "description": "Obat untuk mengobati diabetes tipe 2 dengan cara menurunkan kadar gula darah.",
+        "price": 28000,
+        "stock": 55,
+        "image": "https://d3bbrrd0qs69m4.cloudfront.net/images/product/large/apotek_online_k24klik_20201222095813359225_METFORMIN-HCI.jpg"
+      },
+      {
+        "id": 13,
+        "name": "Atorvastatin",
+        "description": "Obat untuk menurunkan kadar kolesterol dalam darah.",
+        "price": 32000,
+        "stock": 45,
+        "image": "https://d3bbrrd0qs69m4.cloudfront.net/images/product/large/apotek_online_k24klik_20230202035433359225_ATORVASTATIN-CALCIUM-TRIHYDRATE.png"
+      },
+      {
+        "id": 14,
+        "name": "Loratadine",
+        "description": "Obat antihistamin untuk meredakan gejala alergi, seperti gatal-gatal, bersin, dan mata berair.",
+        "price": 21000,
+        "stock": 65,
+        "image": "https://storage.googleapis.com/rxstorage/Product/Photos/farmaku_loratadine-10-mg-tablet-novell-01.jpg"
+      },
+      {
+        "id": 15,
+        "name": "Simvastatin",
+        "description": "Obat untuk menurunkan kadar kolesterol dalam darah dan mencegah penyakit jantung.",
+        "price": 34000,
+        "stock": 35,
+        "image": "https://img-cdn.medkomtek.com/NFGLCKnpCbRmHz7sibVvewnpn9o=/0x0/smart/filters:quality(100):format(webp)/drugs/DPuUI1sRbePxyEtF49t4O/original/0010513.jpg"
+      },
+      {
+        "id": 16,
+        "name": "Asam Mefenamat",
+        "description": "Obat antiinflamasi nonsteroid (OAINS) untuk meredakan nyeri ringan hingga sedang, seperti sakit kepala, gigi, atau nyeri haid.",
+        "price": 16000,
+        "stock": 75,
+        "image": "https://d3bbrrd0qs69m4.cloudfront.net/images/product/large/apotek_online_k24klik_20211206104105359225_ASAM-MEFENAMAT-HOLI-0S.jpg"
+      },
+      {
+        "id": 17,
+        "name": "Metronidazole",
+        "description": "Obat antibiotik untuk mengobati infeksi bakteri, parasit, dan protozoa.",
+        "price": 27000,
+        "stock": 58,
+        "image": "https://img-cdn.medkomtek.com/XI6Bf8HcJ9DeNfwAwOULpdWgGIE=/0x0/smart/filters:quality(100):format(webp)/drugs/1rJSHlTtsgMDhhQ7R2ObE/original/OBT0008789.jpg"
+      },
+      {
+        "id": 18,
+        "name": "Ranitidine",
+        "description": "Obat untuk mengurangi produksi asam lambung, digunakan untuk mengobati sakit maag, GERD, dan tukak lambung.",
+        "price": 29000,
+        "stock": 63,
+        "image": "https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//100/MTA-93241459/no_brand_ranitidine_hcl_150_mg_10_tablet_full01_b19tjaod.jpg"
+      },
+      {
+        "id": 19,
+        "name": "Diazepam",
+        "description": "Obat golongan benzodiazepin untuk meredakan kecemasan, ketegangan otot, dan kejang epilepsi.",
+        "price": 38000,
+        "stock": 30,
+        "image": "https://5.imimg.com/data5/SELLER/Default/2023/11/361446011/FP/JZ/DU/201574456/valium-diazepam-10-mg-tablet-500x500.jpg"
+      },
+      {
+        "id": 20,
+        "name": "Ciprofloxacin",
+        "description": "Obat antibiotik untuk mengobati infeksi bakteri, seperti infeksi saluran kemih, kulit, dan infeksi saluran pernapasan.",
+        "price": 26000,
+        "stock": 42,
+        "image": "https://d3bbrrd0qs69m4.cloudfront.net/images/product/large/apotek_online_k24klik_20230815013035359225_CIPROFLOXACIN.png"
+      }
+
+]

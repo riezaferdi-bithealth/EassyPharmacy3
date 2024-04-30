@@ -9,14 +9,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      idUser: {
+      id_user: {
         type: Sequelize.INTEGER
       },
-      idObat: {
-        type: Sequelize.INTEGER
-      },
-      jumlah: {
-        type: Sequelize.INTEGER
+      list_medicines: {
+        type: Sequelize.JSONB
       },
       createdAt: {
         allowNull: false,

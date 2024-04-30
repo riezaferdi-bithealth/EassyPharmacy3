@@ -12,13 +12,13 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    const data = require('../data/obat.json')
+    const data = require('../data/pemesananObat.json')
     data.forEach(el=>{
       el.createdAt = new Date()
       el.updatedAt = new Date()
+      el.list_medicines = JSON.stringify(el.list_medicines)
     })
-
-    await queryInterface.bulkInsert('Obats',data,{})
+    await queryInterface.bulkInsert('PemesananObats',data,{})
   },
 
   async down (queryInterface, Sequelize) {
@@ -28,6 +28,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('Obats', null, {});
+    await queryInterface.bulkDelete('PemesananObats', null, {});
   }
 };

@@ -1,0 +1,13 @@
+[
+    {
+        "id_user": 1,
+        "list_medicines": [
+            {
+                "id": 1,
+                "qty": 2,
+                "price": 5000,
+                "total_price": 10000
+            }
+        ]
+    }
+]
