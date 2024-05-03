@@ -14,10 +14,30 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   User.init({
-    fullname: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    phoneNumber: DataTypes.STRING
+    fullname:{
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: {
+          msg: 'Email must be a valid email address'
+        }
+      }
+    },
+    phoneNumber: {
+      type: DataTypes.STRING,
+      validate: {
+        isValidPhoneNumber(value) {
+          if (!/\d{10,}/.test(value)) {
+            throw new Error('Phone number must be at least 10 digits long');
+          }
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'User',

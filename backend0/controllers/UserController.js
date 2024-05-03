@@ -6,7 +6,7 @@ const UserController = {
   async register(req, res) {
     try {
     console.log(req.body)
-    const { username, email, password, phoneNumber } = req.body;
+    const { fullname, email, password, phoneNumber } = req.body;
     // if(!email || !password) throw{name:"InvalidData"}
     // const checkEmail = email.split('@')
     // coba pakai validation sequelize is email
@@ -14,11 +14,11 @@ const UserController = {
     //     throw{name:"InvalidData"}
     // }
     // if(phoneNumber<10) throw{name:"InvalidData"}
-    const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS) || 10;
+    const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS);
     const hashedPassword = await bcrypt.hash(password, saltRounds); 
     // salt masukan kedalam env
     const newUser = await User.create({
-        username,
+        fullname,
         email,
         password: hashedPassword,
         phoneNumber
