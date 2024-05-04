@@ -74,13 +74,13 @@ describe('USER TESTING', ()=>{
             expect(result.status).toBe(200)
         });
 
-        it('Response 404 - user not found', async () => {
+        it('Response 401 - user not found', async () => {
             const body = {
                 "email": "usernotfound@mail.com",
                 "password": "password"
             };
             const result = await request(app).post('/user/login').send(body);
-            expect(result.status).toBe(404);
+            expect(result.status).toBe(401);
             expect(result.body).toHaveProperty('message', 'User not found');
         });
 
