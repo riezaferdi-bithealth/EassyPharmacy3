@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_eassypharmacy/core/core.dart';
 
 const int _primaryPrimaryValue = 0xff0D4D8B;
 const int _accentPrimaryValue = 0xff5f842b;

@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_eassypharmacy/core/core.dart';
 
 Assets assets = Assets();
 
 class Assets {
   static const String appIcons = "";
   static const String landingPageLogo = "assets/images/logo.png";
+  static const String noNetworkImage = "assets/images/no_image.jpg";
 
   //Home
   static const Icon cartIcon = Icon(Icons.shopping_cart);

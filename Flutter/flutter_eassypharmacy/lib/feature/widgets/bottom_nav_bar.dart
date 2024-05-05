@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_eassypharmacy/core/core.dart';
 
 class BottomBar extends StatelessWidget {

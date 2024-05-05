@@ -1,5 +1,4 @@
 import 'package:flutter_eassypharmacy/core/core.dart';
-import 'package:flutter/material.dart';
 
 enum ButtonSize { small, large, medium }
 

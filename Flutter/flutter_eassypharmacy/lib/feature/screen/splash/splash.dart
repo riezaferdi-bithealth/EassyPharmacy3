@@ -1,6 +1,3 @@
-import 'dart:async';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_eassypharmacy/core/core.dart';
 
 class SplashPage extends StatelessWidget {
@@ -8,9 +5,9 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(seconds: splashTimer), () {
-      Navigator.of(context).pushReplacementNamed(homeNav);
-    });
+    // Timer(const Duration(seconds: splashTimer), () {
+    //   Navigator.of(context).pushReplacementNamed(homeNav);
+    // });
 
     return Scaffold(
       body: Center(

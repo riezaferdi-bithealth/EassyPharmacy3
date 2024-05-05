@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
 import 'login/login.dart';

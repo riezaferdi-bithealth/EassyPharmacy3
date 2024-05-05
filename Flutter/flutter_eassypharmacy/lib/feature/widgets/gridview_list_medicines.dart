@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
-import 'package:flutter_eassypharmacy/feature/screen/home/detail_page.dart';
+
+import '../screen/home/detail_page.dart';
 
 class GridViewListMedicines extends StatefulWidget {
   const GridViewListMedicines({super.key});
@@ -71,7 +70,7 @@ class _GridViewListMedicinesState extends State<GridViewListMedicines>
                         borderRadius:
                             const BorderRadius.all(Radius.circular(space8)),
                         child: Image.network(
-                          item.image!,
+                          item.image ?? Assets.noNetworkImage,
                           fit: BoxFit.fill,
                           // scale: imageScaleListMedicine,
                           height: MediaQuery.of(context).size.height / 8,

@@ -59,6 +59,7 @@ const String login = "Login";
 const String loginMessage = "Login to access everything";
 const String loginBottomMessageOne = "No Account? ";
 const String loginBottomMessageTwo = "Register Here";
+const String loginSuccessful = "Login Successful!";
 
 //register
 const String register = "Register";
@@ -70,8 +71,10 @@ const String nameLength = "Your Name must under 60 Characters!";
 const String createAccount = "Create Account";
 const String registerBottomMessageOne = "Have Account? ";
 const String registerBottomMessageTwo = "Login Here";
+const String registerSuccessful = "Register Successful! Login Now";
 
 //bloc
 const String unknown = '...';
 const String systemError = 'Kesalahan sistem';
 const String dataNotFound = 'Data tidak ditemukan';
+
