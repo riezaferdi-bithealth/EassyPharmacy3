@@ -1,12 +1,13 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
+const validator = require('validator');
 
 const UserController = {
   async register(req, res) {
     try {
     console.log(req.body)
-    const { username, email, password, phoneNumber } = req.body;
+    const { fullname, email, password, phoneNumber } = req.body;
     // if(!email || !password) throw{name:"InvalidData"}
     // const checkEmail = email.split('@')
     // coba pakai validation sequelize is email
@@ -14,11 +15,19 @@ const UserController = {
     //     throw{name:"InvalidData"}
     // }
     // if(phoneNumber<10) throw{name:"InvalidData"}
-    const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS) || 10;
+    // Validasi email menggunakan validator
+    if (!validator.isEmail(email)) {
+      throw { name: "InvalidData", message: "Invalid email address" };
+    }
+    // Validasi nomor telepon menggunakan regex
+    if (!/\d{10,}/.test(phoneNumber)) {
+      throw { name: "InvalidData", message: "Phone number must be at least 10 digits long" };
+    }
+    const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS);
     const hashedPassword = await bcrypt.hash(password, saltRounds); 
     // salt masukan kedalam env
     const newUser = await User.create({
-        username,
+        fullname,
         email,
         password: hashedPassword,
         phoneNumber
@@ -47,12 +56,15 @@ const UserController = {
         const { email, password } = req.body;
         const user = await User.findOne({ where: { email } });
         if (!user) {
-            return res.status(401).json({ message: 'User not found' });
+          throw{name:"UsernotFound", message:"User not found"}  
+          // return res.status(404).json(  { message: 'User not found' });
             // pastikan lagi status user not found lagi
         }
+        
         const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) {
-            return res.status(400).json({ message: 'Invalid password' });
+          throw {name:"InvalidData",message:"Invalid Password"}  
+          // return res.status(400).json({ message: 'Invalid password' });
         } 
         // recheck status invalid pass 
         const token = jwt.sign({ id: user.id }, 'your-secret-key');
@@ -66,7 +78,15 @@ const UserController = {
       res.status(200).json(result);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: 'Internal Server Error' });
+      if (error.name == "InvalidData"){
+        console.log("MASUK SINI")
+        res.status(400).json({message:"Invalid password"})
+      } else if(error.name=="UsernotFound"){
+        console.log("MASUK SANA");
+        res.status(404).json({message:"User not found"})
+      } else{
+        res.status(500).json({ message: 'Internal Server Error' });
+      }
     }
   }
 };

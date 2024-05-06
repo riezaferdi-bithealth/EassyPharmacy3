@@ -26,7 +26,7 @@ describe('USER TESTING', ()=>{
         // tambahin usecasenya bukan hanya 201
         it('Response 201 - success register user',async ()=>{
             const body = {
-                "username":"ilyasa",
+                "fullname":"ilyasa",
                 "email":"ilyas@mail.com",
                 "password":"sapiperah",
                 "phoneNumber":"081143215678"
@@ -39,7 +39,7 @@ describe('USER TESTING', ()=>{
         });
         it('Response 400 - invalid email format', async () => {
             const body = {
-                "username": "ilyasa",
+                "fullname": "ilyasa",
                 "email": "ilyasa.com", // Invalid email format
                 "password": "password",
                 "phoneNumber": "081234567890"
@@ -50,7 +50,7 @@ describe('USER TESTING', ()=>{
         });
         it('Response 400 - invalid phone number length', async () => {
             const body = {
-                "username": "ilyasa",
+                "fullname": "ilyasa",
                 "email": "ilyasa@mail.com",
                 "password": "password",
                 "phoneNumber": "12345" // Phone number length less than 10
@@ -66,8 +66,8 @@ describe('USER TESTING', ()=>{
         it('Response 200 - success login user', async ()=>{
             // + usecasenya ga hanya 200, 404,400
             const body = {
-                "email":"kudabahenol@gmail.com",
-                "password":"akusukakuda"
+                "email":"iyasaffan@gmail.com",
+                "password":"ilyasilyasa"
             }
             const result = await request(app).post('/user/login').send(body)
             // console.log(result)
@@ -86,7 +86,7 @@ describe('USER TESTING', ()=>{
 
         it('Response 400 - invalid password', async () => {
             const body = {
-                "email": "kudabahenol@gmail.com",
+                "email": "iyasaffan@gmail.com",
                 "password": "invalidpassword"
             };
             const result = await request(app).post('/user/login').send(body);
