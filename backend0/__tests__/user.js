@@ -74,7 +74,7 @@ describe('USER TESTING', ()=>{
             expect(result.status).toBe(200)
         });
 
-        it.only('Response 404 - user not found', async () => {
+        it('Response 404 - user not found', async () => {
             const body = {
                 "email": "usernotfound@mail.com",
                 "password": "password"
