@@ -1,5 +1,4 @@
 const { PemesananObat } = require('../models');
-const { User } = require('../models');
 const {Obat} = require('../models');
 const getAllOrders = async (req, res) => {
     try {
@@ -28,8 +27,73 @@ const getOrderById = async (req, res) => {
 };
 const checkoutOrder = async(req,res) => {
     try{
+        const { id_struct,id_user, list_medicines } = req.body;
+        const user = await PemesananObat.findOne({ where: { id_user } });
+        if (!user){
+            throw{name:"InvalidData"}
+        }
+        const order=await PemesananObat.findOne({where: {id:id_struct} });
+        if (!order){
+            throw{name:"InvalidData"}
+        }
+        for (el of list_medicines){
+            const idObat= await Obat.findOne({where:{id:el.id} });
+            if (!idObat) throw{name:"Data not found"}
+            if (el.qty>idObat.stock) throw{name:""}
+        }
+        console.log(list_medicines);
+        let result = {
+            status:true,
+            message:"success",
+            data:list_medicines
+        }
+        res.status(201).json(result);
+        } catch (error){
+        console.error(error);
+        if (error.name=="InvalidData"){
+            res.status(401).json({message:'User not found'})
+        }else if (error.name=="Data not found"){
+            res.status(404).json({message:'id obat not found'})
+        }else {
+            res.status(500).json({ message: 'Internal Server Error' });
+        }
+            
+    }
+    
+};
+const getHistoryOrder = async (req, res) => {
+    try {
         const { id_user, list_medicines } = req.body;
-        const user = await User.findOne({ where: { id:id_user } });
+        // console.log("AHHH",req.body);
+        const user = await PemesananObat.findOne({ where: { id_user } });
+        if (!user){
+            throw{name:"InvalidData"}
+        }
+        for (el of list_medicines){
+            
+            const idObat= await Obat.findOne({where:{id:el.id} });
+            if (!idObat) {throw{name:"Data not found"}}
+        }
+        console.log(list_medicines);
+        let result = {
+            status:true,
+            message:"success",
+            data:list_medicines
+        }
+        res.status(201).json(result);
+    } catch (error) {
+        console.error(error);
+        if (error.name=="InvalidData"){
+            res.status(401).json({message:'User not found'})
+        }else{
+            res.status(500).json({ message: 'Internal Server Error' });
+        }
+    }
+};
+const postCartOrder = async(req,res) => {
+    try{
+        const { id_user, list_medicines } = req.body;
+        const user = await PemesananObat.findOne({ where: { id_user } });
         if (!user){
             throw{name:"InvalidData"}
         }
@@ -47,9 +111,9 @@ const checkoutOrder = async(req,res) => {
         res.status(201).json(result);
         } catch (error){
         console.error(error);
-        if (error.name="InvalidData"){
+        if (error.name=="InvalidData"){
             res.status(401).json({message:'User not found'})
-        }else if (error.name="Data not found"){
+        }else if (error.name=="Data not found"){
             res.status(404).json({message:'id obat not found'})
         }else {
             res.status(500).json({ message: 'Internal Server Error' });
@@ -57,10 +121,11 @@ const checkoutOrder = async(req,res) => {
             
     }
     
-}
-
+};
 module.exports = {
     getAllOrders,
     getOrderById,
-    checkoutOrder
+    checkoutOrder,
+    getHistoryOrder,
+    postCartOrder
 };

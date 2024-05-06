@@ -56,13 +56,15 @@ const UserController = {
         const { email, password } = req.body;
         const user = await User.findOne({ where: { email } });
         if (!user) {
-            return res.status(401).json(  { message: 'User not found' });
+          throw{name:"UsernotFound", message:"User not found"}  
+          // return res.status(404).json(  { message: 'User not found' });
             // pastikan lagi status user not found lagi
         }
         
         const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) {
-            return res.status(400).json({ message: 'Invalid password' });
+          throw {name:"InvalidData",message:"Invalid Password"}  
+          // return res.status(400).json({ message: 'Invalid password' });
         } 
         // recheck status invalid pass 
         const token = jwt.sign({ id: user.id }, 'your-secret-key');
@@ -76,7 +78,15 @@ const UserController = {
       res.status(200).json(result);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: 'Internal Server Error' });
+      if (error.name == "InvalidData"){
+        console.log("MASUK SINI")
+        res.status(400).json({message:"Invalid password"})
+      } else if(error.name=="UsernotFound"){
+        console.log("MASUK SANA");
+        res.status(404).json({message:"User not found"})
+      } else{
+        res.status(500).json({ message: 'Internal Server Error' });
+      }
     }
   }
 };
