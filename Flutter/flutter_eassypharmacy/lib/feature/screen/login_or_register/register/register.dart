@@ -15,7 +15,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  void _submitRegister() async {
+  void _submitRegister(BuildContext context) async {
     if (nameController.text.isEmpty) {
       Commons().snackbarError(context, fullNameNeed);
       return;
@@ -60,12 +60,12 @@ class _RegisterPageState extends State<RegisterPage> {
           passwordController.text,
         );
 
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return LoginPage();
-    }));
-
-    Commons().snackbarSuccess(context, registerSuccessful);
-    return;
+    // GetRegisterCubit().getRegister(
+    //   nameController.text,
+    //   emailController.text,
+    //   phoneController.text,
+    //   passwordController.text,
+    // );
   }
 
   bool _validateEmail(String value) {
@@ -192,7 +192,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: space56,
                     circular: space12,
                     onPressed: () {
-                      _submitRegister();
+                      _submitRegister(context);
                     },
                   ),
           ),

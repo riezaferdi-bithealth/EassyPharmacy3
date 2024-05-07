@@ -37,7 +37,7 @@ class Login extends VmsEngine {
       return BaseModel(
         status: result['status'],
         value:
-            result['data'] != null ? LoginModel.fromJson(result['data']) : null,
+            result['data'] != null ? LoginModel.fromJson(result) : null,
       );
     } else {
       return BaseModel(

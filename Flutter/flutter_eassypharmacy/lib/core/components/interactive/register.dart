@@ -41,7 +41,7 @@ class Register extends VmsEngine {
       return BaseModel(
         status: result['status'],
         value: result['data'] != null
-            ? RegisterModel.fromJson(result['data'])
+            ? RegisterModel.fromJson(result)
             : null,
       );
     } else {

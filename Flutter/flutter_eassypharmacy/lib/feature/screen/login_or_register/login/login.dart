@@ -30,6 +30,11 @@ class LoginPage extends StatelessWidget {
           emailController.text,
           passwordController.text,
         );
+
+    // GetLoginCubit(AuthenticationCubit()).getLogin(
+    //   emailController.text,
+    //   passwordController.text,
+    // );
   }
 
   bool _validateEmail(String value) {
@@ -46,26 +51,29 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_rounded,
-            color: systemPrimaryColor,
+    return BlocProvider(
+      create: (context) => GetLoginCubit(AuthenticationCubit()),
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios_rounded,
+              color: systemPrimaryColor,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(space16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            topBarSection(),
-            bottomBarSection(context),
-          ],
+        body: Padding(
+          padding: const EdgeInsets.all(space16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              topBarSection(),
+              bottomBarSection(context),
+            ],
+          ),
         ),
       ),
     );

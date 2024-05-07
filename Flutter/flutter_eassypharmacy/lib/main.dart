@@ -1,24 +1,16 @@
 import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
-
-// void main() {
-//   runApp(
-//     const MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home: MainApp(),
-//       // initialRoute: splashNav,
-//       // routes: {
-//       //   splashNav: (context) => const SplashPage(),
-//       //   homeNav: (context) => const MainApp(),
-//       // Add other routes for your app screens here
-//       // },
-//     ),
-//   );
-// }
+import 'package:logger/logger.dart';
 
 void main() {
   runApp(const MainApp());
 }
+
+var logger = Logger(
+  filter: null, // Use the default LogFilter (-> only log in debug mode)
+  printer: PrettyPrinter(methodCount: 0),
+  output: null, // Use the default LogOutput (-> send everything to console)
+);
 
 class MainApp extends StatefulWidget {
   const MainApp({super.key});
@@ -32,14 +24,14 @@ class _MainAppState extends State<MainApp> {
     const HomePage(),
     const Profile(),
   ];
-  // bool testLoggedIn = false;
+
   String? isLogin;
 
   _stateToken() async {
     isLogin = await AccountHelper.getAuthToken();
   }
 
-  onClicked(int index) {
+  onClicked(int index, BuildContext context) {
     _stateToken();
 
     if (index == 0) {
@@ -75,9 +67,9 @@ class _MainAppState extends State<MainApp> {
             if (state is AuthenticationInitial) {
               return const SplashPage();
             } else if (state is Authenticated) {
-              return initHome(true);
+              return initHome(true, context);
             } else {
-              return initHome(false);
+              return initHome(false, context);
             }
           },
         ),
@@ -85,13 +77,15 @@ class _MainAppState extends State<MainApp> {
     );
   }
 
-  Widget initHome(bool isResize) {
+  Widget initHome(bool isResize, BuildContext innerContext) {
     return Scaffold(
       resizeToAvoidBottomInset: isResize,
       body: screens.elementAt(indexStart),
       bottomNavigationBar: BottomBar(
         selectedIndex: indexStart,
-        onClicked: onClicked,
+        onClicked: (value) {
+          onClicked(value, innerContext);
+        },
       ),
     );
   }

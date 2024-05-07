@@ -1,5 +1,6 @@
-import 'package:flutter_eassypharmacy/core/core.dart';
-import 'package:flutter_eassypharmacy/feature/features.dart';
+import '../../../../core/core.dart';
+import '../../../features.dart';
+import '../../../../main.dart';
 
 part 'register_state.dart';
 

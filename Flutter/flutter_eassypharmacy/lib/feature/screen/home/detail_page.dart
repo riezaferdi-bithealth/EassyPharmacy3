@@ -1,7 +1,7 @@
 import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
 
-class DetailPage extends StatelessWidget {
+class DetailPage extends StatefulWidget {
   final int? id;
   final String? name;
   final String? desc;
@@ -18,6 +18,36 @@ class DetailPage extends StatelessWidget {
     this.image,
     super.key,
   });
+
+  @override
+  State<DetailPage> createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  String? isLogin;
+
+  _stateToken() async {
+    isLogin = await AccountHelper.getAuthToken();
+  }
+
+  onClickedCart(BuildContext context) {
+    _stateToken();
+
+    if (isLogin != null) {
+      // Navigator.push(context, MaterialPageRoute(builder: (context) {
+      //   return const Blank();
+      // }));
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return const LoginOrRegisterPage();
+          },
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +72,7 @@ class DetailPage extends StatelessWidget {
             ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(space8)),
               child: Image.network(
-                image!,
+                widget.image!,
                 fit: BoxFit.fill,
                 // scale: imageScaleListMedicine,
                 height: MediaQuery.of(context).size.height / 3,
@@ -50,7 +80,7 @@ class DetailPage extends StatelessWidget {
               ),
             ),
             Text(
-              name!,
+              widget.name!,
               style: p16.primary.normal,
             ),
             const ColumnDivider(padding: space4),
@@ -61,7 +91,7 @@ class DetailPage extends StatelessWidget {
                   style: p14.primary.normal,
                 ),
                 Text(
-                  stocks.toString(),
+                  widget.stocks.toString(),
                   style: p14.primary.normal,
                 ),
               ],
@@ -74,14 +104,14 @@ class DetailPage extends StatelessWidget {
                   style: p14.primary.normal,
                 ),
                 Text(
-                  prices.toString(),
+                  widget.prices.toString(),
                   style: p14.primary.normal,
                 ),
               ],
             ),
             const ColumnDivider(padding: space4),
             Text(
-              "desc: ${desc!}",
+              "desc: ${widget.desc!}",
               style: p16.primary.normal,
             ),
             const ColumnDivider(padding: 50),
@@ -94,9 +124,7 @@ class DetailPage extends StatelessWidget {
               // height: 56,
               circular: space12,
               onPressed: () {
-                // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                //   return const Blank();
-                // }));
+                onClickedCart(context);
               },
             ),
           ],
