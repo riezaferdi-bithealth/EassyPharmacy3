@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
 import 'package:flutter_eassypharmacy/feature/screen/login_or_register/register/register.dart';
@@ -7,6 +6,7 @@ class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   void _submitLogin(BuildContext context) async {
     if (emailController.text.isEmpty) {
@@ -17,13 +17,29 @@ class LoginPage extends StatelessWidget {
       Commons().snackbarError(context, emailNotValid);
       return;
     }
+    if (passwordController.text.isEmpty) {
+      Commons().snackbarError(context, passwordNeed);
+      return;
+    }
+    if (!_validatePassword(passwordController.text)) {
+      Commons().snackbarError(context, passwordNotValid);
+      return;
+    }
 
-    Commons().snackbarSuccess(context, "Login Successful");
-    return;
+    context.read<GetLoginCubit>().getLogin(
+          emailController.text,
+          passwordController.text,
+        );
   }
 
   bool _validateEmail(String value) {
     Pattern pattern = emailRegexPattern;
+    RegExp regex = RegExp(pattern.toString());
+    return regex.hasMatch(value);
+  }
+
+  bool _validatePassword(String value) {
+    Pattern pattern = passwordRegexPattern;
     RegExp regex = RegExp(pattern.toString());
     return regex.hasMatch(value);
   }
@@ -69,6 +85,15 @@ class LoginPage extends StatelessWidget {
           emailMessage,
           emailController,
         ),
+        const ColumnDivider(padding: space16),
+        FormInputPassword(
+          id: password,
+          message: passwordMessage,
+          controller: passwordController,
+        ),
+        // const ColumnDivider(padding: space8),
+        // Text(passwordRequirements, style: p12.primary.normal),
+        // Center(child: Text("Or Login Using Phone Number"),),
       ],
     );
   }
@@ -77,17 +102,36 @@ class LoginPage extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        GeneralButton.text(
-          login,
-          padding: const EdgeInsets.symmetric(vertical: space12),
-          buttonSize: ButtonSize.large,
-          backgroundColor: systemPrimaryColor,
-          width: double.infinity,
-          height: 56,
-          circular: space12,
-          onPressed: () {
-            _submitLogin(context);
+        BlocConsumer<GetLoginCubit, GetLoginState>(
+          listener: (context, state) {
+            if (state is NotLoadedGetLogin) {
+              Commons().snackbarError(context, state.error);
+            } else if (state is LoadedGetLogin) {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const HomePage();
+              }));
+
+              Commons().snackbarSuccess(context, loginSuccessful);
+              return;
+            }
           },
+          builder: (context, state) => state is LoadingGetLogin
+              ? LoadingButton(
+                  color: systemPrimaryColor,
+                  height: space56,
+                )
+              : GeneralButton.text(
+                  login,
+                  padding: const EdgeInsets.symmetric(vertical: space12),
+                  buttonSize: ButtonSize.large,
+                  backgroundColor: systemPrimaryColor,
+                  width: double.infinity,
+                  height: 56,
+                  circular: space12,
+                  onPressed: () {
+                    _submitLogin(context);
+                  },
+                ),
         ),
         const ColumnDivider(padding: space8),
         Row(

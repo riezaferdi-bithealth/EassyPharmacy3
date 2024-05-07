@@ -32,7 +32,7 @@ class Home extends VmsEngine {
   //   }
   // }
 
-  Future<BaseModel<ListMedicines>>? getListMedicines() async {
+  Future<BaseModel<GetListMedicines>>? getListMedicines() async {
     final response =
         await rootBundle.loadString('assets/json/list_medicines.json');
     final result = await json.decode(response);
@@ -53,7 +53,7 @@ class Home extends VmsEngine {
     if (result['status'] == true) {
       return BaseModel(
           status: result['status'],
-          value: ListMedicines.fromJson(result['data']));
+          value: GetListMedicines.fromJson(result));
     } else {
       return BaseModel(status: result['status'], message: result['message']);
     }

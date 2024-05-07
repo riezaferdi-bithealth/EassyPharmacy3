@@ -1,27 +1,23 @@
 part of engine;
 
-class Register extends VmsEngine {
+class Login extends VmsEngine {
   @override
   String get tag => '';
 
-  Future<BaseModel<RegisterModel>>? submitRegister(
-    String? fullName,
-    // String? idNumber,
-    String? password,
-    String? phoneNumber,
+  Future<BaseModel<LoginModel>>? submitLogin(
+    // String? phoneNumber,
     String? email,
+    String? password,
   ) async {
     final response =
-        await rootBundle.loadString('assets/json/register.json');
+        await rootBundle.loadString('assets/json/login.json');
     final result = await json.decode(response);
-
-    // String url =  "${VmsEngine.url!}/api/public/registration";
+    // String url = VmsEngine.url! + "/api/public/registration";
 
     // var uri = Uri.parse(url);
 
     var param = jsonEncode({
-      "fullname": fullName,
-      "phone": phoneNumber,
+       // "phone_number": phoneNumber,
       "email": email,
       "password": password,
     });
@@ -34,15 +30,14 @@ class Register extends VmsEngine {
     //   contentType: ContentType.json,
     //   tokenType: TokenType.none,
     //   requestType: RequestType.post,
-    //   processName: "submit register",
+    //   processName: "submit Login",
     // );
 
     if (result['status'] == true) {
       return BaseModel(
         status: result['status'],
-        value: result['data'] != null
-            ? RegisterModel.fromJson(result['data'])
-            : null,
+        value:
+            result['data'] != null ? LoginModel.fromJson(result['data']) : null,
       );
     } else {
       return BaseModel(

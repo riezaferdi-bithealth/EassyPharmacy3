@@ -3,6 +3,8 @@ export 'package:flutter_eassypharmacy/feature/provider/model/model.dart';
 
 export 'home/get_list_medicines.dart';
 export 'base_model.dart';
+export 'register_login/register_model.dart';
+export 'register_login/login_model.dart';
 
 abstract class Model {
   static String? castString(var object, [String? defaultValue]) {

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
 import 'package:flutter_eassypharmacy/feature/screen/profile/blank.dart';
@@ -44,7 +43,7 @@ class _ProfileState extends State<Profile> {
             ),
             rowLineProfileDivider(),
             profileSection(
-              const Blank(),
+              const HomePage(),
               Assets.logoutIcon,
               systemRedColor,
               logout,
@@ -78,13 +77,26 @@ class _ProfileState extends State<Profile> {
     TextStyle styleId,
   ) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => routingPage,
-          ),
-        );
+      onTap: () async {
+        if (id == logout) {
+          await AccountHelper.removeUserInfo();
+
+          if (!mounted) return;
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => routingPage,
+            ),
+            (route) => false,
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => routingPage,
+            ),
+          );
+        }
       },
       child: Row(
         children: [

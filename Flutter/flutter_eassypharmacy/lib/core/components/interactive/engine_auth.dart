@@ -1,4 +1,4 @@
-// ignore_for_file: invalid_return_type_for_catch_error
+// ignore_for_file: invalid_return_type_for_catch_error, unused_element
 
 library engine;
 
@@ -15,7 +15,7 @@ import 'package:logger/logger.dart';
 
 part 'home.dart';
 part 'register.dart';
-part 'user.dart';
+part 'login.dart';
 
 const int kLimitPerPage = 10;
 
@@ -31,9 +31,9 @@ enum TokenType {
 enum ContentType { none, json, urlEncoded, mutipart }
 
 class APIRequest {
-  static User user = User();
   static Home home = Home();
   static Register register = Register();
+  static Login login = Login();
 }
 
 abstract class VmsEngine {

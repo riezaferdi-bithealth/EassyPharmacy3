@@ -1,6 +1,5 @@
 import 'dart:ui' as ui show Shadow, FontFeature;
 
-import 'package:flutter/material.dart';
 import 'package:flutter_eassypharmacy/core/core.dart';
 
 const TextStyleExtension _default = TextStyleExtension(fontFamily: fontDefault);
