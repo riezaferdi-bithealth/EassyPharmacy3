@@ -1,5 +1,6 @@
-import 'package:flutter_eassypharmacy/core/core.dart';
-import 'package:flutter_eassypharmacy/feature/features.dart';
+import '../../../../core/core.dart';
+import '../../../features.dart';
+import '../../../../main.dart';
 
 part 'register_state.dart';
 
@@ -8,8 +9,8 @@ class GetRegisterCubit extends Cubit<GetRegisterState> {
 
   void getRegister(
     String? fullName,
-    String? password,
     String? phoneNumber,
+    String? password,
     String? email,
   ) async {
     try {
@@ -18,8 +19,8 @@ class GetRegisterCubit extends Cubit<GetRegisterState> {
       // print("mau masuk result");
       final result = await APIRequest.register.submitRegister(
         fullName,
-        password,
         phoneNumber,
+        password,
         email,
       );
       // print("mau logger ");

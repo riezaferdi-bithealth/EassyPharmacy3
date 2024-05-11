@@ -40,16 +40,9 @@ class _HomePageState extends State<HomePage>
           child: Column(
             children: [
               const ColumnDivider(padding: topBarPadding),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const LoginOrRegisterPage();
-                  }));
-                },
-                child: Text(
-                  eassyPharmacy,
-                  style: p30.primary.bold,
-                ),
+              Text(
+                eassyPharmacy,
+                style: p30.primary.bold,
               ),
               Text(
                 sloganStore,

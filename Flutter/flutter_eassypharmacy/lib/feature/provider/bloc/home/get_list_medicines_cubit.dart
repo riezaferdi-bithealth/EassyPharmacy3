@@ -1,5 +1,6 @@
-import 'package:flutter_eassypharmacy/core/core.dart';
-import 'package:flutter_eassypharmacy/feature/features.dart';
+import '../../../../core/core.dart';
+import '../../../../main.dart';
+import '../../../features.dart';
 
 part 'get_list_medicines_state.dart';
 

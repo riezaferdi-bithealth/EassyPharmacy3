@@ -11,8 +11,33 @@ class ListViewListMedicines extends StatefulWidget {
 }
 
 class _ListViewListMedicinesState extends State<ListViewListMedicines> {
+  String? isLogin;
+
   void _initListMedicinesData() {
     context.read<GetListMedicinesCubit>().getListMedicines();
+  }
+
+  _stateToken() async {
+    isLogin = await AccountHelper.getAuthToken();
+  }
+
+  onClickedCart(BuildContext context) {
+    _stateToken();
+
+    if (isLogin != null) {
+      // Navigator.push(context, MaterialPageRoute(builder: (context) {
+      //   return const Blank();
+      // }));
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return const LoginOrRegisterPage();
+          },
+        ),
+      );
+    }
   }
 
   @override

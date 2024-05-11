@@ -12,8 +12,33 @@ class GridViewListMedicines extends StatefulWidget {
 
 class _GridViewListMedicinesState extends State<GridViewListMedicines>
     with SingleTickerProviderStateMixin {
+  String? isLogin;
+
   void _initListMedicinesData() {
     context.read<GetListMedicinesCubit>().getListMedicines();
+  }
+
+  _stateToken() async {
+    isLogin = await AccountHelper.getAuthToken();
+  }
+
+  onClickedCart(BuildContext context) {
+    _stateToken();
+
+    if (isLogin != null) {
+      // Navigator.push(context, MaterialPageRoute(builder: (context) {
+      //   return const Blank();
+      // }));
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return const LoginOrRegisterPage();
+          },
+        ),
+      );
+    }
   }
 
   @override
@@ -104,9 +129,7 @@ class _GridViewListMedicinesState extends State<GridViewListMedicines>
                         // height: 56,
                         circular: space12,
                         onPressed: () {
-                          // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          //   return const ListOrder();
-                          // }));
+                          onClickedCart(context);
                         },
                       ),
                     ],

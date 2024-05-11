@@ -1,10 +1,11 @@
-import 'package:flutter_eassypharmacy/core/core.dart';
-import 'package:flutter_eassypharmacy/feature/features.dart';
-
+import '../../../../core/core.dart';
+import '../../../features.dart';
+import '../../../../main.dart';
 part 'login_state.dart';
 
 class GetLoginCubit extends Cubit<GetLoginState> {
   final AuthenticationCubit authenticationCubit;
+
   GetLoginCubit(this.authenticationCubit) : super(InitialGetLogin());
 
   void getLogin(

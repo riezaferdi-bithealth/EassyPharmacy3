@@ -16,7 +16,7 @@ class FlavorConfig {
 }
 
 FlavorConfig flavorDev = FlavorConfig(
-    endPoint: "",
+    endPoint: "http://10.0.2.2:3000",
     imageEndPoint: "",
     flavor: Flavor.dev,
     registerUrl: "",

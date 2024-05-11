@@ -35,11 +35,11 @@ class RegisterModel {
   String? email;
 
   factory RegisterModel.fromJson(Map<String, dynamic> json) => RegisterModel(
-        id: Model.castInt(json["user"]["id"]),
-        fullName: Model.castString(json["user"]["fullname"]),
+        id: Model.castInt(json["id"]),
+        fullName: Model.castString(json["fullname"]),
         // mobileFcmToken:
-        //     Model.castString(json["user"]["mobile_fcm_token"]),
-        phoneNumber: Model.castString(json["user"]["phone"]),
-        email: Model.castString(json["user"]["email"]),
+        //     Model.castString(json["mobile_fcm_token"]),
+        phoneNumber: Model.castString(json["phone"]),
+        email: Model.castString(json["email"]),
       );
 }

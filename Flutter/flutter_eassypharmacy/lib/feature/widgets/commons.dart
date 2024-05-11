@@ -8,7 +8,7 @@ class Commons {
     final snackBar = SnackBar(
       content: Text(message),
       backgroundColor: systemRedColor,
-      duration: const Duration(milliseconds: 2500),
+      duration: const Duration(milliseconds: snackbarTime),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
@@ -20,7 +20,7 @@ class Commons {
     final snackBar = SnackBar(
       content: Text(message),
       backgroundColor: systemAccent500Color,
-      duration: const Duration(milliseconds: 2500),
+      duration: const Duration(milliseconds: snackbarTime),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
