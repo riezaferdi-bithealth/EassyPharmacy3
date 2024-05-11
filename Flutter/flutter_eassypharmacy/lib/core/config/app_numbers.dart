@@ -20,6 +20,7 @@ const splashWidth = 120.0;
 
 //timer
 const splashTimer = 5;
+const snackbarTime = 3000;
 
 //icon profile size
 const iconProfileSize = 36.0;

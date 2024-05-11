@@ -3,6 +3,10 @@ import 'package:flutter_eassypharmacy/feature/features.dart';
 import 'package:logger/logger.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  application.flavor =
+      flavorDev; //flavorDev; ; //flavorBeta; //flavorProduction
   runApp(const MainApp());
 }
 

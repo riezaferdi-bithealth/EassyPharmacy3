@@ -23,18 +23,21 @@ class LoginModel {
     this.id,
     this.fullName,
     this.email,
+    // this.phone,
     this.mobileFcmToken,
   });
 
   int? id;
   String? fullName;
-  String? mobileFcmToken;
   String? email;
+  // String? phone;
+  String? mobileFcmToken;
 
   factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
         id: Model.castInt(json["id"]),
         fullName: Model.castString(json["fullname"]),
         email: Model.castString(json["email"]),
+        // phone: Model.castString(json["phone"]),
         mobileFcmToken: Model.castString(json["mobile_fcm_token"]),
       );
 }

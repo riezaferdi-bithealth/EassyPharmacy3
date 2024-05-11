@@ -9,8 +9,8 @@ class GetRegisterCubit extends Cubit<GetRegisterState> {
 
   void getRegister(
     String? fullName,
-    String? password,
     String? phoneNumber,
+    String? password,
     String? email,
   ) async {
     try {
@@ -19,8 +19,8 @@ class GetRegisterCubit extends Cubit<GetRegisterState> {
       // print("mau masuk result");
       final result = await APIRequest.register.submitRegister(
         fullName,
-        password,
         phoneNumber,
+        password,
         email,
       );
       // print("mau logger ");
