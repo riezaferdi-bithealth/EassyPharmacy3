@@ -1,43 +1,46 @@
 import '../model.dart';
 
-class Login extends Model {
-  Login({
+class LoginModel extends Model {
+  LoginModel({
     this.status,
     this.message,
     this.data,
+    this.mobileFcmToken,
   });
 
   bool? status;
   String? message;
-  LoginModel? data;
+  UserModel? data;
+  String? mobileFcmToken;
 
-  factory Login.fromJson(Map<String, dynamic> json) => Login(
+  factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
         status: Model.castBool(json["status"]),
         message: Model.castString(json["message"]),
-        data: json["data"] == null ? null : LoginModel.fromJson(json["data"]),
+        data: json["user"] == null ? null : UserModel.fromJson(json["user"]),
+        mobileFcmToken: Model.castString(json["mobile_fcm_token"]),
       );
 }
 
-class LoginModel {
-  LoginModel({
+class UserModel {
+  UserModel({
     this.id,
     this.fullName,
     this.email,
     // this.phone,
-    this.mobileFcmToken,
+    // this.mobileFcmToken,
   });
 
   int? id;
   String? fullName;
   String? email;
   // String? phone;
-  String? mobileFcmToken;
+  // String? mobileFcmToken;
 
-  factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         id: Model.castInt(json["id"]),
         fullName: Model.castString(json["fullname"]),
         email: Model.castString(json["email"]),
         // phone: Model.castString(json["phone"]),
-        mobileFcmToken: Model.castString(json["mobile_fcm_token"]),
+        // mobileFcmToken: Model.castString(json["mobile_fcm_token"]),
       );
 }

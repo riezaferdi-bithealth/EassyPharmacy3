@@ -23,7 +23,7 @@ class MainApp extends StatefulWidget {
   State<MainApp> createState() => _MainAppState();
 }
 
-class _MainAppState extends State<MainApp> {
+class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
   List<Widget> screens = [
     const HomePage(),
     const Profile(),
@@ -33,6 +33,7 @@ class _MainAppState extends State<MainApp> {
 
   _stateToken() async {
     isLogin = await AccountHelper.getAuthToken();
+    setState(() {});
   }
 
   onClicked(int index, BuildContext context) {
@@ -40,12 +41,12 @@ class _MainAppState extends State<MainApp> {
 
     if (index == 0) {
       setState(() {
-        indexStart = index;
+        tabIndex.value = index;
       });
     } else {
       if (isLogin != null) {
         setState(() {
-          indexStart = index;
+          tabIndex.value = index;
         });
       } else {
         Navigator.push(
@@ -58,6 +59,17 @@ class _MainAppState extends State<MainApp> {
         );
       }
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _stateToken();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -84,9 +96,9 @@ class _MainAppState extends State<MainApp> {
   Widget initHome(bool isResize, BuildContext innerContext) {
     return Scaffold(
       resizeToAvoidBottomInset: isResize,
-      body: screens.elementAt(indexStart),
+      body: screens.elementAt(tabIndex.value),
       bottomNavigationBar: BottomBar(
-        selectedIndex: indexStart,
+        selectedIndex: tabIndex.value,
         onClicked: (value) {
           onClicked(value, innerContext);
         },
