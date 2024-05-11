@@ -36,8 +36,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       validate: {
         isValidPhoneNumber(value) {
-          if (!/\d{10,}/.test(value)) {
-            throw new Error('Phone number must be at least 10 digits long');
+          if (!/\d{10,15}/.test(value)) {
+            throw new Error('Phone number must be between 10 and 15 digits long');
           }
         }
       }

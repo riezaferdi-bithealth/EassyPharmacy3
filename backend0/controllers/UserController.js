@@ -20,8 +20,8 @@ const UserController = {
       throw { name: "InvalidData", message: "Invalid email address" };
     }
     // Validasi nomor telepon menggunakan regex
-    if (!/\d{10,}/.test(phoneNumber)) {
-      throw { name: "InvalidData", message: "Phone number must be at least 10 digits long" };
+    if (!/\d{10,15}/.test(phoneNumber)) {
+      throw { name: "InvalidData", message: "Phone number must be between 10 and 15 digits long" };
     }
     const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS);
     const hashedPassword = await bcrypt.hash(password, saltRounds); 
