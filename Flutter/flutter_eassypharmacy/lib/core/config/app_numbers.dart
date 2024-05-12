@@ -26,3 +26,6 @@ const snackbarTime = 3000;
 const iconProfileSize = 36.0;
 
 const imageScaleListMedicine = 4.5;
+
+//int
+const uidLength = 30;
