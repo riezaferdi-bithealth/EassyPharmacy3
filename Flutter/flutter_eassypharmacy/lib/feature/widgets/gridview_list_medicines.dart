@@ -45,6 +45,7 @@ class _GridViewListMedicinesState extends State<GridViewListMedicines>
   void initState() {
     _initListMedicinesData();
     super.initState();
+    _stateToken();
   }
 
   @override

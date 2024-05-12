@@ -21,10 +21,10 @@ class LoginPage extends StatelessWidget {
       Commons().snackbarError(context, passwordNeed);
       return;
     }
-    if (!_validatePassword(passwordController.text)) {
-      Commons().snackbarError(context, passwordNotValid);
-      return;
-    }
+    // if (!_validatePassword(passwordController.text)) {
+    //   Commons().snackbarError(context, passwordNotValid);
+    //   return;
+    // }
 
     context.read<GetLoginCubit>().getLogin(
           emailController.text,
@@ -43,11 +43,11 @@ class LoginPage extends StatelessWidget {
     return regex.hasMatch(value);
   }
 
-  bool _validatePassword(String value) {
-    Pattern pattern = passwordRegexPattern;
-    RegExp regex = RegExp(pattern.toString());
-    return regex.hasMatch(value);
-  }
+  // bool _validatePassword(String value) {
+  //   Pattern pattern = passwordRegexPattern;
+  //   RegExp regex = RegExp(pattern.toString());
+  //   return regex.hasMatch(value);
+  // }
 
   @override
   Widget build(BuildContext context) {

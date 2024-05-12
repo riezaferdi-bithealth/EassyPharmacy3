@@ -10,6 +10,22 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  String? userToken;
+  String? userId;
+
+  getToken() async {
+    userToken = await AccountHelper.getAuthToken();
+    userId = await AccountHelper.getUserId();
+    setState(() {});
+    // print(userToken);
+  }
+
+  @override
+  initState() {
+    super.initState();
+    getToken();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +38,7 @@ class _ProfileState extends State<Profile> {
           children: [
             const ColumnDivider(padding: topBarPadding),
             Text(
-              hello,
+              "Hello, $userId",
               style: p30.primary.bold,
             ),
             rowLineProfileDivider(),
@@ -79,6 +95,7 @@ class _ProfileState extends State<Profile> {
     return GestureDetector(
       onTap: () async {
         if (id == logout) {
+          tabIndex.value = 0;
           await AccountHelper.removeUserInfo();
 
           if (!mounted) return;

@@ -44,6 +44,7 @@ class _ListViewListMedicinesState extends State<ListViewListMedicines> {
   void initState() {
     _initListMedicinesData();
     super.initState();
+    _stateToken();
   }
 
   @override
