@@ -1,47 +1,28 @@
 const { PemesananObat } = require('../models');
 const {Obat} = require('../models');
-const getAllOrders = async (req, res) => {
-    try {
-        console.log(req.query)
-        const orders = await PemesananObat.findAll();
-        res.status(200).json(orders);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
-};
+const { User } = require('../models');
 
-const getOrderById = async (req, res) => {
-    const id = parseInt(req.params.id);
-    try {
-        const order = await PemesananObat.findByPk(id);
-        if (!order) {
-            res.status(404).json({ error: 'Not Found' });
-        } else {
-            res.status(200).json(order);
-        }
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
-};
 const checkoutOrder = async(req,res) => {
     try{
         const { id_struct,id_user, list_medicines } = req.body;
-        const user = await PemesananObat.findOne({ where: { id_user } });
+
+        const user = await User.findOne({ where: { id:id_user } });
+        console.log("user>>>>",user);
         if (!user){
-            throw{name:"InvalidData"}
-        }
-        const order=await PemesananObat.findOne({where: {id:id_struct} });
-        if (!order){
             throw{name:"InvalidData"}
         }
         for (el of list_medicines){
             const idObat= await Obat.findOne({where:{id:el.id} });
-            if (!idObat) throw{name:"Data not found"}
-            if (el.qty>idObat.stock) throw{name:""}
+            console.log("idOBAT>>>",idObat,"obatnya>>", el.id);
+            if (!idObat) throw{name:"Datanotfound"}
+            if (el.qty>idObat.stock) throw{name:"InvalidStock"}
         }
-        console.log(list_medicines);
+        console.log("INIIIII>>>",list_medicines);
+        await PemesananObat.create({
+            id: id_struct, // id_struct dari body
+            id_user: id_user, // id_user dari body
+            list_medicines: JSON.parse(JSON.stringify(list_medicines)) // list_medicines dari body
+        });
         let result = {
             status:true,
             message:"success",
@@ -51,8 +32,10 @@ const checkoutOrder = async(req,res) => {
         } catch (error){
         console.error(error);
         if (error.name=="InvalidData"){
-            res.status(401).json({message:'User not found'})
-        }else if (error.name=="Data not found"){
+            res.status(401).json({message:'Invalid id'})
+        }else if(error.name=="InvalidStock"){
+            res.status(400).json({message:'not enough stock'})
+        }else if (error.name=="Datanotfound"){
             res.status(404).json({message:'id obat not found'})
         }else {
             res.status(500).json({ message: 'Internal Server Error' });
@@ -64,7 +47,6 @@ const checkoutOrder = async(req,res) => {
 const getHistoryOrder = async (req, res) => {
     try {
         const { id_user, list_medicines } = req.body;
-        // console.log("AHHH",req.body);
         const user = await PemesananObat.findOne({ where: { id_user } });
         if (!user){
             throw{name:"InvalidData"}
@@ -74,13 +56,13 @@ const getHistoryOrder = async (req, res) => {
             const idObat= await Obat.findOne({where:{id:el.id} });
             if (!idObat) {throw{name:"Data not found"}}
         }
-        console.log(list_medicines);
+        // console.log(list_medicines);
         let result = {
             status:true,
             message:"success",
             data:list_medicines
         }
-        res.status(201).json(result);
+        res.status(200).json(result);
     } catch (error) {
         console.error(error);
         if (error.name=="InvalidData"){
@@ -100,9 +82,9 @@ const postCartOrder = async(req,res) => {
         for (el of list_medicines){
             const idObat= await Obat.findOne({where:{id:el.id} });
             if (!idObat) throw{name:"Data not found"}
-            if (el.qty>idObat.stock) throw{name:""}
+            if (el.qty>idObat.stock) throw{name:"stockEmpty"}
         }
-        console.log(list_medicines);
+        // console.log(list_medicines);
         let result = {
             status:true,
             message:"success",
@@ -123,8 +105,6 @@ const postCartOrder = async(req,res) => {
     
 };
 module.exports = {
-    getAllOrders,
-    getOrderById,
     checkoutOrder,
     getHistoryOrder,
     postCartOrder
