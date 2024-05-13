@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   PemesananObat.init({
-    id_user: DataTypes.INTEGER
+    id_user: DataTypes.INTEGER,
+    list_medicines: DataTypes.JSONB
   }, {
     sequelize,
     modelName: 'PemesananObat',

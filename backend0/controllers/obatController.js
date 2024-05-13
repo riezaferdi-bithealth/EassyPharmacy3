@@ -32,27 +32,13 @@ const getAllObat = async (req, res) => {
         const obats = await Obat.findAll(options);
         res.status(200).json(obats);
     } catch (error) {
-        console.log(error)
+        console.error("Error in getAllObat:", error);
         res.status(500).json({ message: 'Internal Server Error' });
     }
 }
 
-const getObatById = async (req, res) => {
-    const id = req.params.id;
-    try {
-        const obat = await Obat.findByPk(id);
-        if (!obat) {
-            res.status(404).json({ error: 'Not Found' });
-        } else {
-            res.status(200).json(obat);
-        }
-    } catch (error) {
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
-}
 
 
 module.exports = {
-    getAllObat,
-    getObatById
+    getAllObat
 };

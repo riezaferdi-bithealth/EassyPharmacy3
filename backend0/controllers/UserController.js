@@ -79,10 +79,8 @@ const UserController = {
     } catch (error) {
       console.error(error);
       if (error.name == "InvalidData"){
-        console.log("MASUK SINI")
         res.status(400).json({message:"Invalid password"})
       } else if(error.name=="UsernotFound"){
-        console.log("MASUK SANA");
         res.status(404).json({message:"User not found"})
       } else{
         res.status(500).json({ message: 'Internal Server Error' });

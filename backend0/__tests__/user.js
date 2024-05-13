@@ -35,7 +35,7 @@ describe('USER TESTING', ()=>{
             expect(result.status).toBe(201)
             expect(result.body).toHaveProperty('status',true)
             expect(result.body).toHaveProperty('message','success')
-            console.log(result);
+            // console.log(result);
         });
         it('Response 400 - invalid email format', async () => {
             const body = {
@@ -60,8 +60,6 @@ describe('USER TESTING', ()=>{
             expect(result.body).toHaveProperty('message', 'Invalid email,password or phone number');
         });
     });
-        
-    })
     describe('/user/login - LOGIN TESTING',()=>{
         it('Response 200 - success login user', async ()=>{
             // + usecasenya ga hanya 200, 404,400
@@ -72,6 +70,8 @@ describe('USER TESTING', ()=>{
             const result = await request(app).post('/user/login').send(body)
             // console.log(result)
             expect(result.status).toBe(200)
+            expect(result.body).toHaveProperty('status',true)
+            expect(result.body).toHaveProperty('message','success')
         });
 
         it('Response 404 - user not found', async () => {
@@ -96,3 +96,6 @@ describe('USER TESTING', ()=>{
 
         
     })
+
+    })
+    
