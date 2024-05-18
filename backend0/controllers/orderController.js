@@ -15,10 +15,13 @@ const checkoutOrder = async(req,res) => {
         }
         for (el of list_medicines){
             const idObat= await Obat.findOne({where:{id:el.id} });
-            console.log("idOBAT>>>",idObat,"obatnya>>", el.id);
+            // console.log("idOBAT>>>",idObat,"obatnya>>", el.id);
             if (!idObat) throw{name:"Datanotfound"}
             if (el.qty>idObat.stock) throw{name:"InvalidStock"}
+            // Kurangi stok obat
+            await Obat.update({ stock: idObat.stock - el.qty }, { where: { id: idObat.id } });
         }
+         
         // console.log("INIIIII>>>",list_medicines);
         await PemesananObat.create({
             id: id_struct, // id_struct dari body
