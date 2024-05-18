@@ -9,6 +9,7 @@ const getAllObat = async (req, res) => {
         let options = {}
         let limit
         let offset
+        // console.log("KUDABAHENOL=>>>>>",search);
         if (search){
             options = {
                 where: { "name": { [Op.iLike]: '%'+search +'%'} }

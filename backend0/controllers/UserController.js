@@ -1,21 +1,16 @@
+require('dotenv').config();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 const validator = require('validator');
 
+
 const UserController = {
   async register(req, res) {
     try {
-    console.log(req.body)
+    // console.log(req.body)
     const { fullname, email, password, phoneNumber } = req.body;
-    // if(!email || !password) throw{name:"InvalidData"}
-    // const checkEmail = email.split('@')
-    // coba pakai validation sequelize is email
-    // if (checkEmail.length < 2){
-    //     throw{name:"InvalidData"}
-    // }
-    // if(phoneNumber<10) throw{name:"InvalidData"}
-    // Validasi email menggunakan validator
+
     if (!validator.isEmail(email)) {
       throw { name: "InvalidData", message: "Invalid email address" };
     }
@@ -41,7 +36,7 @@ const UserController = {
     res.status(201).json(result);
     } catch (error) {
       console.error(error);
-      if (error.name = "InvalidData"){
+      if (error.name === "InvalidData"){
         res.status(400).json({message:"Invalid email,password or phone number"})
       } else{
         res.status(500).json({ message: 'Internal Server Error' });
@@ -57,18 +52,13 @@ const UserController = {
         const user = await User.findOne({ where: { email } });
         if (!user) {
           throw{name:"UsernotFound", message:"User not found"}  
-          // return res.status(404).json(  { message: 'User not found' });
-            // pastikan lagi status user not found lagi
         }
         
         const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) {
           throw {name:"InvalidData",message:"Invalid Password"}  
-          // return res.status(400).json({ message: 'Invalid password' });
-        } 
-        // recheck status invalid pass 
-        const token = jwt.sign({ id: user.id }, 'your-secret-key');
-      // res.status(200).json({ token });
+        }  
+        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
       const result = {
         status:true,
         message:"success",
