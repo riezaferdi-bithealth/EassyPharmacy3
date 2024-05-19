@@ -120,6 +120,17 @@ const getHistoryOrder = async (req, res) => {
 const postCartOrder = async(req,res) => {
     try{
         const { id_user, list_medicines } = req.body;
+        const user = await User.findOne({ where: { id:id_user } });
+        console.log("user>>>>",user);
+        if (!user){
+            throw{name:"InvalidData"}
+        }
+        for (el of list_medicines){
+            const idObat= await Obat.findOne({where:{id:el.id} });
+            // console.log("idOBAT>>>",idObat,"obatnya>>", el.id);
+            if (!idObat) throw{name:"Datanotfound"}
+            if (el.qty>idObat.stock) throw{name:"InvalidStock"}
+        }
         let cart = await Cart.findOne({ where: { id_user } });
         // Jika tidak ada data cart, buat baru
         if (!cart) {
