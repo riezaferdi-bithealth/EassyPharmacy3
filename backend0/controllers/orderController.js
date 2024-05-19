@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { PemesananObat } = require('../models');
 const {Obat} = require('../models');
-const { User } = require('../models');
+const { User, Cart } = require('../models');
 const jwt = require('jsonwebtoken');
 
 const checkoutOrder = async(req,res) => {
@@ -51,7 +51,7 @@ const checkoutOrder = async(req,res) => {
 };
 const getHistoryOrder = async (req, res) => {
     try {
-        const token = req.header('Authorization')?.split(' ')[1].slice(1, -1);;
+        const token = req.header('Authorization')?.split(' ')[1];
         console.log('Request Headers:', req.headers);
         if (!token) {
             throw { name: 'UnauthorizedError' };
@@ -67,7 +67,7 @@ const getHistoryOrder = async (req, res) => {
         const id_user = userbyToken.id;
         const users = await PemesananObat.findAll({ where: { id_user } })
         if (!users || users.length === 0){
-            throw { name: 'OrderHistoryNotFoundError' };
+            throw { name: 'OrdersNotFoundError' };
         }
         const orderDetails = [];
         for (const user of users) {
@@ -76,7 +76,7 @@ const getHistoryOrder = async (req, res) => {
             for (const medicine of medicines) {
                 const idObat = await Obat.findOne({ where: { id: medicine.id } });
                 if (!idObat) {
-                    throw { name: "Data not found" };
+                    throw { name: "DataNotFoundError", message: `Medicine with ID ${medicine.id} not found` };
                 }
                 medicineDetails.push({
                     id: idObat.id,
@@ -104,8 +104,10 @@ const getHistoryOrder = async (req, res) => {
             res.status(401).json({ message: 'Access denied. No token provided.' });
         }else if (error.name === 'UserNotFoundError') {
             res.status(404).json({ message: 'User not found.' });
-        }else if (error.name === 'OrderHistoryNotFoundError') {
-            res.status(404).json({ message: 'Order history not found.' });
+        }else if (error.name === 'OrdersNotFoundError') {
+            res.status(404).json({ message: 'Orders not found.' });
+        }else if (error.name === 'DataNotFoundError') {
+            res.status(404).json({ message: error.message });
         }else if (error instanceof jwt.JsonWebTokenError) {
             res.status(401).json({ message: 'Invalid token.' });
         }else if (error instanceof jwt.TokenExpiredError) {
@@ -118,14 +120,13 @@ const getHistoryOrder = async (req, res) => {
 const postCartOrder = async(req,res) => {
     try{
         const { id_user, list_medicines } = req.body;
-        const user = await PemesananObat.findOne({ where: { id_user } });
-        if (!user){
-            throw{name:"InvalidData"}
-        }
-        for (el of list_medicines){
-            const idObat= await Obat.findOne({where:{id:el.id} });
-            if (!idObat) throw{name:"Data not found"}
-            if (el.qty>idObat.stock) throw{name:"stockEmpty"}
+        let cart = await Cart.findOne({ where: { id_user } });
+        // Jika tidak ada data cart, buat baru
+        if (!cart) {
+            cart = await Cart.create({ id_user, list_medicines });
+        } else {
+            // Jika sudah ada, timpa data cart yang lama dengan data baru
+            await cart.update({ list_medicines });
         }
         // console.log(list_medicines);
         let result = {
@@ -140,6 +141,8 @@ const postCartOrder = async(req,res) => {
             res.status(401).json({message:'User not found'})
         }else if (error.name=="Data not found"){
             res.status(404).json({message:'id obat not found'})
+        }else if (error.name === "stockEmpty") {
+            res.status(400).json({ message: "Stock is not enough" });
         }else {
             res.status(500).json({ message: 'Internal Server Error' });
         }
