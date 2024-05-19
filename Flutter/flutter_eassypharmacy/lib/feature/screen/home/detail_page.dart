@@ -1,5 +1,6 @@
 import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
+import 'package:intl/intl.dart';
 
 class DetailPage extends StatefulWidget {
   final int? id;
@@ -25,6 +26,12 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   String? isLogin;
+
+  final oCcy = NumberFormat.currency(
+    locale: 'id',
+    symbol: 'Rp ',
+    decimalDigits: 0,
+  );
 
   _stateToken() async {
     isLogin = await AccountHelper.getAuthToken();
@@ -115,7 +122,7 @@ class _DetailPageState extends State<DetailPage> {
                   style: p14.primary.normal,
                 ),
                 Text(
-                  widget.prices.toString(),
+                  oCcy.format(widget.prices),
                   style: p14.primary.normal,
                 ),
               ],
@@ -138,6 +145,7 @@ class _DetailPageState extends State<DetailPage> {
                 onClickedCart(context);
               },
             ),
+            const ListViewCart(),
           ],
         ),
       ),

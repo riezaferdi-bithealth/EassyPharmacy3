@@ -6,7 +6,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dio/io.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
 import 'package:logger/logger.dart';

@@ -59,7 +59,7 @@ class _ProfileState extends State<Profile> {
             ),
             rowLineProfileDivider(),
             profileSection(
-              const HomePage(),
+              const RoutingPage(isResize: false),
               Assets.logoutIcon,
               systemRedColor,
               logout,

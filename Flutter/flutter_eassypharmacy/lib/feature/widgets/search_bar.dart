@@ -1,7 +1,14 @@
 import 'package:flutter_eassypharmacy/core/core.dart';
+// import 'package:flutter_eassypharmacy/feature/features.dart';
 
 class SearchTopBar extends StatefulWidget {
-  const SearchTopBar({super.key});
+  final TextEditingController? controller;
+  // final Function(String)? onQueryChanged;
+  const SearchTopBar({
+    this.controller,
+    // this.onQueryChanged,
+    super.key,
+  });
 
   @override
   State<SearchTopBar> createState() => _SearchTopBarState();
@@ -9,7 +16,6 @@ class SearchTopBar extends StatefulWidget {
 
 class _SearchTopBarState extends State<SearchTopBar> {
   String query = '';
-  final TextEditingController _searchController = TextEditingController();
 
   void onQueryChanged(String newQuery) {
     setState(() {
@@ -17,17 +23,24 @@ class _SearchTopBarState extends State<SearchTopBar> {
     });
   }
 
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _initListMedicinesData();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 0, left: 16.0, right: 16.0),
+      padding: const EdgeInsets.only(top: 0, left: 16.0, right: 16.0),
       child: Column(
         children: [
           Form(
             child: TextFormField(
               // validator: _validatorForm,
+              // onChanged: widget.onQueryChanged,
               onChanged: onQueryChanged,
-              controller: _searchController,
+              controller: widget.controller,
               style: p14.black.normal,
               decoration: InputDecoration(
                 //fillColor: systemAccent20Color,
