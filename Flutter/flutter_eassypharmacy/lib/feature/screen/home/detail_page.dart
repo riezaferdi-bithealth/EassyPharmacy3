@@ -145,7 +145,6 @@ class _DetailPageState extends State<DetailPage> {
                 onClickedCart(context);
               },
             ),
-            const ListViewCart(),
           ],
         ),
       ),

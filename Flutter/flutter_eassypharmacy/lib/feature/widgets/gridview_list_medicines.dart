@@ -52,9 +52,9 @@ class _GridViewListMedicinesState extends State<GridViewListMedicines>
         if (state is LoadingGetListMedicines) {
         } else if (state is NotLoadedGetListMedicines) {
         } else if (state is LoadedGetListMedicines) {
-          print("ada: ${widget.controller!.text}");
+          // print("ada: ${widget.controller!.text}");
           return state.listData.data!.isEmpty
-              ? Text("SEARCH NOT FOUND")
+              ? const SearchNotFound()
               : GridView.count(
                   crossAxisCount: 2,
                   physics: const NeverScrollableScrollPhysics(),

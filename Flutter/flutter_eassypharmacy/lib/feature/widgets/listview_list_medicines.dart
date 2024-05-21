@@ -52,7 +52,7 @@ class _ListViewListMedicinesState extends State<ListViewListMedicines> {
         } else if (state is LoadedGetListMedicines) {
           //make container for list of medicines
           return state.listData.data!.isEmpty
-              ? Text("SEARCH NOT FOUND")
+              ? const SearchNotFound()
               : ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),

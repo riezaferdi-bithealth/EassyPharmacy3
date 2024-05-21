@@ -1,11 +1,11 @@
 import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
 
-import '../screen/home/detail_page.dart';
+// import '../screen/home/detail_page.dart';
 
 class ListViewCart extends StatefulWidget {
-  final TextEditingController? controller;
-  const ListViewCart({this.controller, super.key});
+  final List<String>? listCart;
+  const ListViewCart({this.listCart, super.key});
 
   @override
   State<ListViewCart> createState() => _ListViewCartState();
@@ -13,6 +13,14 @@ class ListViewCart extends StatefulWidget {
 
 class _ListViewCartState extends State<ListViewCart> {
   String? isLogin;
+  int num = 1;
+  final List<int> totalPrice = [];
+
+  void sumTotalPrice() {
+    setState(() {
+      totalPriceGlobal.value = totalPrice.reduce((a, b) => a + b);
+    });
+  }
 
   // void _initCartData() {
   //   context.read<GetCartCubit>().getCart(widget.controller!.text);
@@ -41,6 +49,12 @@ class _ListViewCartState extends State<ListViewCart> {
     }
   }
 
+  stateTotalPrice(int qty, int price) {
+    totalPrice.add(qty * price);
+    // sumTotalPrice();
+    return qty * price;
+  }
+
   @override
   void initState() {
     // _initCartData();
@@ -62,7 +76,7 @@ class _ListViewCartState extends State<ListViewCart> {
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: 1,
+      itemCount: widget.listCart!.length,
       itemBuilder: (context, index) {
         // var item = state.listData.data![index];
         return Container(
@@ -76,43 +90,77 @@ class _ListViewCartState extends State<ListViewCart> {
           padding: const EdgeInsets.all(space8),
           child: Column(
             children: [
-              ListTile(
-                trailing: GeneralButton.text(
-                  addToCart,
-                  padding: const EdgeInsets.symmetric(vertical: space12),
-                  buttonSize: ButtonSize.small,
-                  backgroundColor: systemPrimaryColor,
-                  width: MediaQuery.of(context).size.width / 4,
-                  // height: 56,
-                  circular: space12,
-                  onPressed: () {
-                    // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    //   return const ListOrder();
-                    // }));
-                  },
-                ),
-                title: Text(
-                  "Paracetamol",
-                  style: p16.black.semiBold,
-                  maxLines: 2,
-                ),
-                subtitle: Text(
-                  "100",
-                  style: p12.primary.normal,
-                ),
-                // leading: Container(
-                //   width: 70,
-                //   height: 120,
-                //   decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.circular(12),
-                //     image: DecorationImage(
-                //       fit: BoxFit.fill,
-                //       image: NetworkImage(
-                //         item.image!,
-                //       ),
-                //     ),
-                //   ),
-                // ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    width: 100,
+                    height: 70,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: AssetImage(Assets.noNetworkImage),
+                      ),
+                    ),
+                  ),
+                  RowDivider(padding: space8),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          listOrderName[index],
+                          style: p16.black.semiBold,
+                          maxLines: 2,
+                        ),
+                        Text(
+                          listOrderPrice[index].toString(),
+                          style: p12.primary.normal,
+                        ),
+                        ColumnDivider(padding: space16),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              color: systemWhiteColor,
+                              child: Row(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        listOrderQty[index]++;
+                                      });
+                                    },
+                                    child: Icon(Assets.addQty),
+                                  ),
+                                  Text(
+                                    listOrderQty[index].toString(),
+                                    style: p18.primary.normal,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        if (listOrderQty[index] > 1) {
+                                          listOrderQty[index]--;
+                                        }
+                                      });
+                                    },
+                                    child: Icon(Assets.subQty),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Text(
+                              "Total: ${stateTotalPrice(listOrderQty[index], listOrderPrice[index])}",
+                              style: p18.primary.normal,
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

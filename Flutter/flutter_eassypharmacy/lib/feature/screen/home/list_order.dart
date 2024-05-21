@@ -9,12 +9,6 @@ class ListOrder extends StatefulWidget {
 }
 
 class _ListOrderState extends State<ListOrder> {
-  final List<int> totalPrice = [];
-
-  stateTotalPrice(int price) {
-    totalPrice.add(price);
-  }
-
   @override
   void initState() {
     // coursesFuture = getCourses();
@@ -52,71 +46,81 @@ class _ListOrderState extends State<ListOrder> {
     );
   }
 
+  // Widget topBarSection() {
+  //   return Column(
+  //     children: [
+  //       const ColumnDivider(padding: topBarPadding),
+  //       const Row(
+  //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //         children: [
+  //           Text("Name"),
+  //           Text("Qty"),
+  //           Text("Price"),
+  //           Text("Total"),
+  //         ],
+  //       ),
+  //       rowLineProfileDivider(),
+  //       Column(
+  //         crossAxisAlignment: CrossAxisAlignment.start,
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         // mainAxisSize: MainAxisSize.min,
+  //         children: List.generate(
+  //           listOrderName.length,
+  //           (index) {
+  //             var items = listOrderName[index];
+  //             var qty = listOrderQty[index];
+  //             var price = listOrderPrice[index];
+  //             var total = qty * price;
+  //             stateTotalPrice(total);
+  //             return Column(
+  //               children: [
+  //                 Row(
+  //                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //                   children: [
+  //                     Text(items),
+  //                     Text(qty.toString()),
+  //                     Text("Rp ${price.toString()},-"),
+  //                     Text("Rp ${(total).toString()},-"),
+  //                   ],
+  //                 ),
+  //                 rowLineProfileDivider(),
+  //                 // index + 1 == listOrderName.length
+  //                 // ? Row(
+  //                 //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //                 //   children: [
+  //                 //     const Text(""),
+  //                 //     const Text(""),
+  //                 //     const Text(""),
+  //                 //     Text("Rp ${totalPrice.reduce((a, b) => a + b)},-"),
+  //                 //   ],
+  //                 // )
+  //                 // : const SizedBox.shrink(),
+  //               ],
+  //             );
+  //           },
+  //         ),
+  //       ),
+  //       Row(
+  //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //         // crossAxisAlignment: CrossAxisAlignment.end,
+  //         children: [
+  //           const Text(""),
+  //           const Text(""),
+  //           const Text(""),
+  //           Text("Rp ${totalPrice.reduce((a, b) => a + b)},-"),
+  //         ],
+  //       ),
+  //     ],
+  //   );
+  // }
+
   Widget topBarSection() {
-    return Column(
-      children: [
-        const ColumnDivider(padding: topBarPadding),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text("Name"),
-            Text("Qty"),
-            Text("Price"),
-            Text("Total"),
-          ],
-        ),
-        rowLineProfileDivider(),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          // mainAxisSize: MainAxisSize.min,
-          children: List.generate(
-            listOrderName.length,
-            (index) {
-              var items = listOrderName[index];
-              var qty = listOrderQty[index];
-              var price = listOrderPrice[index];
-              var total = qty * price;
-              stateTotalPrice(total);
-              return Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(items),
-                      Text(qty.toString()),
-                      Text("Rp ${price.toString()},-"),
-                      Text("Rp ${(total).toString()},-"),
-                    ],
-                  ),
-                  rowLineProfileDivider(),
-                  // index + 1 == listOrderName.length
-                  // ? Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //   children: [
-                  //     const Text(""),
-                  //     const Text(""),
-                  //     const Text(""),
-                  //     Text("Rp ${totalPrice.reduce((a, b) => a + b)},-"),
-                  //   ],
-                  // )
-                  // : const SizedBox.shrink(),
-                ],
-              );
-            },
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          // crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            const Text(""),
-            const Text(""),
-            const Text(""),
-            Text("Rp ${totalPrice.reduce((a, b) => a + b)},-"),
-          ],
-        ),
-      ],
+    return Expanded(
+      child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        child: ListViewCart(listCart: listOrderName),
+      ),
     );
   }
 
@@ -136,8 +140,10 @@ class _ListOrderState extends State<ListOrder> {
 
   Widget bottomBarSection(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
+        Text("TOTAL HARGA: Rp ${totalPriceGlobal.value},-"),
+        const ColumnDivider(padding: space8),
         GeneralButton.text(
           orderNow,
           padding: const EdgeInsets.symmetric(vertical: space12),

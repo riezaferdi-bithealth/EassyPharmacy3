@@ -29,3 +29,6 @@ const imageScaleListMedicine = 4.5;
 
 //int
 const uidLength = 30;
+
+//search not found image size
+const searchNotFoundImageSize = 2.7;

@@ -77,9 +77,12 @@ const String registerSuccessful = "Register Successful! Login Now";
 
 //bloc
 const String unknown = '...';
-const String systemError = 'Kesalahan sistem';
-const String dataNotFound = 'Data tidak ditemukan';
+const String systemError = 'System Fault';
+const String dataNotFound = 'Data Not Found';
 
 //random
 const randomChars =
     'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+
+//filter and sorting
+const String searchNotFound = "Search Not Found";

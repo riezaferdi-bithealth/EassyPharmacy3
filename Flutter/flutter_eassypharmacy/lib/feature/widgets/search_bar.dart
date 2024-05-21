@@ -1,12 +1,10 @@
 import 'package:flutter_eassypharmacy/core/core.dart';
-// import 'package:flutter_eassypharmacy/feature/features.dart';
+import 'package:flutter_eassypharmacy/feature/features.dart';
 
 class SearchTopBar extends StatefulWidget {
   final TextEditingController? controller;
-  // final Function(String)? onQueryChanged;
   const SearchTopBar({
     this.controller,
-    // this.onQueryChanged,
     super.key,
   });
 
@@ -17,29 +15,25 @@ class SearchTopBar extends StatefulWidget {
 class _SearchTopBarState extends State<SearchTopBar> {
   String query = '';
 
-  void onQueryChanged(String newQuery) {
-    setState(() {
-      query = newQuery;
-    });
+  void _initListMedicinesData(BuildContext context, String searchInput) async {
+    context.read<GetListMedicinesCubit>().getListMedicines(searchInput);
   }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _initListMedicinesData();
-  // }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 0, left: 16.0, right: 16.0),
-      child: Column(
-        children: [
-          Form(
+    return BlocConsumer<GetListMedicinesCubit, GetListMedicinesState>(
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.only(top: 0, left: 16.0, right: 16.0),
+          child: Form(
             child: TextFormField(
               // validator: _validatorForm,
-              // onChanged: widget.onQueryChanged,
-              onChanged: onQueryChanged,
+              onChanged: (value) {
+                setState(() {
+                  query = value;
+                  _initListMedicinesData(context, value);
+                });
+              },
               controller: widget.controller,
               style: p14.black.normal,
               decoration: InputDecoration(
@@ -69,17 +63,9 @@ class _SearchTopBarState extends State<SearchTopBar> {
               ),
             ),
           ),
-          // _searchController.text.isNotEmpty
-          //     ? listTileNewsMain(
-          //         "",
-          //         "",
-          //         "",
-          //         _searchController.text,
-          //         "10",
-          //       )
-          //     : SizedBox.shrink(),
-        ],
-      ),
+        );
+      },
+      listener: (context, state) async {},
     );
   }
 }
