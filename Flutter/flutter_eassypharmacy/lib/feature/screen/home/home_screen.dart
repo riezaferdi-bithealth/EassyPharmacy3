@@ -12,13 +12,19 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
-  int tabController = 0;
   bool isViewTypeGrid = true;
+  final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => GetListMedicinesCubit(),
+      create: (context) =>
+          GetListMedicinesCubit()..getListMedicines(_searchController.text),
       child: Scaffold(
         floatingActionButton: FloatingActionButton.extended(
           backgroundColor: systemPrimaryColor,
@@ -52,7 +58,10 @@ class _HomePageState extends State<HomePage>
               //search button
               Row(
                 children: [
-                  const Expanded(child: SearchTopBar()),
+                  Expanded(
+                      child: SearchTopBar(
+                    controller: _searchController,
+                  )),
                   Padding(
                     padding: const EdgeInsets.only(right: 8.0),
                     child: GeneralButton.custom(
@@ -96,8 +105,8 @@ class _HomePageState extends State<HomePage>
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.vertical,
                   child: isViewTypeGrid == true
-                      ? const GridViewListMedicines()
-                      : const ListViewListMedicines(),
+                      ? GridViewListMedicines(controller: _searchController)
+                      : ListViewListMedicines(controller: _searchController),
                 ),
               ),
             ],

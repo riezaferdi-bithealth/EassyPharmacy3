@@ -44,7 +44,8 @@ const String emailNotValid = "Your Email is not valid!";
 const String phone = "Phone Number";
 const String phoneMessage = "Enter your phone Number";
 const String phoneNeed = "Phone Number Required!";
-const String phoneLengthMore10 = "Your Phone Number must at least 10 Characters!";
+const String phoneLengthMore10 =
+    "Your Phone Number must at least 10 Characters!";
 const String phoneLengthLess15 = "Your Phone Number must under 16 Characters!";
 const String password = "Password";
 const String passwordMessage = "Enter your password";
@@ -76,6 +77,12 @@ const String registerSuccessful = "Register Successful! Login Now";
 
 //bloc
 const String unknown = '...';
-const String systemError = 'Kesalahan sistem';
-const String dataNotFound = 'Data tidak ditemukan';
+const String systemError = 'System Fault';
+const String dataNotFound = 'Data Not Found';
 
+//random
+const randomChars =
+    'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+
+//filter and sorting
+const String searchNotFound = "Search Not Found";

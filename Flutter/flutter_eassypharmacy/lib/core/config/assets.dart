@@ -4,8 +4,10 @@ Assets assets = Assets();
 
 class Assets {
   static const String appIcons = "";
-  static const String landingPageLogo = "assets/images/logo.png";
+  static const String landingPageLogo = "assets/images/eassypharmacy_logo.png";
   static const String noNetworkImage = "assets/images/no_image.jpg";
+  static const String searchNotFoundImage =
+      "assets/images/search_not_found.png";
 
   //Home
   static const Icon cartIcon = Icon(Icons.shopping_cart);
@@ -21,4 +23,8 @@ class Assets {
   //login_register
   static const IconData passVisible = Icons.visibility;
   static const IconData passNotVisible = Icons.visibility_off;
+
+  //detail page
+  static const IconData addQty = Icons.add;
+  static const IconData subQty = Icons.remove;
 }

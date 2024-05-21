@@ -7,12 +7,12 @@ part 'get_list_medicines_state.dart';
 class GetListMedicinesCubit extends Cubit<GetListMedicinesState> {
   GetListMedicinesCubit() : super(InitialGetListMedicines());
 
-  void getListMedicines() async {
+  void getListMedicines(String? searchKey) async {
     try {
       // print("masuk try");
       emit(LoadingGetListMedicines());
       // print("mau masuk result");
-      final result = await APIRequest.home.getListMedicines();
+      final result = await APIRequest.home.getListMedicines(searchKey);
       // print("mau logger ");
       logger.d(result!.value!);
       // print("mau masuk ");

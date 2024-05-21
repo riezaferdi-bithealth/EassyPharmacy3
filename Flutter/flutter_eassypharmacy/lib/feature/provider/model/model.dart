@@ -1,7 +1,8 @@
 // ignore_for_file: unnecessary_null_comparison
 export 'package:flutter_eassypharmacy/feature/provider/model/model.dart';
 
-export 'home/get_list_medicines.dart';
+export 'home/get_list_medicines_model.dart';
+export 'home/cart_model.dart';
 export 'base_model.dart';
 export 'register_login/register_model.dart';
 export 'register_login/login_model.dart';

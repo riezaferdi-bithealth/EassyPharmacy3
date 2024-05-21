@@ -116,7 +116,7 @@ class LoginPage extends StatelessWidget {
               Commons().snackbarError(context, state.error);
             } else if (state is LoadedGetLogin) {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return const HomePage();
+                return const RoutingPage(isResize: true);
               }));
 
               Commons().snackbarSuccess(context, loginSuccessful);
