@@ -7,7 +7,9 @@ part 'get_list_medicines_state.dart';
 class GetListMedicinesCubit extends Cubit<GetListMedicinesState> {
   GetListMedicinesCubit() : super(InitialGetListMedicines());
 
-  void getListMedicines(String? searchKey) async {
+  void getListMedicines(
+    String? searchKey,
+  ) async {
     try {
       // print("masuk try");
       emit(LoadingGetListMedicines());
@@ -18,7 +20,8 @@ class GetListMedicinesCubit extends Cubit<GetListMedicinesState> {
       // print("mau masuk ");
       if (result.status == true) {
         logger.d(result.value);
-        emit(LoadedGetListMedicines(listData: result.value!));
+        emit(LoadedGetListMedicines(listData: result.value!.data!));
+
         // print("selesai IF");
       } else {
         logger.d(result);

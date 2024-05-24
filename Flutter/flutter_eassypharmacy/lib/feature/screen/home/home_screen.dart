@@ -13,6 +13,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   bool isViewTypeGrid = true;
+  bool isFilterOn = false;
+
   final TextEditingController _searchController = TextEditingController();
 
   @override
@@ -62,6 +64,8 @@ class _HomePageState extends State<HomePage>
                       child: SearchTopBar(
                     controller: _searchController,
                   )),
+                  const FilterButton(),
+                  const RowDivider(padding: space8),
                   Padding(
                     padding: const EdgeInsets.only(right: 8.0),
                     child: GeneralButton.custom(

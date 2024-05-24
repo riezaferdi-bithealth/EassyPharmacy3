@@ -51,14 +51,14 @@ class _ListViewListMedicinesState extends State<ListViewListMedicines> {
         } else if (state is NotLoadedGetListMedicines) {
         } else if (state is LoadedGetListMedicines) {
           //make container for list of medicines
-          return state.listData.data!.isEmpty
+          return state.listData.isEmpty
               ? const SearchNotFound()
               : ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: state.listData.data!.length,
+                  itemCount: state.listData.length,
                   itemBuilder: (context, index) {
-                    var item = state.listData.data![index];
+                    var item = state.listData[index];
                     return GestureDetector(
                       onTap: () {
                         Navigator.push(

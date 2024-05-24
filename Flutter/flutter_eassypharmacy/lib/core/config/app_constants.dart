@@ -86,3 +86,13 @@ const randomChars =
 
 //filter and sorting
 const String searchNotFound = "Search Not Found";
+const String filterOn = "Filter On";
+const String filterOff = "Filter Off";
+const String byStock = "By Stock";
+const String byName = "By Name";
+const String apply = "Apply";
+const String filter = "Filter";
+const String aZ = "A-Z";
+const String zA = "Z-A";
+const String oneHundred = "1-100";
+const String hundredOne = "100-1";

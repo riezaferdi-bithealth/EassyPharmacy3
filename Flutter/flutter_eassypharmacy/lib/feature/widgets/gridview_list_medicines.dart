@@ -53,7 +53,7 @@ class _GridViewListMedicinesState extends State<GridViewListMedicines>
         } else if (state is NotLoadedGetListMedicines) {
         } else if (state is LoadedGetListMedicines) {
           // print("ada: ${widget.controller!.text}");
-          return state.listData.data!.isEmpty
+          return state.listData.isEmpty
               ? const SearchNotFound()
               : GridView.count(
                   crossAxisCount: 2,
@@ -61,8 +61,8 @@ class _GridViewListMedicinesState extends State<GridViewListMedicines>
                   shrinkWrap: true,
                   childAspectRatio: ((MediaQuery.of(context).size.width / 2) /
                       (MediaQuery.of(context).size.height / 3.4)),
-                  children: List.generate(state.listData.data!.length, (index) {
-                    var item = state.listData.data![index];
+                  children: List.generate(state.listData.length, (index) {
+                    var item = state.listData[index];
                     return GestureDetector(
                       onTap: () {
                         Navigator.push(context,
