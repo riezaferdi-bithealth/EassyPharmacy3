@@ -9,6 +9,10 @@ class GetListMedicinesCubit extends Cubit<GetListMedicinesState> {
 
   void getListMedicines(
     String? searchKey,
+    bool? filterNameAsc,
+    bool? filterNameDesc,
+    bool? filterStockAsc,
+    bool? filterStockDesc,
   ) async {
     try {
       // print("masuk try");
@@ -20,7 +24,23 @@ class GetListMedicinesCubit extends Cubit<GetListMedicinesState> {
       // print("mau masuk ");
       if (result.status == true) {
         logger.d(result.value);
-        emit(LoadedGetListMedicines(listData: result.value!.data!));
+        if (filterNameAsc == true ||
+            filterNameDesc == true ||
+            filterStockAsc == true ||
+            filterStockDesc == true) {
+              
+          var listItems = result.value!.data!;
+          if (filterNameAsc == true || filterNameDesc == true) {
+            sortMedicinesByName(listItems, filterNameAsc);
+          }
+          if (filterStockAsc == true || filterStockDesc == true) {
+            sortMedicinesByStock(listItems, filterStockAsc);
+          }
+
+          emit(LoadedGetListMedicines(listData: listItems));
+        } else {
+          emit(LoadedGetListMedicines(listData: result.value!.data!));
+        }
 
         // print("selesai IF");
       } else {
@@ -32,5 +52,29 @@ class GetListMedicinesCubit extends Cubit<GetListMedicinesState> {
       logger.d(_);
       emit(const NotLoadedGetListMedicines(error: '$systemError$unknown'));
     }
+  }
+
+  List<ListMedicines> sortMedicinesByName(
+      List<ListMedicines> listItems, bool? ascending) {
+    listItems.sort((a, b) {
+      if (ascending == true) {
+        return a.name!.compareTo(b.name!);
+      } else {
+        return b.name!.compareTo(a.name!);
+      }
+    });
+    return listItems;
+  }
+
+  List<ListMedicines> sortMedicinesByStock(
+      List<ListMedicines> listItems, bool? ascending) {
+    listItems.sort((a, b) {
+      if (ascending == true) {
+        return a.stock!.compareTo(b.stock!);
+      } else {
+        return b.stock!.compareTo(a.stock!);
+      }
+    });
+    return listItems;
   }
 }

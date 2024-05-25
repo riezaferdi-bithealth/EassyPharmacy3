@@ -2,7 +2,11 @@ import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
 
 class FilterButton extends StatefulWidget {
-  const FilterButton({super.key});
+  final TextEditingController? controller;
+  const FilterButton({
+    this.controller,
+    super.key,
+  });
 
   @override
   State<FilterButton> createState() => _FilterButtonState();
@@ -15,8 +19,10 @@ class _FilterButtonState extends State<FilterButton> {
   bool isSortByStockAsc = false;
   bool isSortByStockDesc = false;
 
-  void showBottomSheetFilter(BuildContext context) async {
+  void showBottomSheetFilter(BuildContext contextMain) async {
     showModalBottomSheet(
+      // isDismissible: false,
+      // enableDrag: false,
       useSafeArea: true,
       isScrollControlled: true,
       backgroundColor: systemWhiteColor,
@@ -46,15 +52,15 @@ class _FilterButtonState extends State<FilterButton> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Icon(
-                          Assets.close,
-                          size: space20,
-                        ),
-                      ),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     Navigator.pop(context);
+                      //   },
+                      //   child: const Icon(
+                      //     Assets.close,
+                      //     size: space20,
+                      //   ),
+                      // ),
                       Text(
                         filter,
                         style: p16.semiBold,
@@ -128,6 +134,12 @@ class _FilterButtonState extends State<FilterButton> {
                           isFilterOn = false;
                         }
                         setState(() {});
+                        contextMain.read<GetListMedicinesCubit>().getListMedicines(
+                            widget.controller!.text,
+                            isSortByNameAsc,
+                            isSortByNameDesc,
+                            isSortByStockAsc,
+                            isSortByStockDesc);
                         Navigator.pop(context);
                       },
                     )
@@ -143,35 +155,38 @@ class _FilterButtonState extends State<FilterButton> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // if (isFilterOn == false) {
-        // isFilterOn = true;
-        showBottomSheetFilter(context);
-        // } else {
-        //   isFilterOn = false;
-        // }
-        // setState(() {});
-      },
-      child: Container(
-        width: MediaQuery.of(context).size.width / 4.3,
-        height: MediaQuery.of(context).size.height / 18,
-        // padding: const EdgeInsets.only(right: space8),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(space8),
-          color: isFilterOn == true ? systemPrimary50Color : systemWhiteColor,
-          border: Border.all(
-            color: systemPrimaryColor,
-            width: 1,
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(space8),
-          child: isFilterOn == true
-              ? Row(
+    return BlocConsumer<GetListMedicinesCubit, GetListMedicinesState>(
+      builder: (context, state) {
+        return GestureDetector(
+          onTap: () {
+            // if (isFilterOn == false) {
+            // isFilterOn = true;
+            showBottomSheetFilter(context);
+            // } else {
+            //   isFilterOn = false;
+            // }
+            // setState(() {});
+          },
+          child: Container(
+            width: MediaQuery.of(context).size.width / 4.3,
+            height: MediaQuery.of(context).size.height / 18,
+            // padding: const EdgeInsets.only(right: space8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(space8),
+              color: systemWhiteColor,
+              // color:
+              //     isFilterOn == true ? systemPrimary50Color : systemWhiteColor,
+              border: Border.all(
+                color: systemPrimaryColor,
+                width: 1,
+              ),
+            ),
+            child: Padding(
+                padding: const EdgeInsets.all(space8),
+                child: Row(
                   children: [
                     Text(
-                      filterOn,
+                      filter,
                       style: p12.black.normal,
                     ),
                     const RowDivider(padding: space4),
@@ -182,22 +197,40 @@ class _FilterButtonState extends State<FilterButton> {
                     )
                   ],
                 )
-              : Row(
-                  children: [
-                    Text(
-                      filterOff,
-                      style: p12.grey.normal,
-                    ),
-                    const RowDivider(padding: space4),
-                    const Icon(
-                      Assets.filterOff,
-                      color: Colors.black,
-                      size: 20,
-                    )
-                  ],
+                // child: isFilterOn == true
+                //     ? Row(
+                //         children: [
+                //           Text(
+                //             filterOn,
+                //             style: p12.black.normal,
+                //           ),
+                //           const RowDivider(padding: space4),
+                //           const Icon(
+                //             Assets.filterOn,
+                //             color: Colors.black,
+                //             size: 20,
+                //           )
+                //         ],
+                //       )
+                //     : Row(
+                //         children: [
+                //           Text(
+                //             filterOff,
+                //             style: p12.grey.normal,
+                //           ),
+                //           const RowDivider(padding: space4),
+                //           const Icon(
+                //             Assets.filterOff,
+                //             color: Colors.black,
+                //             size: 20,
+                //           )
+                //         ],
+                //       ),
                 ),
-        ),
-      ),
+          ),
+        );
+      },
+      listener: (context, state) async {},
     );
   }
 

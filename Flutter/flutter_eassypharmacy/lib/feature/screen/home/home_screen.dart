@@ -25,8 +25,14 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          GetListMedicinesCubit()..getListMedicines(_searchController.text),
+      create: (context) => GetListMedicinesCubit()
+        ..getListMedicines(
+          _searchController.text,
+          false,
+          false,
+          false,
+          false,
+        ),
       child: Scaffold(
         floatingActionButton: FloatingActionButton.extended(
           backgroundColor: systemPrimaryColor,
@@ -60,11 +66,8 @@ class _HomePageState extends State<HomePage>
               //search button
               Row(
                 children: [
-                  Expanded(
-                      child: SearchTopBar(
-                    controller: _searchController,
-                  )),
-                  const FilterButton(),
+                  Expanded(child: SearchTopBar(controller: _searchController)),
+                  FilterButton(controller: _searchController),
                   const RowDivider(padding: space8),
                   Padding(
                     padding: const EdgeInsets.only(right: 8.0),
