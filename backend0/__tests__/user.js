@@ -1,7 +1,6 @@
 const request= require('supertest')
 const {sequelize} = require("../models")
 const bcrypt = require("bcrypt")
-const jwt = require("jsonwebtoken")
 const app = require('../app')
 
 
@@ -46,7 +45,7 @@ describe('USER TESTING', ()=>{
             };
             const result = await request(app).post('/user/register').send(body);
             expect(result.status).toBe(400);
-            expect(result.body).toHaveProperty('message', 'Invalid email,password or phone number');
+            expect(result.body).toHaveProperty('message', 'Invalid email address or phone number');
         });
         it('Response 400 - invalid phone number length', async () => {
             const body = {
@@ -57,8 +56,30 @@ describe('USER TESTING', ()=>{
             };
             const result = await request(app).post('/user/register').send(body);
             expect(result.status).toBe(400);
-            expect(result.body).toHaveProperty('message', 'Invalid email,password or phone number');
+            expect(result.body).toHaveProperty('message', 'Invalid email address or phone number');
         });
+        it('Response 400 - email already exists', async () => {
+            const body = {
+                "fullname": "ferdy",
+                "email": "ferdy@gmail.com", // Existing email
+                "password": "password",
+                "phoneNumber": "081234567890"
+            };
+            const result = await request(app).post('/user/register').send(body);
+            expect(result.status).toBe(400);
+            expect(result.body).toHaveProperty('message', 'Email already exists');
+        });
+
+        it('Response 400 - missing required fields', async () => {
+            const body = {
+                "fullname": "Missing Fields User",
+                // Missing email, password, and phoneNumber
+            };
+            const result = await request(app).post('/user/register').send(body);
+            expect(result.status).toBe(400);
+            expect(result.body).toHaveProperty('message', 'Missing required fields: fullname, email, password, phoneNumber');
+        });
+
     });
     describe('/user/login - LOGIN TESTING',()=>{
         it('Response 200 - success login user', async ()=>{
@@ -76,7 +97,7 @@ describe('USER TESTING', ()=>{
 
         it('Response 404 - user not found', async () => {
             const body = {
-                "email": "usernotfound@mail.com",
+                "email": "usernotfound@mail.com", // email tidak ada
                 "password": "password"
             };
             const result = await request(app).post('/user/login').send(body);
@@ -91,9 +112,8 @@ describe('USER TESTING', ()=>{
             };
             const result = await request(app).post('/user/login').send(body);
             expect(result.status).toBe(400);
-            expect(result.body).toHaveProperty('message', 'Invalid password');
+            expect(result.body).toHaveProperty('message', 'Invalid Password');
         });
-
         
     })
 

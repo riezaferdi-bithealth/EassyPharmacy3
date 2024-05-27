@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "name": "paracetamol",
+        "name": "Paracetamol",
         "description": "Obat penurun demam dan pereda nyeri",
         "price": 5000,
         "stock": 100,
@@ -156,7 +156,7 @@
         "name": "Ciprofloxacin",
         "description": "Obat antibiotik untuk mengobati infeksi bakteri, seperti infeksi saluran kemih, kulit, dan infeksi saluran pernapasan.",
         "price": 26000,
-        "stock": 42,
+        "stock": 0,
         "image": "https://d3bbrrd0qs69m4.cloudfront.net/images/product/large/apotek_online_k24klik_20230815013035359225_CIPROFLOXACIN.png"
       }
 

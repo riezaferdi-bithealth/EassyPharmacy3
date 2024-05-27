@@ -24,6 +24,10 @@ class BottomBar extends StatelessWidget {
           icon: Assets.homeIcon,
         ),
         BottomNavigationBarItem(
+          label: cart,
+          icon: Assets.cartIcon,
+        ),
+        BottomNavigationBarItem(
           label: profile,
           icon: Assets.profileIcon,
         ),

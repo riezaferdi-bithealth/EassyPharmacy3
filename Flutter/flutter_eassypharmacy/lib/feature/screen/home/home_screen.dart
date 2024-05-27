@@ -1,8 +1,6 @@
 import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
 
-import 'list_order.dart';
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -12,7 +10,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
+  String? isLogin;
   bool isViewTypeGrid = true;
+  bool isFilterOn = false;
+
   final TextEditingController _searchController = TextEditingController();
 
   @override
@@ -23,23 +24,30 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          GetListMedicinesCubit()..getListMedicines(_searchController.text),
-      child: Scaffold(
-        floatingActionButton: FloatingActionButton.extended(
-          backgroundColor: systemPrimaryColor,
-          // tooltip: 'Increment',
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return const ListOrder();
-            }));
-          },
-          label: Text(
-            checkOrders,
-            style: p14.white.bold,
-          ),
-          icon: const Icon(Icons.list_alt, color: Colors.white, size: 28),
+      create: (context) => GetListMedicinesCubit()
+        ..getListMedicines(
+          _searchController.text,
+          false,
+          false,
+          false,
+          false,
         ),
+      child: Scaffold(
+        // floatingActionButton: listsAddToCart.isEmpty
+        //     ? const SizedBox.shrink()
+        //     : FloatingActionButton.extended(
+        //         backgroundColor: systemPrimaryColor,
+        //         // tooltip: 'Increment',
+        //         onPressed: () {
+        //           onClickedCart(context);
+        //         },
+        //         label: Text(
+        //           checkOrders,
+        //           style: p14.white.bold,
+        //         ),
+        //         icon: const Icon(Icons.list_alt, color: Colors.white, size: 28),
+        //       ),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: Container(
           color: systemWhiteColor,
           height: double.infinity,
@@ -58,10 +66,9 @@ class _HomePageState extends State<HomePage>
               //search button
               Row(
                 children: [
-                  Expanded(
-                      child: SearchTopBar(
-                    controller: _searchController,
-                  )),
+                  Expanded(child: SearchTopBar(controller: _searchController)),
+                  FilterButton(controller: _searchController),
+                  const RowDivider(padding: space8),
                   Padding(
                     padding: const EdgeInsets.only(right: 8.0),
                     child: GeneralButton.custom(

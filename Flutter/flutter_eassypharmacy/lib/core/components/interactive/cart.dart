@@ -4,6 +4,15 @@ class Cart extends VmsEngine {
   @override
   String get tag => '';
 
+//   import "dart:convert";
+
+// void main() {
+//   const id = 17;
+//   const data = [{"id": 3,"price": 7500}];
+//   final String jsonString = jsonEncode(data);
+//   print("http://localhost:3000/orders/cart/item/$id/$jsonString");
+// }
+
   Future<BaseModel<CartModel>>? saveCart(
     int? idUser,
     List<dynamic> listItems,

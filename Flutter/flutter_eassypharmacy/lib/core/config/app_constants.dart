@@ -20,8 +20,10 @@ const String search = "Search";
 const String gridView = "Grid View";
 const String listView = "List View";
 const String checkOrders = "Check Your Orders";
+const String outOfStock = "Out Of Stock";
 
-//form order
+//cart
+const String cart = "Cart";
 const String yourOrders = "Your Orders";
 const String price = "Price: ";
 const String orderNow = "Order Now";
@@ -30,7 +32,7 @@ const String orderNow = "Order Now";
 const String profile = "Profile";
 const String hello = "Hello, ";
 const String profileDetail = "Profile Detail";
-const String listOrder = "List Order";
+const String historyOrders = "History Orders";
 const String logout = "Logout";
 
 //login or register
@@ -86,3 +88,13 @@ const randomChars =
 
 //filter and sorting
 const String searchNotFound = "Search Not Found";
+const String filterOn = "Filter On";
+const String filterOff = "Filter Off";
+const String byStock = "By Stock";
+const String byName = "By Name";
+const String apply = "Apply";
+const String filter = "Filter";
+const String aZ = "A-Z";
+const String zA = "Z-A";
+const String oneHundred = "1-100";
+const String hundredOne = "100-1";
