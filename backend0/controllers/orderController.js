@@ -13,6 +13,7 @@ const checkoutOrder = async(req,res) => {
         if (!user){
             throw{name:"InvalidData"}
         }
+        const updatedList = [];
         for (el of list_medicines){
             const idObat= await Obat.findOne({where:{id:el.id} });
             // console.log("idOBAT>>>",idObat,"obatnya>>", el.id);
@@ -20,8 +21,17 @@ const checkoutOrder = async(req,res) => {
             if (el.qty>idObat.stock) throw{name:"InvalidStock"}
             // Kurangi stok obat
             await Obat.update({ stock: idObat.stock - el.qty }, { where: { id: idObat.id } });
+            const updatedMedicine = {
+                id: el.id,
+                name: idObat.name,
+                qty: el.qty,
+                price: idObat.price,
+                total_price: el.qty * idObat.price
+            };
+            updatedList.push(updatedMedicine);
         }
-         
+        
+        
         // console.log("INIIIII>>>",list_medicines);
         await PemesananObat.create({
             id_user: id_user, // id_user dari body
@@ -30,7 +40,7 @@ const checkoutOrder = async(req,res) => {
         let result = {
             status:true,
             message:"success",
-            data:list_medicines
+            data:updatedList
         }
         res.status(201).json(result);
         } catch (error){
@@ -80,6 +90,7 @@ const getHistoryOrder = async (req, res) => {
                 }
                 medicineDetails.push({
                     id: idObat.id,
+                    name: idObat.name,
                     qty: medicine.qty,
                     price: idObat.price,
                     total_price: medicine.qty * idObat.price
@@ -130,6 +141,8 @@ const postCartOrder = async(req,res) => {
             if (idObat.stock <= 0) {
                 throw { name: "OutOfStock" };
             }
+            el.name = idObat.name;
+            el.price = idObat.price;
         }
         let cart = await Cart.findOne({ where: { id_user } });
         // console.log("INIIIII=>>>>",cart.dataValues);
