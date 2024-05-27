@@ -1,6 +1,7 @@
 import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
-import 'package:flutter_eassypharmacy/feature/screen/profile/blank.dart';
+import 'package:flutter_eassypharmacy/feature/screen/profile/account_details.dart';
+import 'package:flutter_eassypharmacy/feature/screen/profile/history_orders.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -10,14 +11,11 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  String? userToken;
-  String? userId;
+  String? userName;
 
   getToken() async {
-    userToken = await AccountHelper.getAuthToken();
-    userId = await AccountHelper.getUserId();
+    userName = await AccountHelper.getUserFullName();
     setState(() {});
-    // print(userToken);
   }
 
   @override
@@ -38,12 +36,12 @@ class _ProfileState extends State<Profile> {
           children: [
             const ColumnDivider(padding: topBarPadding),
             Text(
-              "Hello, $userId",
+              "Hello, $userName",
               style: p30.primary.bold,
             ),
             rowLineProfileDivider(),
             profileSection(
-              const Blank(),
+              const AccountDetails(),
               Assets.profileDetailIcon,
               systemPrimaryColor,
               profileDetail,
@@ -51,10 +49,10 @@ class _ProfileState extends State<Profile> {
             ),
             rowLineProfileDivider(),
             profileSection(
-              const Blank(),
+              const HistoryOrders(),
               Assets.listOrderIcon,
               systemPrimaryColor,
-              listOrder,
+              historyOrders,
               p24.primary.medium,
             ),
             rowLineProfileDivider(),

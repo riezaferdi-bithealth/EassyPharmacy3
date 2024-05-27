@@ -19,13 +19,12 @@ class _GridViewListMedicinesState extends State<GridViewListMedicines>
     isLogin = await AccountHelper.getAuthToken();
   }
 
-  onClickedCart(BuildContext context) {
+  onClickedAddToCart(BuildContext context, ListMedicines listToAdd) {
     _stateToken();
 
     if (isLogin != null) {
-      // Navigator.push(context, MaterialPageRoute(builder: (context) {
-      //   return const Blank();
-      // }));
+      listsAddToCart.add(listToAdd);
+      print("masuk----------");
     } else {
       Navigator.push(
         context,
@@ -131,16 +130,20 @@ class _GridViewListMedicinesState extends State<GridViewListMedicines>
                             ),
                             const ColumnDivider(padding: space4),
                             GeneralButton.text(
-                              addToCart,
+                              item.stock == 0 ? outOfStock : addToCart,
                               padding:
                                   const EdgeInsets.symmetric(vertical: space12),
                               buttonSize: ButtonSize.small,
-                              backgroundColor: systemPrimaryColor,
+                              backgroundColor: item.stock == 0
+                                  ? systemRedColor
+                                  : systemPrimaryColor,
                               width: double.infinity,
                               // height: 56,
                               circular: space12,
                               onPressed: () {
-                                onClickedCart(context);
+                                if (item.stock! > 0) {
+                                  onClickedAddToCart(context, item);
+                                }
                               },
                             ),
                           ],

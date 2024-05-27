@@ -20,8 +20,10 @@ const String search = "Search";
 const String gridView = "Grid View";
 const String listView = "List View";
 const String checkOrders = "Check Your Orders";
+const String outOfStock = "Out Of Stock";
 
-//form order
+//cart
+const String cart = "Cart";
 const String yourOrders = "Your Orders";
 const String price = "Price: ";
 const String orderNow = "Order Now";
@@ -30,7 +32,7 @@ const String orderNow = "Order Now";
 const String profile = "Profile";
 const String hello = "Hello, ";
 const String profileDetail = "Profile Detail";
-const String listOrder = "List Order";
+const String historyOrders = "History Orders";
 const String logout = "Logout";
 
 //login or register

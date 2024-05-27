@@ -1,8 +1,6 @@
 import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
 
-import 'list_order.dart';
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -12,6 +10,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
+  String? isLogin;
   bool isViewTypeGrid = true;
   bool isFilterOn = false;
 
@@ -34,20 +33,21 @@ class _HomePageState extends State<HomePage>
           false,
         ),
       child: Scaffold(
-        floatingActionButton: FloatingActionButton.extended(
-          backgroundColor: systemPrimaryColor,
-          // tooltip: 'Increment',
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return const ListOrder();
-            }));
-          },
-          label: Text(
-            checkOrders,
-            style: p14.white.bold,
-          ),
-          icon: const Icon(Icons.list_alt, color: Colors.white, size: 28),
-        ),
+        // floatingActionButton: listsAddToCart.isEmpty
+        //     ? const SizedBox.shrink()
+        //     : FloatingActionButton.extended(
+        //         backgroundColor: systemPrimaryColor,
+        //         // tooltip: 'Increment',
+        //         onPressed: () {
+        //           onClickedCart(context);
+        //         },
+        //         label: Text(
+        //           checkOrders,
+        //           style: p14.white.bold,
+        //         ),
+        //         icon: const Icon(Icons.list_alt, color: Colors.white, size: 28),
+        //       ),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: Container(
           color: systemWhiteColor,
           height: double.infinity,

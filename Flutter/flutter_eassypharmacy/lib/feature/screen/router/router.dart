@@ -1,5 +1,6 @@
 import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
+import 'package:flutter_eassypharmacy/feature/screen/home/list_order.dart';
 
 class RoutingPage extends StatefulWidget {
   final bool? isResize;
@@ -12,6 +13,7 @@ class RoutingPage extends StatefulWidget {
 class _RoutingPageState extends State<RoutingPage> {
   List<Widget> screens = [
     const HomePage(),
+    const ListOrder(),
     const Profile(),
   ];
 

@@ -18,7 +18,7 @@ class _ListViewListMedicinesState extends State<ListViewListMedicines> {
     isLogin = await AccountHelper.getAuthToken();
   }
 
-  onClickedCart(BuildContext context) {
+  onClickedAddtoCart(BuildContext context) {
     _stateToken();
 
     if (isLogin != null) {
@@ -97,9 +97,7 @@ class _ListViewListMedicinesState extends State<ListViewListMedicines> {
                                 // height: 56,
                                 circular: space12,
                                 onPressed: () {
-                                  // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                  //   return const ListOrder();
-                                  // }));
+                                  onClickedAddtoCart(context);
                                 },
                               ),
                               title: Text(
