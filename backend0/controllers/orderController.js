@@ -117,10 +117,6 @@ const getHistoryOrder = async (req, res) => {
             res.status(404).json({ message: 'User not found.' });
         }else if (error.name === 'OrdersNotFoundError') {
             res.status(404).json({ message: 'Orders not found.' });
-        }else if (error instanceof jwt.JsonWebTokenError) {
-            res.status(401).json({ message: 'Invalid token.' });
-        }else if (error instanceof jwt.TokenExpiredError) {
-            res.status(401).json({ message: 'Token expired.' });
         }else{
             res.status(500).json({ message: 'Internal Server Error' });
         }
