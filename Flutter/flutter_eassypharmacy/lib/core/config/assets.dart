@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_eassypharmacy/core/core.dart';
 
 Assets assets = Assets();
@@ -27,4 +28,11 @@ class Assets {
   //detail page
   static const IconData addQty = Icons.add;
   static const IconData subQty = Icons.remove;
+
+  //filter icons
+  static const IconData ascFilter = CupertinoIcons.sort_up;
+  static const IconData descFilter = CupertinoIcons.sort_down;
+  static const IconData filterOn = Icons.filter_alt_rounded;
+  static const IconData filterOff = Icons.filter_alt_off_rounded;
+  static const IconData close = CupertinoIcons.xmark;
 }

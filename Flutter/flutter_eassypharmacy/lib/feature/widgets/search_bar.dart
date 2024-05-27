@@ -16,7 +16,13 @@ class _SearchTopBarState extends State<SearchTopBar> {
   String query = '';
 
   void _initListMedicinesData(BuildContext context, String searchInput) async {
-    context.read<GetListMedicinesCubit>().getListMedicines(searchInput);
+    context.read<GetListMedicinesCubit>().getListMedicines(
+          searchInput,
+          false,
+          false,
+          false,
+          false,
+        );
   }
 
   @override

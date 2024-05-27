@@ -5,10 +5,6 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Timer(const Duration(seconds: splashTimer), () {
-    //   Navigator.of(context).pushReplacementNamed(homeNav);
-    // });
-
     return Scaffold(
       body: Center(
         // Add your splash screen UI components here

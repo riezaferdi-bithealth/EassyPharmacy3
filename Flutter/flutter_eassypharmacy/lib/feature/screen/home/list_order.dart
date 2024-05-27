@@ -20,17 +20,8 @@ class _ListOrderState extends State<ListOrder> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          yourOrders,
+          cart,
           style: p24.primary.semiBold,
-        ),
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_rounded,
-            color: systemPrimaryColor,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
         ),
       ),
       body: Padding(
@@ -45,74 +36,6 @@ class _ListOrderState extends State<ListOrder> {
       ),
     );
   }
-
-  // Widget topBarSection() {
-  //   return Column(
-  //     children: [
-  //       const ColumnDivider(padding: topBarPadding),
-  //       const Row(
-  //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //         children: [
-  //           Text("Name"),
-  //           Text("Qty"),
-  //           Text("Price"),
-  //           Text("Total"),
-  //         ],
-  //       ),
-  //       rowLineProfileDivider(),
-  //       Column(
-  //         crossAxisAlignment: CrossAxisAlignment.start,
-  //         mainAxisAlignment: MainAxisAlignment.center,
-  //         // mainAxisSize: MainAxisSize.min,
-  //         children: List.generate(
-  //           listOrderName.length,
-  //           (index) {
-  //             var items = listOrderName[index];
-  //             var qty = listOrderQty[index];
-  //             var price = listOrderPrice[index];
-  //             var total = qty * price;
-  //             stateTotalPrice(total);
-  //             return Column(
-  //               children: [
-  //                 Row(
-  //                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //                   children: [
-  //                     Text(items),
-  //                     Text(qty.toString()),
-  //                     Text("Rp ${price.toString()},-"),
-  //                     Text("Rp ${(total).toString()},-"),
-  //                   ],
-  //                 ),
-  //                 rowLineProfileDivider(),
-  //                 // index + 1 == listOrderName.length
-  //                 // ? Row(
-  //                 //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //                 //   children: [
-  //                 //     const Text(""),
-  //                 //     const Text(""),
-  //                 //     const Text(""),
-  //                 //     Text("Rp ${totalPrice.reduce((a, b) => a + b)},-"),
-  //                 //   ],
-  //                 // )
-  //                 // : const SizedBox.shrink(),
-  //               ],
-  //             );
-  //           },
-  //         ),
-  //       ),
-  //       Row(
-  //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //         // crossAxisAlignment: CrossAxisAlignment.end,
-  //         children: [
-  //           const Text(""),
-  //           const Text(""),
-  //           const Text(""),
-  //           Text("Rp ${totalPrice.reduce((a, b) => a + b)},-"),
-  //         ],
-  //       ),
-  //     ],
-  //   );
-  // }
 
   Widget topBarSection() {
     return Expanded(

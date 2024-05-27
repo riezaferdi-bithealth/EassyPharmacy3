@@ -8,7 +8,7 @@ import 'package:flutter_eassypharmacy/feature/features.dart';
 //login
 const String kIdUserLogin = "login.id";
 const String kFullNameUserLogin = "login.fullName";
-// const String kPhoneNumberUserLogin = "login.phoneNumber";
+const String kPhoneNumberUserLogin = "login.phoneNumber";
 const String kEmailUserLogin = "login.email";
 const String kFcmTokenUserLogin = "login.fcmToken";
 
@@ -20,11 +20,11 @@ class AccountHelper {
 
   static Future<void> saveUserInfoFromLogin(LoginModel verifiedModel) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(kIdUserLogin, verifiedModel.data!.fullName.toString());
+    prefs.setString(kIdUserLogin, verifiedModel.data!.id.toString());
     prefs.setString(
         kFullNameUserLogin, verifiedModel.data!.fullName.toString());
-    // prefs.setString(
-    //     kPhoneNumberUserLogin, verifiedModel.phoneNumber.toString());
+    prefs.setString(
+        kPhoneNumberUserLogin, verifiedModel.data!.phone.toString());
     prefs.setString(kEmailUserLogin, verifiedModel.data!.email.toString());
     prefs.setString(
         kFcmTokenUserLogin, verifiedModel.mobileFcmToken.toString());
@@ -53,5 +53,15 @@ class AccountHelper {
   static Future<String?> getUserFullName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(kFullNameUserLogin);
+  }
+
+  static Future<String?> getUserEmail() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(kEmailUserLogin);
+  }
+
+  static Future<String?> getUserPhoneNumber() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(kPhoneNumberUserLogin);
   }
 }

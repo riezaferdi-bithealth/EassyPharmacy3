@@ -18,7 +18,7 @@ class _ListViewListMedicinesState extends State<ListViewListMedicines> {
     isLogin = await AccountHelper.getAuthToken();
   }
 
-  onClickedCart(BuildContext context) {
+  onClickedAddtoCart(BuildContext context) {
     _stateToken();
 
     if (isLogin != null) {
@@ -51,14 +51,14 @@ class _ListViewListMedicinesState extends State<ListViewListMedicines> {
         } else if (state is NotLoadedGetListMedicines) {
         } else if (state is LoadedGetListMedicines) {
           //make container for list of medicines
-          return state.listData.data!.isEmpty
+          return state.listData.isEmpty
               ? const SearchNotFound()
               : ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: state.listData.data!.length,
+                  itemCount: state.listData.length,
                   itemBuilder: (context, index) {
-                    var item = state.listData.data![index];
+                    var item = state.listData[index];
                     return GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -97,9 +97,7 @@ class _ListViewListMedicinesState extends State<ListViewListMedicines> {
                                 // height: 56,
                                 circular: space12,
                                 onPressed: () {
-                                  // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                  //   return const ListOrder();
-                                  // }));
+                                  onClickedAddtoCart(context);
                                 },
                               ),
                               title: Text(
@@ -111,17 +109,25 @@ class _ListViewListMedicinesState extends State<ListViewListMedicines> {
                                 "$stock ${item.stock}",
                                 style: p12.primary.normal,
                               ),
-                              leading: Container(
-                                width: 70,
-                                height: 120,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
-                                  image: DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: NetworkImage(
-                                      item.image!,
+                              leading: ClipRRect(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(space12)),
+                                child: CachedNetworkImage(
+                                  imageUrl: item.image!,
+                                  fit: BoxFit.fill,
+                                  height: MediaQuery.of(context).size.height /
+                                      10, //70
+                                  width: MediaQuery.of(context).size.width /
+                                      5, //120
+                                  placeholder: (context, url) => const Center(
+                                    child: SizedBox(
+                                      height: space20,
+                                      width: space20,
+                                      child: CircularProgressIndicator(),
                                     ),
                                   ),
+                                  errorWidget: (context, url, error) =>
+                                      Image.asset(Assets.noNetworkImage),
                                 ),
                               ),
                             ),
