@@ -50,6 +50,7 @@ class _GridViewListMedicinesState extends State<GridViewListMedicines>
     return BlocConsumer<GetListMedicinesCubit, GetListMedicinesState>(
       builder: (context, state) {
         if (state is LoadingGetListMedicines) {
+          return shimmerGridView();
         } else if (state is NotLoadedGetListMedicines) {
         } else if (state is LoadedGetListMedicines) {
           // print("ada: ${widget.controller!.text}");
@@ -95,12 +96,20 @@ class _GridViewListMedicinesState extends State<GridViewListMedicines>
                             ClipRRect(
                               borderRadius: const BorderRadius.all(
                                   Radius.circular(space8)),
-                              child: Image.network(
-                                item.image ?? Assets.noNetworkImage,
+                              child: CachedNetworkImage(
+                                imageUrl: item.image!,
                                 fit: BoxFit.fill,
-                                // scale: imageScaleListMedicine,
                                 height: MediaQuery.of(context).size.height / 8,
                                 width: MediaQuery.of(context).size.width / 2,
+                                placeholder: (context, url) => const Center(
+                                  child: SizedBox(
+                                    height: space56,
+                                    width: space56,
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(Assets.noNetworkImage),
                               ),
                             ),
                             Text(
@@ -144,6 +153,30 @@ class _GridViewListMedicinesState extends State<GridViewListMedicines>
         return const SizedBox.shrink();
       },
       listener: (context, state) async {},
+    );
+  }
+
+  Widget shimmerGridView() {
+    return GridView.count(
+      crossAxisCount: 2,
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      childAspectRatio: ((MediaQuery.of(context).size.width / 2) /
+          (MediaQuery.of(context).size.height / 3.4)),
+      children: List.generate(8, (index) {
+        return Shimmer.fromColors(
+          baseColor: systemLightGreyColor,
+          highlightColor: systemWhiteColor,
+          child: Container(
+            margin: const EdgeInsets.all(space8),
+            padding: const EdgeInsets.all(space8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(space8),
+              color: systemGreyColor,
+            ),
+          ),
+        );
+      }),
     );
   }
 }

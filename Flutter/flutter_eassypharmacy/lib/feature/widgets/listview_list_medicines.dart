@@ -111,17 +111,25 @@ class _ListViewListMedicinesState extends State<ListViewListMedicines> {
                                 "$stock ${item.stock}",
                                 style: p12.primary.normal,
                               ),
-                              leading: Container(
-                                width: 70,
-                                height: 120,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
-                                  image: DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: NetworkImage(
-                                      item.image!,
+                              leading: ClipRRect(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(space12)),
+                                child: CachedNetworkImage(
+                                  imageUrl: item.image!,
+                                  fit: BoxFit.fill,
+                                  height: MediaQuery.of(context).size.height /
+                                      10, //70
+                                  width: MediaQuery.of(context).size.width /
+                                      5, //120
+                                  placeholder: (context, url) => const Center(
+                                    child: SizedBox(
+                                      height: space20,
+                                      width: space20,
+                                      child: CircularProgressIndicator(),
                                     ),
                                   ),
+                                  errorWidget: (context, url, error) =>
+                                      Image.asset(Assets.noNetworkImage),
                                 ),
                               ),
                             ),

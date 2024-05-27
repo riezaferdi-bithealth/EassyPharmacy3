@@ -75,7 +75,8 @@ Color systemBlackColor = Colors.black;
 Color systemWhiteColor = Colors.white;
 
 Color systemGreyColor = Colors.grey;
-// Color? systemGrey50Color = Colors.grey[500];
+
+Color systemLightGreyColor = const Color.fromARGB(255, 231, 231, 231);
 
 Color systemRedColor = Colors.red;
 
