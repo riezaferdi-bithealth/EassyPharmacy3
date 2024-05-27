@@ -10,16 +10,22 @@ const UserController = {
     try {
     // console.log(req.body)
     const { fullname, email, password, phoneNumber } = req.body;
-
-    if (!validator.isEmail(email)) {
-      throw { name: "InvalidData", message: "Invalid email address" };
+    // Cek apakah semua field diperlukan ada
+    if (!fullname || !email || !password || !phoneNumber) {
+      throw { name: "MissingFields", message: "Missing required fields: fullname, email, password, phoneNumber" };
     }
-    // Validasi nomor telepon menggunakan regex
-    if (!/\d{10,15}/.test(phoneNumber)) {
-      throw { name: "InvalidData", message: "Phone number must be between 10 and 15 digits long" };
+
+    if (!validator.isEmail(email)|| !/\d{10,15}/.test(phoneNumber)) {
+      throw { name: "InvalidData",message: "Invalid email address or phone number" };
+    }
+      // Cek apakah email sudah terdaftar
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) {
+        throw { name: "EmailAlreadyExists", message: "Email already exists" };
     }
     const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS);
     const hashedPassword = await bcrypt.hash(password, saltRounds); 
+  
     // salt masukan kedalam env
     const newUser = await User.create({
         fullname,
@@ -36,9 +42,9 @@ const UserController = {
     res.status(201).json(result);
     } catch (error) {
       console.error(error);
-      if (error.name === "InvalidData"){
-        res.status(400).json({message:"Invalid email,password or phone number"})
-      } else{
+      if (error.name === "InvalidData" || error.name === "EmailAlreadyExists" || error.name === "MissingFields"){
+        res.status(400).json({message: error.message})
+      }else{
         res.status(500).json({ message: 'Internal Server Error' });
       }
       
@@ -47,11 +53,15 @@ const UserController = {
 
   async login(req, res) {
     try {
-        console.log(req.body)
+        // console.log(req.body)
         const { email, password } = req.body;
+              // Cek apakah email dan password ada
+        if (!email || !password) {
+          throw { name: "MissingFields", message: "Missing required fields: fullname, email, password, phoneNumber" };
+        }
         const user = await User.findOne({ where: { email } });
         if (!user) {
-          throw{name:"UsernotFound", message:"User not found"}  
+          throw{name:"UsernotFound"}  
         }
         
         const validPassword = await bcrypt.compare(password, user.password);
@@ -68,10 +78,10 @@ const UserController = {
       res.status(200).json(result);
     } catch (error) {
       console.error(error);
-      if (error.name == "InvalidData"){
-        res.status(400).json({message:"Invalid password"})
-      } else if(error.name=="UsernotFound"){
-        res.status(404).json({message:"User not found"})
+      if (error.name === "InvalidData" || error.name === "MissingFields"){
+        res.status(400).json({message: error.message})
+      } else if (error.name === "UsernotFound") {
+        res.status(404).json({ message: "User not found" });
       } else{
         res.status(500).json({ message: 'Internal Server Error' });
       }
