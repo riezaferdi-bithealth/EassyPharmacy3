@@ -6,3 +6,4 @@ export 'authentication/authentication_cubit.dart';
 export 'home/get_list_medicines_cubit.dart';
 export 'register_login/register_cubit.dart';
 export 'register_login/login_cubit.dart';
+export 'home/get_cart_cubit.dart';

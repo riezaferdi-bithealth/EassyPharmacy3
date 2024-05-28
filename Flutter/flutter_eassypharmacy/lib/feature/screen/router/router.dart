@@ -25,8 +25,6 @@ class _RoutingPageState extends State<RoutingPage> {
   }
 
   onClicked(int index, BuildContext context) {
-    _stateToken();
-
     if (index == 0) {
       setState(() {
         tabIndex.value = index;

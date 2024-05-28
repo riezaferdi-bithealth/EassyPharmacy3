@@ -35,7 +35,7 @@ class AccountHelper {
 
     prefs.remove(kIdUserLogin);
     prefs.remove(kFullNameUserLogin);
-    // prefs.remove(kPhoneNumberUserLogin);
+    prefs.remove(kPhoneNumberUserLogin);
     prefs.remove(kEmailUserLogin);
     prefs.remove(kFcmTokenUserLogin);
   }

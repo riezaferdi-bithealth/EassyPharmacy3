@@ -8,16 +8,22 @@ class GetCartCubit extends Cubit<GetCartState> {
   GetCartCubit() : super(InitialGetCart());
 
   void getCart(
-    int? idUser,
-    List<dynamic> listItems,
+    List<dynamic>? listItems
+    // int? idItems,
+    // String? nameItems,
+    // int? priceItems,
   ) async {
     try {
+      final idUser = await AccountHelper.getUserId();
       // print("masuk try");
       emit(LoadingGetCart());
       // print("mau masuk result");
       final result = await APIRequest.cart.saveCart(
-        idUser,
+        int.parse(idUser ?? '0'),
         listItems,
+        // idItems,
+        // nameItems,
+        // priceItems,
       );
       // print("mau logger ");
       logger.d(result!.value!);

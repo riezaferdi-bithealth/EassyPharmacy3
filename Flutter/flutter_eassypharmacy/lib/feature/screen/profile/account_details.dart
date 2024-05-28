@@ -13,17 +13,22 @@ class _AccountDetailsState extends State<AccountDetails> {
   String? emailUser;
   String? phoneUser;
 
-  _stateToken() async {
+  @override
+  void initState() {
+    _stateToken();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  Future<void> _stateToken() async {
     fullNameUser = await AccountHelper.getUserFullName();
     emailUser = await AccountHelper.getUserEmail();
     phoneUser = await AccountHelper.getUserPhoneNumber();
     setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _stateToken();
   }
 
   @override

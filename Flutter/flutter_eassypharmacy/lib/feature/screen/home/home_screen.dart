@@ -10,7 +10,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
-  String? isLogin;
   bool isViewTypeGrid = true;
   bool isFilterOn = false;
 
@@ -23,15 +22,22 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => GetListMedicinesCubit()
-        ..getListMedicines(
-          _searchController.text,
-          false,
-          false,
-          false,
-          false,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => GetListMedicinesCubit()
+            ..getListMedicines(
+              _searchController.text,
+              false,
+              false,
+              false,
+              false,
+            ),
         ),
+        BlocProvider(
+          create: (context) => GetCartCubit()..getCart([]),
+        )
+      ],
       child: Scaffold(
         // floatingActionButton: listsAddToCart.isEmpty
         //     ? const SizedBox.shrink()

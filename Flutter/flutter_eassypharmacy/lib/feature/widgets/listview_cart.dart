@@ -4,8 +4,7 @@ import 'package:flutter_eassypharmacy/feature/features.dart';
 // import '../screen/home/detail_page.dart';
 
 class ListViewCart extends StatefulWidget {
-  final List<String>? listCart;
-  const ListViewCart({this.listCart, super.key});
+  const ListViewCart({super.key});
 
   @override
   State<ListViewCart> createState() => _ListViewCartState();
@@ -28,11 +27,10 @@ class _ListViewCartState extends State<ListViewCart> {
 
   _stateToken() async {
     isLogin = await AccountHelper.getAuthToken();
+    setState(() {});
   }
 
   onClickedCart(BuildContext context) {
-    _stateToken();
-
     if (isLogin != null) {
       // Navigator.push(context, MaterialPageRoute(builder: (context) {
       //   return const Blank();
@@ -64,113 +62,139 @@ class _ListViewCartState extends State<ListViewCart> {
 
   @override
   Widget build(BuildContext context) {
-    // return BlocConsumer<GetCartCubit, GetCartState>(
-    //   builder: (context, state) {
-    //     if (state is LoadingGetCart) {
-    //     } else if (state is NotLoadedGetCart) {
-    //     } else if (state is LoadedGetCart) {
-    //       //make container for list of medicines
-    //       return state.listData.data!.isEmpty
-    //           ? Text("SEARCH NOT FOUND")
-    //           :
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: widget.listCart!.length,
-      itemBuilder: (context, index) {
-        // var item = state.listData.data![index];
-        return Container(
-          color: systemPrimary50Color,
-          margin: const EdgeInsets.fromLTRB(
-            space16,
-            space8,
-            space16,
-            space8,
-          ),
-          padding: const EdgeInsets.all(space8),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    width: 100,
-                    height: 70,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage(Assets.noNetworkImage),
-                      ),
-                    ),
-                  ),
-                  RowDivider(padding: space8),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+    return BlocConsumer<GetCartCubit, GetCartState>(
+      builder: (context, state) {
+        if (state is LoadingGetCart) {
+        } else if (state is NotLoadedGetCart) {
+          print("mausk not loaded");
+        } else if (state is LoadedGetCart) {
+          print("length: ${state.listData.data!.length}");
+          //make container for list of medicines
+          return ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: state.listData.data!.length,
+            itemBuilder: (context, index) {
+              var item = state.listData.data![index];
+              var newQty = item.qty!;
+              return Container(
+                color: systemPrimary50Color,
+                margin: const EdgeInsets.fromLTRB(
+                  space16,
+                  space8,
+                  space16,
+                  space8,
+                ),
+                padding: const EdgeInsets.all(space8),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text(
-                          listOrderName[index],
-                          style: p16.black.semiBold,
-                          maxLines: 2,
-                        ),
-                        Text(
-                          listOrderPrice[index].toString(),
-                          style: p12.primary.normal,
-                        ),
-                        ColumnDivider(padding: space16),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              color: systemWhiteColor,
-                              child: Row(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        listOrderQty[index]++;
-                                      });
-                                    },
-                                    child: Icon(Assets.addQty),
-                                  ),
-                                  Text(
-                                    listOrderQty[index].toString(),
-                                    style: p18.primary.normal,
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        if (listOrderQty[index] > 1) {
-                                          listOrderQty[index]--;
-                                        }
-                                      });
-                                    },
-                                    child: Icon(Assets.subQty),
-                                  ),
-                                ],
+                        ClipRRect(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(space8)),
+                          child: CachedNetworkImage(
+                            imageUrl: item.image!,
+                            fit: BoxFit.fill,
+                            height: MediaQuery.of(context).size.height / 12,
+                            width: MediaQuery.of(context).size.width / 5,
+                            placeholder: (context, url) => const Center(
+                              child: SizedBox(
+                                height: space56,
+                                width: space56,
+                                child: CircularProgressIndicator(),
                               ),
                             ),
-                            Text(
-                              "Total: ${stateTotalPrice(listOrderQty[index], listOrderPrice[index])}",
-                              style: p18.primary.normal,
-                            ),
-                          ],
-                        )
+                            errorWidget: (context, url, error) =>
+                                Image.asset(Assets.noNetworkImage),
+                          ),
+                        ),
+                        const RowDivider(padding: space16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        item.name!,
+                                        style: p16.black.semiBold,
+                                        maxLines: 2,
+                                      ),
+                                      Text(
+                                        item.price.toString(),
+                                        style: p12.primary.normal,
+                                      ),
+                                      const ColumnDivider(padding: space16),
+                                    ],
+                                  ),
+                                  Icon(
+                                    Assets.removeCart,
+                                    color: systemRedColor,
+                                  )
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    color: systemWhiteColor,
+                                    child: Row(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              newQty++;
+                                            });
+                                          },
+                                          child: const Icon(Assets.addQty),
+                                        ),
+                                        Text(
+                                          listOrderQty[index].toString(),
+                                          style: p18.primary.normal,
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              if (newQty > 1) {
+                                                newQty--;
+                                              }
+                                            });
+                                          },
+                                          child: const Icon(Assets.subQty),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Text(
+                                    "Total: ${stateTotalPrice(newQty, item.price!)}",
+                                    style: p18.primary.normal,
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
                       ],
                     ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        );
+                  ],
+                ),
+              );
+            },
+          );
+        }
+        return const SizedBox.shrink();
       },
+      listener: (context, state) async {},
     );
   }
-  //       return const SizedBox.shrink();
-  //     },
-  //     listener: (context, state) async {},
-  //   );
-  // }
 }

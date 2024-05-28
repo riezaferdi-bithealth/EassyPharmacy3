@@ -35,11 +35,10 @@ class _DetailPageState extends State<DetailPage> {
 
   _stateToken() async {
     isLogin = await AccountHelper.getAuthToken();
+    setState(() {});
   }
 
   onClickedCart(BuildContext context) {
-    _stateToken();
-
     if (isLogin != null) {
       // Navigator.push(context, MaterialPageRoute(builder: (context) {
       //   return const Blank();

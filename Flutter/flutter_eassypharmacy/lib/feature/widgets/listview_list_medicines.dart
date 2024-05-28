@@ -16,15 +16,12 @@ class _ListViewListMedicinesState extends State<ListViewListMedicines> {
 
   _stateToken() async {
     isLogin = await AccountHelper.getAuthToken();
+    setState(() {});
   }
 
-  onClickedAddtoCart(BuildContext context) {
-    _stateToken();
-
+  onClickedAddtoCart(BuildContext context, List<dynamic> listToAdd) {
     if (isLogin != null) {
-      // Navigator.push(context, MaterialPageRoute(builder: (context) {
-      //   return const Blank();
-      // }));
+      context.read<GetCartCubit>().getCart(listToAdd);
     } else {
       Navigator.push(
         context,
@@ -97,7 +94,15 @@ class _ListViewListMedicinesState extends State<ListViewListMedicines> {
                                 // height: 56,
                                 circular: space12,
                                 onPressed: () {
-                                  onClickedAddtoCart(context);
+                                  onClickedAddtoCart(context, [
+                                    {
+                                      "id": item.id,
+                                      "name": item.name,
+                                      "price": item.price,
+                                      "image": item.image,
+                                      "qty": 1
+                                    }
+                                  ]);
                                 },
                               ),
                               title: Text(

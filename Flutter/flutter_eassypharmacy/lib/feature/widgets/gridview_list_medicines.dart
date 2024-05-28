@@ -14,17 +14,17 @@ class GridViewListMedicines extends StatefulWidget {
 class _GridViewListMedicinesState extends State<GridViewListMedicines>
     with SingleTickerProviderStateMixin {
   String? isLogin;
+  String? idUser;
 
   _stateToken() async {
     isLogin = await AccountHelper.getAuthToken();
+    idUser = await AccountHelper.getUserId();
+    setState(() {});
   }
 
-  onClickedAddToCart(BuildContext context, ListMedicines listToAdd) {
-    _stateToken();
-
+  onClickedAddToCart(BuildContext context, List<dynamic> listToAdd) {
     if (isLogin != null) {
-      listsAddToCart.add(listToAdd);
-      print("masuk----------");
+      context.read<GetCartCubit>().getCart(listToAdd);
     } else {
       Navigator.push(
         context,
@@ -142,7 +142,15 @@ class _GridViewListMedicinesState extends State<GridViewListMedicines>
                               circular: space12,
                               onPressed: () {
                                 if (item.stock! > 0) {
-                                  onClickedAddToCart(context, item);
+                                  onClickedAddToCart(context, [
+                                    {
+                                      "id": item.id,
+                                      "name": item.name,
+                                      "price": item.price,
+                                      "image": item.image,
+                                      "qty": 1
+                                    }
+                                  ]);
                                 }
                               },
                             ),

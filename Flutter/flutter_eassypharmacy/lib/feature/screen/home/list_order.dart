@@ -9,63 +9,60 @@ class ListOrder extends StatefulWidget {
 }
 
 class _ListOrderState extends State<ListOrder> {
+  String? idUser;
+
+  _stateToken() async {
+    idUser = await AccountHelper.getUserId();
+    setState(() {});
+  }
+
   @override
   void initState() {
-    // coursesFuture = getCourses();
     super.initState();
+    _stateToken();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          cart,
-          style: p24.primary.semiBold,
+    // print("id user: $idUser");
+    return BlocProvider(
+      create: (context) => GetCartCubit()..getCart([]),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            cart,
+            style: p24.primary.semiBold,
+          ),
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(space16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            topBarSection(),
-            bottomBarSection(context),
-          ],
+        body: Padding(
+          padding: const EdgeInsets.all(space16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              topBarSection(),
+              bottomBarSection(),
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget topBarSection() {
-    return Expanded(
+    return const Expanded(
       child: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
+        physics: BouncingScrollPhysics(),
         scrollDirection: Axis.vertical,
-        child: ListViewCart(listCart: listOrderName),
+        child: ListViewCart(),
       ),
     );
   }
 
-  Widget rowLineProfileDivider() {
-    return Column(
-      children: [
-        const ColumnDivider(padding: space8),
-        Container(
-          width: double.infinity,
-          height: MediaQuery.of(context).size.height / 200,
-          color: systemPrimary50Color,
-        ),
-        const ColumnDivider(padding: space8),
-      ],
-    );
-  }
-
-  Widget bottomBarSection(BuildContext context) {
+  Widget bottomBarSection() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text("TOTAL HARGA: Rp ${totalPriceGlobal.value},-"),
+        Text("TOTAL PRICE: Rp ${totalPriceGlobal.value},-"),
         const ColumnDivider(padding: space8),
         GeneralButton.text(
           orderNow,

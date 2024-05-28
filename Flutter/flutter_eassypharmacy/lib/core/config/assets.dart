@@ -25,9 +25,10 @@ class Assets {
   static const IconData passVisible = Icons.visibility;
   static const IconData passNotVisible = Icons.visibility_off;
 
-  //detail page
+  //cart page
   static const IconData addQty = Icons.add;
   static const IconData subQty = Icons.remove;
+  static const IconData removeCart = Icons.delete;
 
   //filter icons
   static const IconData ascFilter = CupertinoIcons.sort_up;

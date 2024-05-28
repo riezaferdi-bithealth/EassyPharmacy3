@@ -6,6 +6,8 @@ class Cart extends VmsEngine {
 
 //   import "dart:convert";
 
+// "id_struct": MathHelper().getRandomString(uidLength),
+
 // void main() {
 //   const id = 17;
 //   const data = [{"id": 3,"price": 7500}];
@@ -15,7 +17,10 @@ class Cart extends VmsEngine {
 
   Future<BaseModel<CartModel>>? saveCart(
     int? idUser,
-    List<dynamic> listItems,
+    List<dynamic>? listItems
+    // int? idItems,
+    // String? nameItems,
+    // int? priceItems,
   ) async {
     // final response =
     //     await rootBundle.loadString('assets/json/Cart.json');
@@ -25,9 +30,15 @@ class Cart extends VmsEngine {
     var uri = Uri.parse(url);
 
     var param = jsonEncode({
-      // "id_struct": MathHelper().getRandomString(uidLength),
       "id_user": idUser,
-      "list_medicines": listItems,
+      "list_medicines": listItems
+      // [
+      //   {
+      //     "id": idItems,
+      //     "name": nameItems,
+      //     "price": priceItems,
+      //   }
+      // ]
     });
 
     print("param ${param}");
