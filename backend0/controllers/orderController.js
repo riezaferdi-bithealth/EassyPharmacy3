@@ -44,7 +44,7 @@ const checkoutOrder = async(req,res) => {
         }
         res.status(201).json(result);
         } catch (error){
-        console.error(error);
+        // console.error(error);
         if (error.name=="InvalidData"){
             res.status(401).json({message:'Invalid id'})
         }else if(error.name=="InvalidStock"){
@@ -86,7 +86,8 @@ const getHistoryOrder = async (req, res) => {
                 console.log("MEDICINE=>>",medicine);
                 const idObat = await Obat.findOne({ where: { id: medicine.id } });
                 if (!idObat) {
-                    throw { name: "OrdersNotFoundError" };
+                    // throw { name: "OrdersNotFoundError" };
+                    res.status(404).json({'message':'Orders not found.'})
                 }
                 medicineDetails.push({
                     id: idObat.id,
@@ -110,7 +111,7 @@ const getHistoryOrder = async (req, res) => {
         }
         res.status(200).json(result);
     } catch (error) {
-        console.error(error);
+        // console.error(error);
         if (error.name === 'UnauthorizedError'){
             res.status(401).json({ message: 'Access denied. No token provided.' });
         }else if (error.name === 'UserNotFoundError') {
@@ -171,7 +172,7 @@ const postCartOrder = async(req,res) => {
         }
         res.status(201).json(result);
         } catch (error){
-        console.error(error);
+        // console.error(error);
         if (error.name=="InvalidData"){
             res.status(401).json({message:'User not found'})
         }else if (error.name=="Datanotfound"){

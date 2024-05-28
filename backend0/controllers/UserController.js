@@ -41,7 +41,7 @@ const UserController = {
     }
     res.status(201).json(result);
     } catch (error) {
-      console.error(error);
+      // console.error("INI ERRORNYA",error);
       if (error.name === "InvalidData" || error.name === "EmailAlreadyExists" || error.name === "MissingFields"){
         res.status(400).json({message: error.message})
       }else{

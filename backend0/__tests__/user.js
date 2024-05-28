@@ -17,7 +17,11 @@ beforeAll(async()=>{
 })
 
 afterAll(async()=>{
-    await sequelize.queryInterface.bulkDelete('Users',null,{})
+    await sequelize.queryInterface.bulkDelete('Users',null,{
+            truncate: true,
+            cascade: true,
+            restartIdentity: true
+    })
 })
 
 describe('USER TESTING', ()=>{
