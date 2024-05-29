@@ -264,9 +264,9 @@ describe('ORDERS TESTING', ()=>{
         .get('/orders/history')
         .set('Authorization', `Bearer ${authToken}`);
         expect(result.status).toBe(404);
-        console.log("ILYASSSS=>>");
+        // console.log("ILYASSSS=>>");
         expect(result.body).toHaveProperty('message','Orders not found.');
-        console.log(result);
+        // console.log(result);
       });
 
       describe('/orders/cart/item - DELETE CART TESTING',()=>{

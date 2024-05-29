@@ -61,13 +61,13 @@ const checkoutOrder = async(req,res) => {
 const getHistoryOrder = async (req, res) => {
     try {
         const token = req.header('Authorization')?.split(' ')[1];
-        console.log('Request Headers:', req.headers);
+        // console.log('Request Headers:', req.headers);
         if (!token) {
             throw { name: 'UnauthorizedError' };
         }
           
         // Verify the token
-        console.log('Token:', token);
+        // console.log('Token:', token);
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const userbyToken = await User.findByPk(decoded.id);
         if (!userbyToken) {
@@ -83,7 +83,7 @@ const getHistoryOrder = async (req, res) => {
             const medicines = user.list_medicines;
             const medicineDetails = [];
             for (const medicine of medicines) {
-                console.log("MEDICINE=>>",medicine);
+                // console.log("MEDICINE=>>",medicine);
                 const idObat = await Obat.findOne({ where: { id: medicine.id } });
                 if (!idObat) {
                     // throw { name: "OrdersNotFoundError" };
