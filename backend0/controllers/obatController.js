@@ -47,7 +47,7 @@ const getAllObat = async (req, res) => {
         };
         res.status(200).json(response);
     } catch (error) {
-        console.error("Error in getAllObat:", error);
+        // console.error("Error in getAllObat:", error);
         res.status(500).json({ message: 'Internal Server Error' });
     }
 }

@@ -17,7 +17,11 @@ beforeAll(async()=>{
 })
 
 afterAll(async()=>{
-    await sequelize.queryInterface.bulkDelete('Users',null,{})
+    await sequelize.queryInterface.bulkDelete('Users',null,{
+            truncate: true,
+            cascade: true,
+            restartIdentity: true
+    })
 })
 
 describe('USER TESTING', ()=>{
@@ -94,7 +98,6 @@ describe('USER TESTING', ()=>{
             expect(result.body).toHaveProperty('status',true)
             expect(result.body).toHaveProperty('message','success')
         });
-
         it('Response 404 - user not found', async () => {
             const body = {
                 "email": "usernotfound@mail.com", // email tidak ada
@@ -114,7 +117,15 @@ describe('USER TESTING', ()=>{
             expect(result.status).toBe(400);
             expect(result.body).toHaveProperty('message', 'Invalid Password');
         });
-        
+        it('Response 400 - Missing Fields', async () => {
+            const body = {
+                "email": "", // email tidak ada
+                "password": "" // pass tidak ada
+            };
+            const result = await request(app).post('/user/login').send(body);
+            expect(result.status).toBe(400);
+            expect(result.body).toHaveProperty('message', 'Missing required fields: fullname, email, password, phoneNumber');
+        });
     })
 
     })

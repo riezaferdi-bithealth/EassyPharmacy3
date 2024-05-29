@@ -15,7 +15,11 @@ beforeAll(async()=>{
 })
 
 afterAll(async()=>{
-    await sequelize.queryInterface.bulkDelete('Obats',null,{})
+    await sequelize.queryInterface.bulkDelete('Obats',null,{
+        truncate: true,
+        cascade: true,
+        restartIdentity: true
+})
 })
 describe('OBAT TESTING', () => {
     describe('/drug/ - GET ALL OBAT TESTING', () => {

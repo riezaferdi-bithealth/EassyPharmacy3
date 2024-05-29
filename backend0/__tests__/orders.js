@@ -37,9 +37,24 @@ beforeAll(async()=>{
 })
 
 afterAll(async()=>{
-    await sequelize.queryInterface.bulkDelete('Obats',null,{})
-    await sequelize.queryInterface.bulkDelete('PemesananObats',null,{})
-    await sequelize.queryInterface.bulkDelete('Users',null,{})
+    await sequelize.queryInterface.bulkDelete('Obats',null,{
+            truncate: true,
+            cascade: true,
+            restartIdentity: true
+
+    })
+    await sequelize.queryInterface.bulkDelete('PemesananObats',null,{
+            truncate: true,
+            cascade: true,
+            restartIdentity: true
+
+    })
+    await sequelize.queryInterface.bulkDelete('Users',null,{
+            truncate: true,
+            cascade: true,
+            restartIdentity: true
+
+    })
 })
 
 describe('ORDERS TESTING', ()=>{
@@ -240,6 +255,18 @@ describe('ORDERS TESTING', ()=>{
         // Verify the response
         expect(response.status).toBe(404);
         expect(response.body).toHaveProperty('message', 'Orders not found.');
+      });
+      it('Response 404 - Order Not Found Error',async ()=>{
+        // console.log("ILYASSSSSS=>>");
+        let authToken=jwt.sign({ id: 1 }, process.env.JWT_SECRET);
+        // console.log("AUTH TOKEN=>>",authToken);
+        const result = await request(app)
+        .get('/orders/history')
+        .set('Authorization', `Bearer ${authToken}`);
+        expect(result.status).toBe(404);
+        console.log("ILYASSSS=>>");
+        expect(result.body).toHaveProperty('message','Orders not found.');
+        console.log(result);
       });
 
       describe('/orders/cart/item - DELETE CART TESTING',()=>{
