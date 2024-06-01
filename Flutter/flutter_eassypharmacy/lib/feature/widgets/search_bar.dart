@@ -22,6 +22,8 @@ class _SearchTopBarState extends State<SearchTopBar> {
           false,
           false,
           false,
+          false,
+          false,
         );
   }
 

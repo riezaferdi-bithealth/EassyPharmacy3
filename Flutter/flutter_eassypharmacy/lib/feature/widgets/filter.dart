@@ -14,6 +14,8 @@ class FilterButton extends StatefulWidget {
 
 class _FilterButtonState extends State<FilterButton> {
   bool isFilterOn = false;
+  bool isFilterByStockAvail = false;
+  bool isFilterByStockUnavail = false;
   bool isSortByNameAsc = false;
   bool isSortByNameDesc = false;
   bool isSortByStockAsc = false;
@@ -29,7 +31,7 @@ class _FilterButtonState extends State<FilterButton> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: MediaQuery.of(context).size.height / 3.5,
+          height: MediaQuery.of(context).size.height / 2.5,
           decoration: BoxDecoration(
             color: systemWhiteColor,
             borderRadius: const BorderRadius.only(
@@ -63,6 +65,42 @@ class _FilterButtonState extends State<FilterButton> {
                       // ),
                       Text(
                         filter,
+                        style: p16.semiBold,
+                      ),
+                    ],
+                  ),
+                ),
+                const ColumnDivider(padding: space30),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: space8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        byStock,
+                        style: p16.semiBold,
+                      ),
+                      const ColumnDivider(padding: space8),
+                      filterByStock(context),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     Navigator.pop(context);
+                      //   },
+                      //   child: const Icon(
+                      //     Assets.close,
+                      //     size: space20,
+                      //   ),
+                      // ),
+                      Text(
+                        sort,
                         style: p16.semiBold,
                       ),
                     ],
@@ -109,23 +147,16 @@ class _FilterButtonState extends State<FilterButton> {
                       width: double.infinity,
                       circular: 8,
                       onPressed: () {
+                        print(isFilterByStockAvail);
+                        print(isFilterByStockUnavail);
                         print(isSortByNameAsc);
                         print(isSortByNameDesc);
                         print(isSortByStockAsc);
                         print(isSortByStockDesc);
-                        // context.read<FilterDataCubit>().setDataFilter();
-                        // _setParamFilter(
-                        //     listSpecialization: listSpecialization,
-                        //     listDayCheckBox: listDayCheckBox,
-                        //     listTimeCheckBox: listTimeCheckBox,
-                        //     listSexCheckBox: listSexCheckBox,
-                        //     listAppointmentCheckBox:
-                        //         listAppointmentCheckBox,
-                        //     listLanguageCheckBox: listLanguageCheckBox);
-                        // stateSetterMain!(() {});
-                        // _loadChat(isTyping: true, isRefresh: true);
-                        // //_test();
-                        if (isSortByNameAsc == true ||
+
+                        if (isFilterByStockAvail == true ||
+                            isFilterByStockUnavail == true ||
+                            isSortByNameAsc == true ||
                             isSortByNameDesc == true ||
                             isSortByStockAsc == true ||
                             isSortByStockDesc == true) {
@@ -133,13 +164,17 @@ class _FilterButtonState extends State<FilterButton> {
                         } else {
                           isFilterOn = false;
                         }
-                        setState(() {});
-                        contextMain.read<GetListMedicinesCubit>().getListMedicines(
-                            widget.controller!.text,
-                            isSortByNameAsc,
-                            isSortByNameDesc,
-                            isSortByStockAsc,
-                            isSortByStockDesc);
+                        // setState(() {});
+                        contextMain
+                            .read<GetListMedicinesCubit>()
+                            .getListMedicines(
+                                widget.controller!.text,
+                                isFilterByStockAvail,
+                                isFilterByStockUnavail,
+                                isSortByNameAsc,
+                                isSortByNameDesc,
+                                isSortByStockAsc,
+                                isSortByStockDesc);
                         Navigator.pop(context);
                       },
                     )
@@ -168,7 +203,7 @@ class _FilterButtonState extends State<FilterButton> {
             // setState(() {});
           },
           child: Container(
-            width: MediaQuery.of(context).size.width / 4.3,
+            width: MediaQuery.of(context).size.width / 5.5,
             height: MediaQuery.of(context).size.height / 18,
             // padding: const EdgeInsets.only(right: space8),
             decoration: BoxDecoration(
@@ -231,6 +266,90 @@ class _FilterButtonState extends State<FilterButton> {
         );
       },
       listener: (context, state) async {},
+    );
+  }
+
+  Widget filterByStock(BuildContext context) {
+    return StatefulBuilder(
+      builder: (BuildContext context, StateSetter setState) {
+        return Row(
+          children: [
+            GestureDetector(
+              onTap: () {
+                if (isFilterByStockAvail == false) {
+                  isFilterByStockAvail = true;
+                  isFilterByStockUnavail = false;
+                  isFilterOn = true;
+                } else {
+                  isFilterByStockAvail = false;
+                  isFilterByStockUnavail = false;
+                  isFilterOn = false;
+                }
+                setState(() {});
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width / 5,
+                height: MediaQuery.of(context).size.height / 20,
+                // padding: const EdgeInsets.only(right: space8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(space8),
+                  color: isFilterByStockAvail == true
+                      ? systemPrimary50Color
+                      : systemWhiteColor,
+                  border: Border.all(
+                    color: systemPrimaryColor,
+                    width: 1,
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(space8),
+                  child: Text(
+                    available,
+                    style: p12.black.normal,
+                  ),
+                ),
+              ),
+            ),
+            const RowDivider(padding: space8),
+            GestureDetector(
+              onTap: () {
+                if (isFilterByStockUnavail == false) {
+                  isFilterByStockUnavail = true;
+                  isFilterByStockAvail = false;
+                  isFilterOn = true;
+                } else {
+                  isFilterByStockAvail = false;
+                  isFilterByStockUnavail = false;
+                  isFilterOn = false;
+                }
+                setState(() {});
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width / 4.6,
+                height: MediaQuery.of(context).size.height / 20,
+                // padding: const EdgeInsets.only(right: space8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(space8),
+                  color: isFilterByStockUnavail == true
+                      ? systemPrimary50Color
+                      : systemWhiteColor,
+                  border: Border.all(
+                    color: systemPrimaryColor,
+                    width: 1,
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(space8),
+                  child: Text(
+                    unavailable,
+                    style: p12.black.normal,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 

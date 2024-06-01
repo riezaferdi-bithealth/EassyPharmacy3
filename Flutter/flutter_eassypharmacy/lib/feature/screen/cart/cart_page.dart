@@ -1,14 +1,14 @@
 import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
 
-class ListOrder extends StatefulWidget {
-  const ListOrder({super.key});
+class CartPage extends StatefulWidget {
+  const CartPage({super.key});
 
   @override
-  State<ListOrder> createState() => _ListOrderState();
+  State<CartPage> createState() => _CartPageState();
 }
 
-class _ListOrderState extends State<ListOrder> {
+class _CartPageState extends State<CartPage> {
   String? idUser;
 
   _stateToken() async {

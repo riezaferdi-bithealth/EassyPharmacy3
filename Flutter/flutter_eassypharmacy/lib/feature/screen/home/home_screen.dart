@@ -32,6 +32,8 @@ class _HomePageState extends State<HomePage>
               false,
               false,
               false,
+              false,
+              false,
             ),
         ),
         BlocProvider(

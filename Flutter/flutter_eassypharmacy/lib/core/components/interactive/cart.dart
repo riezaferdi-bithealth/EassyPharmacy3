@@ -8,23 +8,13 @@ class Cart extends VmsEngine {
 
 // "id_struct": MathHelper().getRandomString(uidLength),
 
-// void main() {
-//   const id = 17;
-//   const data = [{"id": 3,"price": 7500}];
-//   final String jsonString = jsonEncode(data);
-//   print("http://localhost:3000/orders/cart/item/$id/$jsonString");
-// }
-
-  Future<BaseModel<CartModel>>? saveCart(
+  Future<BaseModel<CartModel>>? addCart(
     int? idUser,
-    List<dynamic>? listItems
+    List<dynamic>? listItems,
     // int? idItems,
     // String? nameItems,
     // int? priceItems,
   ) async {
-    // final response =
-    //     await rootBundle.loadString('assets/json/Cart.json');
-    // final result = await json.decode(response);
     String url = "${VmsEngine.url!}/orders/cart";
 
     var uri = Uri.parse(url);
@@ -56,6 +46,127 @@ class Cart extends VmsEngine {
       return BaseModel(
         status: result['status'],
         value: result['data'] != null ? CartModel.fromJson(result) : null,
+      );
+    } else {
+      return BaseModel(
+        status: result['status'],
+        message: result['message'],
+      );
+    }
+  }
+
+  Future<BaseModel<CartModel>>? removeCart(
+    int? idUser,
+    List<dynamic>? listItems,
+    // int? idItems,
+    // String? nameItems,
+    // int? priceItems,
+  ) async {
+    final String jsonString = jsonEncode(listItems);
+    String url = "${VmsEngine.url!}/orders/cart/item/$idUser/$jsonString";
+
+    var uri = Uri.parse(url);
+
+    var param = jsonEncode({
+      // "id_user": idUser,
+      // "list_medicines": listItems
+      // [
+      //   {
+      //     "id": idItems,
+      //     "name": nameItems,
+      //     "price": priceItems,
+      //   }
+      // ]
+    });
+
+    print("url $url");
+
+    var result = await _process(
+      url: uri.toString(),
+      param: param,
+      contentType: ContentType.json,
+      tokenType: TokenType.none,
+      requestType: RequestType.delete,
+      processName: "remove Cart",
+    );
+
+    if (result['status'] == true) {
+      return BaseModel(
+        status: result['status'],
+        value: result['data'] != null ? CartModel.fromJson(result) : null,
+      );
+    } else {
+      return BaseModel(
+        status: result['status'],
+        message: result['message'],
+      );
+    }
+  }
+
+  Future<BaseModel<CartModel>>? orderCart(
+    int? idUser,
+    List<dynamic>? listItems,
+    // int? idItems,
+    // String? nameItems,
+    // int? priceItems,
+  ) async {
+    String url = "${VmsEngine.url!}/orders/checkout";
+
+    var uri = Uri.parse(url);
+
+    var param = jsonEncode({
+      "id_user": idUser,
+      "list_medicines": listItems
+      // [
+      //   {
+      //     "id": idItems,
+      //     "name": nameItems,
+      //     "price": priceItems,
+      //   }
+      // ]
+    });
+
+    print("param ${param}");
+
+    var result = await _process(
+      url: uri.toString(),
+      param: param,
+      contentType: ContentType.json,
+      tokenType: TokenType.none,
+      requestType: RequestType.post,
+      processName: "order checkout Cart",
+    );
+
+    if (result['status'] == true) {
+      return BaseModel(
+        status: result['status'],
+        value: result['data'] != null ? CartModel.fromJson(result) : null,
+      );
+    } else {
+      return BaseModel(
+        status: result['status'],
+        message: result['message'],
+      );
+    }
+  }
+
+  Future<BaseModel<HistoryOrderModel>>? getHistoryOrder() async {
+    String url = "${VmsEngine.url!}/orders/checkout";
+
+    var uri = Uri.parse(url);
+
+    var result = await _process(
+      url: uri.toString(),
+      contentType: ContentType.json,
+      tokenType: TokenType.login,
+      requestType: RequestType.post,
+      processName: "get History Order",
+    );
+
+    if (result['status'] == true) {
+      return BaseModel(
+        status: result['status'],
+        value: result['data'] != null ? HistoryOrderModel.fromJson(result) : null,
       );
     } else {
       return BaseModel(

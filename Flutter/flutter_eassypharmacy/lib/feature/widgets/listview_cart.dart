@@ -66,9 +66,7 @@ class _ListViewCartState extends State<ListViewCart> {
       builder: (context, state) {
         if (state is LoadingGetCart) {
         } else if (state is NotLoadedGetCart) {
-          print("mausk not loaded");
         } else if (state is LoadedGetCart) {
-          print("length: ${state.listData.data!.length}");
           //make container for list of medicines
           return ListView.builder(
             shrinkWrap: true,
@@ -152,23 +150,23 @@ class _ListViewCartState extends State<ListViewCart> {
                                       children: [
                                         GestureDetector(
                                           onTap: () {
-                                            setState(() {
-                                              newQty++;
-                                            });
+                                            newQty++;
+                                            item.qty = newQty;
+                                            setState(() {});
                                           },
                                           child: const Icon(Assets.addQty),
                                         ),
                                         Text(
-                                          listOrderQty[index].toString(),
+                                          newQty.toString(),
                                           style: p18.primary.normal,
                                         ),
                                         GestureDetector(
                                           onTap: () {
-                                            setState(() {
-                                              if (newQty > 1) {
-                                                newQty--;
-                                              }
-                                            });
+                                            if (newQty > 1) {
+                                              newQty--;
+                                              item.qty = newQty;
+                                            }
+                                            setState(() {});
                                           },
                                           child: const Icon(Assets.subQty),
                                         ),

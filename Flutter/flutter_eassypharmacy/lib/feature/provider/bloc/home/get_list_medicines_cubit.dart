@@ -9,6 +9,8 @@ class GetListMedicinesCubit extends Cubit<GetListMedicinesState> {
 
   void getListMedicines(
     String? searchKey,
+    bool? isFilterByStockAvail,
+    bool? isFilterByStockUnavail,
     bool? filterNameAsc,
     bool? filterNameDesc,
     bool? filterStockAsc,
@@ -24,12 +26,16 @@ class GetListMedicinesCubit extends Cubit<GetListMedicinesState> {
       // print("mau masuk ");
       if (result.status == true) {
         logger.d(result.value);
-        if (filterNameAsc == true ||
+        if (isFilterByStockAvail == true ||
+            isFilterByStockUnavail == true ||
+            filterNameAsc == true ||
             filterNameDesc == true ||
             filterStockAsc == true ||
             filterStockDesc == true) {
-              
           var listItems = result.value!.data!;
+          if (isFilterByStockAvail == true || isFilterByStockUnavail == true) {
+            filterMedicinesByStock(listItems, isFilterByStockAvail);
+          }
           if (filterNameAsc == true || filterNameDesc == true) {
             sortMedicinesByName(listItems, filterNameAsc);
           }
@@ -51,6 +57,15 @@ class GetListMedicinesCubit extends Cubit<GetListMedicinesState> {
       // print("Masuk catch");
       logger.d(_);
       emit(const NotLoadedGetListMedicines(error: '$systemError$unknown'));
+    }
+  }
+
+  List<ListMedicines> filterMedicinesByStock(
+      List<ListMedicines> listItems, bool? available) {
+    if (available == true) {
+      return listItems.where((medicine) => medicine.stock! > 0).toList();
+    } else {
+      return listItems.where((medicine) => medicine.stock == 0).toList();
     }
   }
 

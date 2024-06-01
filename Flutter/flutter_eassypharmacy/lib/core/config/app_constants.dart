@@ -98,3 +98,6 @@ const String aZ = "A-Z";
 const String zA = "Z-A";
 const String oneHundred = "1-100";
 const String hundredOne = "100-1";
+const String sort = "Sort";
+const String available = "Available";
+const String unavailable = "Unavailable";

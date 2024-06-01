@@ -2,12 +2,12 @@ import '../../../../core/core.dart';
 import '../../../features.dart';
 import '../../../../main.dart';
 
-part 'get_cart_state.dart';
+part 'order_checkout_state.dart';
 
-class GetCartCubit extends Cubit<GetCartState> {
-  GetCartCubit() : super(InitialGetCart());
+class OrderCartCubit extends Cubit<OrderCartState> {
+  OrderCartCubit() : super(InitialOrderCart());
 
-  void getCart(
+  void orderCart(
     List<dynamic>? listItems
     // int? idItems,
     // String? nameItems,
@@ -16,9 +16,9 @@ class GetCartCubit extends Cubit<GetCartState> {
     try {
       final idUser = await AccountHelper.getUserId();
       // print("masuk try");
-      emit(LoadingGetCart());
+      emit(LoadingOrderCart());
       // print("mau masuk result");
-      final result = await APIRequest.cart.saveCart(
+      final result = await APIRequest.cart.orderCart(
         int.parse(idUser ?? '0'),
         listItems,
         // idItems,
@@ -30,16 +30,16 @@ class GetCartCubit extends Cubit<GetCartState> {
       // print("mau masuk ");
       if (result.status == true) {
         logger.d(result.value);
-        emit(LoadedGetCart(listData: result.value!));
+        emit(LoadedOrderCart(listData: result.value!));
         // print("selesai IF");
       } else {
         logger.d(result);
-        emit(NotLoadedGetCart(error: result.message!.toString()));
+        emit(NotLoadedOrderCart(error: result.message!.toString()));
       }
     } catch (_) {
       // print("Masuk catch");
       logger.d(_);
-      emit(const NotLoadedGetCart(error: '$systemError$unknown'));
+      emit(const NotLoadedOrderCart(error: '$systemError$unknown'));
     }
   }
 }
