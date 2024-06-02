@@ -21,3 +21,10 @@ FlavorConfig flavorDev = FlavorConfig(
     flavor: Flavor.dev,
     registerUrl: "",
     globalToken: "");
+
+FlavorConfig flavorProduction = FlavorConfig(
+    endPoint: "",
+    imageEndPoint: "",
+    flavor: Flavor.production,
+    registerUrl: "",
+    globalToken: "");

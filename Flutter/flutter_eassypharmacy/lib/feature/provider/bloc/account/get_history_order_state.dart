@@ -12,7 +12,7 @@ class InitialGetHistoryOrder extends GetHistoryOrderState {}
 class LoadingGetHistoryOrder extends GetHistoryOrderState {}
 
 class LoadedGetHistoryOrder extends GetHistoryOrderState {
-  final HistoryOrderModel listData;
+  final List<StructModel> listData;
   const LoadedGetHistoryOrder({required this.listData});
 
   @override

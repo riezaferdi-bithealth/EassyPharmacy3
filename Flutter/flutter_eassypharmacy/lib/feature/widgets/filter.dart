@@ -31,7 +31,7 @@ class _FilterButtonState extends State<FilterButton> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: MediaQuery.of(context).size.height / 2.5,
+          height: MediaQuery.of(context).size.height / 2.4,
           decoration: BoxDecoration(
             color: systemWhiteColor,
             borderRadius: const BorderRadius.only(
@@ -138,7 +138,7 @@ class _FilterButtonState extends State<FilterButton> {
                         )
                       ],
                     ),
-                    const ColumnDivider(padding: space16),
+                    const ColumnDivider(padding: space20),
                     GeneralButton.text(
                       apply,
                       padding: const EdgeInsets.symmetric(vertical: 12),

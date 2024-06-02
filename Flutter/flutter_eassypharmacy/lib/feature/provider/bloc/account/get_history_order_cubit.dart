@@ -18,7 +18,7 @@ class GetHistoryOrderCubit extends Cubit<GetHistoryOrderState> {
       // print("mau masuk ");
       if (result.status == true) {
         logger.d(result.value);
-        emit(LoadedGetHistoryOrder(listData: result.value!));
+        emit(LoadedGetHistoryOrder(listData: result.value!.data!));
         // print("selesai IF");
       } else {
         logger.d(result);

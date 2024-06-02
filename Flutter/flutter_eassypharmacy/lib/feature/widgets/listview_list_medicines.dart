@@ -22,6 +22,7 @@ class _ListViewListMedicinesState extends State<ListViewListMedicines> {
   onClickedAddtoCart(BuildContext context, List<dynamic> listToAdd) {
     if (isLogin != null) {
       context.read<GetCartCubit>().getCart(listToAdd);
+      Commons().snackbarSuccess(context, itemAdded);
     } else {
       Navigator.push(
         context,

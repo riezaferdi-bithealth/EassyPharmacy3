@@ -23,7 +23,7 @@ class ListMedicines extends Model {
   int? price;
   int? stock;
   String? image;
-  
+
   ListMedicines({
     this.id,
     this.name,
@@ -40,4 +40,8 @@ class ListMedicines extends Model {
       price: Model.castInt(json['price']),
       stock: Model.castInt(json['stock']),
       image: Model.castString(json['image']));
+
+  void setQty(int? value) {
+    stock = value;
+  }
 }

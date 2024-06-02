@@ -7,12 +7,11 @@ part 'order_checkout_state.dart';
 class OrderCartCubit extends Cubit<OrderCartState> {
   OrderCartCubit() : super(InitialOrderCart());
 
-  void orderCart(
-    List<dynamic>? listItems
-    // int? idItems,
-    // String? nameItems,
-    // int? priceItems,
-  ) async {
+  void orderCart(List<dynamic>? listItems
+      // int? idItems,
+      // String? nameItems,
+      // int? priceItems,
+      ) async {
     try {
       final idUser = await AccountHelper.getUserId();
       // print("masuk try");

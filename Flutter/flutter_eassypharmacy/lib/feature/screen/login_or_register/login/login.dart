@@ -152,7 +152,7 @@ class LoginPage extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return RegisterPage();
+                  return const RegisterPage();
                 }));
               },
               child: Text(

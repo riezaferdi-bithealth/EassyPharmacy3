@@ -17,8 +17,8 @@ class HistoryOrderModel extends Model {
 
 class StructModel extends Model {
   int? idStruct;
-  String? idUser;
-  int? dateOrder;
+  int? idUser;
+  String? dateOrder;
   List<CartItems>? data;
 
   StructModel({
@@ -30,8 +30,8 @@ class StructModel extends Model {
 
   factory StructModel.fromJson(Map<String, dynamic> json) => StructModel(
         idStruct: Model.castInt(json['id_struct']),
-        idUser: Model.castString(json['id_user']),
-        dateOrder: Model.castInt(json['dateOrder']),
+        idUser: Model.castInt(json['id_user']),
+        dateOrder: Model.castString(json['date_order']),
         data: Model.castList(json["list_medicines"])
             ?.map((data) => CartItems.fromJson(data))
             .toList(),

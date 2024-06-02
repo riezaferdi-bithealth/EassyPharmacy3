@@ -27,6 +27,12 @@ const String cart = "Cart";
 const String yourOrders = "Your Orders";
 const String price = "Price: ";
 const String orderNow = "Order Now";
+const String itemAdded = "Your item has been added to Cart";
+const String itemRemoved = "Your item has been removed from Cart";
+const String cartIsEmpty = "Cart is Empty";
+const String orderProceedMessage = "Are you sure want to proceed your orders?";
+const String cancel = "Cancel";
+const String proceed = "Proceed";
 
 //profile
 const String profile = "Profile";
@@ -101,3 +107,7 @@ const String hundredOne = "100-1";
 const String sort = "Sort";
 const String available = "Available";
 const String unavailable = "Unavailable";
+
+//history order
+const String qty = "Qty";
+const String total = "Total";

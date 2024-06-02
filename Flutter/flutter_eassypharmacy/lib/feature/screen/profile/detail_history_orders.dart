@@ -3,29 +3,29 @@ import 'package:flutter_eassypharmacy/feature/features.dart';
 import 'package:intl/intl.dart';
 
 class DetailHistoryOrdersPage extends StatefulWidget {
-  final int? id;
-  final String? name;
-  final String? desc;
-  final int? prices;
-  final int? stocks;
-  final String? image;
+  final int? idOrder;
+  final String? dateOrder;
+  final List<CartItems>? listOrder;
 
   const DetailHistoryOrdersPage({
-    this.id,
-    this.name,
-    this.desc,
-    this.prices,
-    this.stocks,
-    this.image,
+    this.idOrder,
+    this.dateOrder,
+    this.listOrder,
     super.key,
   });
 
   @override
-  State<DetailHistoryOrdersPage> createState() => _DetailHistoryOrdersPageState();
+  State<DetailHistoryOrdersPage> createState() =>
+      _DetailHistoryOrdersPageState();
 }
 
 class _DetailHistoryOrdersPageState extends State<DetailHistoryOrdersPage> {
   String? isLogin;
+  final List<int> totalPrice = [];
+
+  stateTotalPrice(int price) {
+    totalPrice.add(price);
+  }
 
   final oCcy = NumberFormat.currency(
     locale: 'id',
@@ -33,37 +33,9 @@ class _DetailHistoryOrdersPageState extends State<DetailHistoryOrdersPage> {
     decimalDigits: 0,
   );
 
-  _stateToken() async {
-    isLogin = await AccountHelper.getAuthToken();
-    setState(() {});
-  }
-
-  onClickedCart(BuildContext context) {
-    if (isLogin != null) {
-      // Navigator.push(context, MaterialPageRoute(builder: (context) {
-      //   return const Blank();
-      // }));
-    } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) {
-            return const LoginOrRegisterPage();
-          },
-        ),
-      );
-    }
-  }
-
   @override
   void initState() {
     super.initState();
-    _stateToken();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
@@ -83,70 +55,104 @@ class _DetailHistoryOrdersPageState extends State<DetailHistoryOrdersPage> {
       body: Padding(
         padding: const EdgeInsets.all(space16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(space8)),
-              child: Image.network(
-                widget.image!,
-                fit: BoxFit.fill,
-                // scale: imageScaleListMedicine,
-                height: MediaQuery.of(context).size.height / 3,
-                width: MediaQuery.of(context).size.width / 1.5,
-              ),
-            ),
-            Text(
-              widget.name!,
-              style: p16.primary.normal,
-            ),
-            const ColumnDivider(padding: space4),
-            Row(
-              children: [
-                Text(
-                  stock,
-                  style: p14.primary.normal,
-                ),
-                Text(
-                  widget.stocks.toString(),
-                  style: p14.primary.normal,
-                ),
-              ],
-            ),
-            const ColumnDivider(padding: space4),
-            Row(
-              children: [
-                Text(
-                  price,
-                  style: p14.primary.normal,
-                ),
-                Text(
-                  oCcy.format(widget.prices),
-                  style: p14.primary.normal,
-                ),
-              ],
-            ),
-            const ColumnDivider(padding: space4),
-            Text(
-              "desc: ${widget.desc!}",
-              style: p16.primary.normal,
-            ),
-            const ColumnDivider(padding: 50),
-            GeneralButton.text(
-              addToCart,
-              padding: const EdgeInsets.symmetric(vertical: space12),
-              buttonSize: ButtonSize.large,
-              backgroundColor: systemPrimaryColor,
-              width: double.infinity,
-              // height: 56,
-              circular: space12,
-              onPressed: () {
-                onClickedCart(context);
-              },
-            ),
+            topBarSection(),
           ],
         ),
       ),
+    );
+  }
+
+  Widget topBarSection() {
+    return Column(
+      children: [
+        const ColumnDivider(padding: topBarPadding),
+        Text(
+          "ID ORDER: ${widget.idOrder.toString()}",
+          style: p12.primary.normal,
+        ),
+        const ColumnDivider(padding: space8),
+        Text(
+          "DATE ORDER: ${widget.dateOrder.toString()}",
+          style: p12.primary.normal,
+        ),
+        const ColumnDivider(padding: space8),
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(name),
+            Text(qty),
+            Text(price),
+            Text(total),
+          ],
+        ),
+        rowLineProfileDivider(),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisSize: MainAxisSize.min,
+          children: List.generate(
+            widget.listOrder!.length,
+            (index) {
+              var items = widget.listOrder![index];
+              int? qtyItems = widget.listOrder![index].qty;
+              int? priceItems = widget.listOrder![index].price;
+              var totalItems = qtyItems! * priceItems!;
+              stateTotalPrice(totalItems);
+              return Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(items.name!),
+                      Text(qtyItems.toString()),
+                      Text(oCcy.format(priceItems)),
+                      Text(oCcy.format(totalItems)),
+                    ],
+                  ),
+                  rowLineProfileDivider(),
+                  // index + 1 == listOrderName.length
+                  // ? Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //   children: [
+                  //     const Text(""),
+                  //     const Text(""),
+                  //     const Text(""),
+                  //     Text("Rp ${totalPrice.reduce((a, b) => a + b)},-"),
+                  //   ],
+                  // )
+                  // : const SizedBox.shrink(),
+                ],
+              );
+            },
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          // crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            const Text(""),
+            const Text(""),
+            const Text(""),
+            Text(oCcy.format(totalPrice.reduce((a, b) => a + b))),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget rowLineProfileDivider() {
+    return Column(
+      children: [
+        const ColumnDivider(padding: space8),
+        Container(
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height / 200,
+          color: systemPrimary50Color,
+        ),
+        const ColumnDivider(padding: space8),
+      ],
     );
   }
 }

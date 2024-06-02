@@ -62,6 +62,7 @@ class Cart extends VmsEngine {
     // String? nameItems,
     // int? priceItems,
   ) async {
+    print(listItems);
     final String jsonString = jsonEncode(listItems);
     String url = "${VmsEngine.url!}/orders/cart/item/$idUser/$jsonString";
 
@@ -151,22 +152,23 @@ class Cart extends VmsEngine {
   }
 
   Future<BaseModel<HistoryOrderModel>>? getHistoryOrder() async {
-    String url = "${VmsEngine.url!}/orders/checkout";
+    String url = "${VmsEngine.url!}/orders/history";
 
     var uri = Uri.parse(url);
 
     var result = await _process(
       url: uri.toString(),
       contentType: ContentType.json,
-      tokenType: TokenType.login,
-      requestType: RequestType.post,
+      tokenType: TokenType.user,
+      requestType: RequestType.get,
       processName: "get History Order",
     );
 
     if (result['status'] == true) {
       return BaseModel(
         status: result['status'],
-        value: result['data'] != null ? HistoryOrderModel.fromJson(result) : null,
+        value:
+            result['data'] != null ? HistoryOrderModel.fromJson(result) : null,
       );
     } else {
       return BaseModel(

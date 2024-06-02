@@ -92,4 +92,17 @@ class GetListMedicinesCubit extends Cubit<GetListMedicinesState> {
     });
     return listItems;
   }
+
+  // void addQty(CartItems value) async {
+  //   List<CartItems> data = [];
+  //   final item = data.firstWhere((element) => element.id == value.id);
+  //   item.setQty(item.stock! + 1);
+  // }
+
+  // void subsQty(List<ListMedicines> medicine) async {
+  //   final item = medicine.firstWhere((element) => element.id == medicine.id);
+  //   if(item.stock! > 1){
+  //     item.setQty(item.stock! - 1);
+  //   }
+  // }
 }

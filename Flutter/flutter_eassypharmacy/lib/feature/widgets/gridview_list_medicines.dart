@@ -25,6 +25,7 @@ class _GridViewListMedicinesState extends State<GridViewListMedicines>
   onClickedAddToCart(BuildContext context, List<dynamic> listToAdd) {
     if (isLogin != null) {
       context.read<GetCartCubit>().getCart(listToAdd);
+      Commons().snackbarSuccess(context, itemAdded);
     } else {
       Navigator.push(
         context,
