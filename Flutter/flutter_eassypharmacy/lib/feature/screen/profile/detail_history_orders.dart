@@ -66,16 +66,18 @@ class _DetailHistoryOrdersPageState extends State<DetailHistoryOrdersPage> {
 
   Widget topBarSection() {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const ColumnDivider(padding: topBarPadding),
         Text(
           "ID ORDER: ${widget.idOrder.toString()}",
-          style: p12.primary.normal,
+          style: p16.primary.medium,
         ),
         const ColumnDivider(padding: space8),
         Text(
           "DATE ORDER: ${widget.dateOrder.toString()}",
-          style: p12.primary.normal,
+          style: p16.primary.medium,
         ),
         const ColumnDivider(padding: space8),
         const Row(
@@ -105,7 +107,8 @@ class _DetailHistoryOrdersPageState extends State<DetailHistoryOrdersPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text(items.name!),
+                      // Text(items.name!),
+                      Text(items.id!.toString()),
                       Text(qtyItems.toString()),
                       Text(oCcy.format(priceItems)),
                       Text(oCcy.format(totalItems)),

@@ -18,6 +18,11 @@ class _ProfileState extends State<Profile> {
     setState(() {});
   }
 
+  String getFirstName(String fullName) {
+    List<String> parts = fullName.trim().split(RegExp(r'\s+'));
+    return parts.isNotEmpty ? parts[0] : '';
+  }
+
   @override
   initState() {
     super.initState();
@@ -28,40 +33,68 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: const EdgeInsets.all(space16),
+        color: systemPrimaryColor,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          // mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const ColumnDivider(padding: topBarPadding),
-            Text(
-              "Hello, $userName",
-              style: p30.primary.bold,
-            ),
-            rowLineProfileDivider(),
-            profileSection(
-              const AccountDetails(),
+            const ColumnDivider(padding: space48),
+            Icon(
               Assets.profileDetailIcon,
-              systemPrimaryColor,
-              profileDetail,
-              p24.primary.medium,
+              color: systemWhiteColor,
+              size: 125.0,
             ),
-            rowLineProfileDivider(),
-            profileSection(
-              const HistoryOrders(),
-              Assets.listOrderIcon,
-              systemPrimaryColor,
-              historyOrders,
-              p24.primary.medium,
-            ),
-            rowLineProfileDivider(),
-            profileSection(
-              const RoutingPage(isResize: false),
-              Assets.logoutIcon,
-              systemRedColor,
-              logout,
-              p24.red.medium,
+            const ColumnDivider(padding: space30),
+            Container(
+              height: MediaQuery.of(context).size.height / 1.5,
+              padding: const EdgeInsets.all(space16),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(space30),
+                    topRight: Radius.circular(space30)),
+                color: systemWhiteColor,
+                // border: Border.all(
+                //   color: systemPrimaryColor,
+                //   width: 1,
+                // ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                // mainAxisAlignment: MainAxisAlignment.center,
+                // mainAxisSize: MainAxisSize.min,
+                children: [
+                  // const ColumnDivider(padding: space8),
+                  Center(
+                    child: Text(
+                      "Hello, ${getFirstName(userName ?? '')}",
+                      style: p30.primary.bold,
+                    ),
+                  ),
+                  rowLineProfileDivider(),
+                  profileSection(
+                    const AccountDetails(),
+                    Assets.profileDetailIcon,
+                    systemPrimaryColor,
+                    profileDetail,
+                    p24.primary.medium,
+                  ),
+                  rowLineProfileDivider(),
+                  profileSection(
+                    const HistoryOrders(),
+                    Assets.listOrderIcon,
+                    systemPrimaryColor,
+                    historyOrders,
+                    p24.primary.medium,
+                  ),
+                  rowLineProfileDivider(),
+                  profileSection(
+                    const RoutingPage(isResize: false),
+                    Assets.logoutIcon,
+                    systemRedColor,
+                    logout,
+                    p24.red.medium,
+                  ),
+                ],
+              ),
             ),
           ],
         ),

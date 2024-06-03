@@ -48,24 +48,26 @@ class _ListViewHistoryOrdersState extends State<ListViewHistoryOrders> {
                         );
                       },
                       child: Container(
-                        color: systemPrimary50Color,
-                        margin: const EdgeInsets.fromLTRB(
-                          space16,
-                          space8,
-                          space16,
-                          space8,
-                        ),
                         padding: const EdgeInsets.all(space8),
+                        margin: const EdgeInsets.all(space8),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(space8),
+                          color: systemWhiteColor,
+                          border: Border.all(
+                            color: systemPrimaryColor,
+                            width: 1,
+                          ),
+                        ),
                         child: Column(
                           children: [
                             ListTile(
                               title: Text(
-                                item.idStruct.toString(),
+                                "ID Struct: ${item.idStruct}",
                                 style: p16.black.semiBold,
                                 maxLines: 2,
                               ),
                               subtitle: Text(
-                                item.dateOrder ?? "-",
+                                "Date Order: ${item.dateOrder ?? "-"}",
                                 style: p12.primary.normal,
                               ),
                             ),

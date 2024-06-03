@@ -6,13 +6,29 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        // Add your splash screen UI components here
-        child: ClipRRect(
-          child: Image.asset(
-            Assets.landingPageLogo,
-            height: splashHeight,
-            width: splashWidth,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: const [
+              0.7,
+              1,
+            ],
+            colors: [
+              systemWhiteColor,
+              Colors.blue.shade200,
+            ],
+          ),
+        ),
+        child: Center(
+          // Add your splash screen UI components here
+          child: ClipRRect(
+            child: Image.asset(
+              Assets.landingPageLogo,
+              height: splashHeight,
+              width: splashWidth,
+            ),
           ),
         ),
       ),

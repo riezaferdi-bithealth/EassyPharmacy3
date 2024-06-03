@@ -83,7 +83,7 @@ class _GridViewListMedicinesState extends State<GridViewListMedicines>
                         padding: const EdgeInsets.all(space8),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(space8),
-                          color: systemPrimary50Color,
+                          color: systemWhiteColor,
                           border: Border.all(
                             color: systemPrimaryColor,
                             width: 1,
@@ -114,7 +114,7 @@ class _GridViewListMedicinesState extends State<GridViewListMedicines>
                             ),
                             Text(
                               item.name!,
-                              style: p16.primary.normal,
+                              style: p16.primary.medium,
                             ),
                             const ColumnDivider(padding: space4),
                             Row(
@@ -139,7 +139,7 @@ class _GridViewListMedicinesState extends State<GridViewListMedicines>
                                   ? systemRedColor
                                   : systemPrimaryColor,
                               width: double.infinity,
-                              // height: 56,
+                              height: 38.0,
                               circular: space12,
                               onPressed: () {
                                 if (item.stock! > 0) {

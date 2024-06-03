@@ -21,20 +21,11 @@ class LoginPage extends StatelessWidget {
       Commons().snackbarError(context, passwordNeed);
       return;
     }
-    // if (!_validatePassword(passwordController.text)) {
-    //   Commons().snackbarError(context, passwordNotValid);
-    //   return;
-    // }
 
     context.read<GetLoginCubit>().getLogin(
           emailController.text,
           passwordController.text,
         );
-
-    // GetLoginCubit(AuthenticationCubit()).getLogin(
-    //   emailController.text,
-    //   passwordController.text,
-    // );
   }
 
   bool _validateEmail(String value) {
@@ -42,12 +33,6 @@ class LoginPage extends StatelessWidget {
     RegExp regex = RegExp(pattern.toString());
     return regex.hasMatch(value);
   }
-
-  // bool _validatePassword(String value) {
-  //   Pattern pattern = passwordRegexPattern;
-  //   RegExp regex = RegExp(pattern.toString());
-  //   return regex.hasMatch(value);
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +51,12 @@ class LoginPage extends StatelessWidget {
           ),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(space16),
+          padding: const EdgeInsets.fromLTRB(
+            space16,
+            space16,
+            space16,
+            space8,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -115,9 +105,13 @@ class LoginPage extends StatelessWidget {
             if (state is NotLoadedGetLogin) {
               Commons().snackbarError(context, state.error);
             } else if (state is LoadedGetLogin) {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return const RoutingPage(isResize: true);
-              }));
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const RoutingPage(isResize: true),
+                ),
+                (route) => false,
+              );
 
               Commons().snackbarSuccess(context, loginSuccessful);
               return;

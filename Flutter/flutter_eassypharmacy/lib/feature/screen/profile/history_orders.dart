@@ -10,7 +10,6 @@ class HistoryOrders extends StatefulWidget {
 }
 
 class _HistoryOrdersState extends State<HistoryOrders> {
-
   @override
   void initState() {
     super.initState();
@@ -37,19 +36,19 @@ class _HistoryOrdersState extends State<HistoryOrders> {
           ),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(space16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              topBarSection(),
-            ],
-          ),
+          padding: const EdgeInsets.only(left: space16, right: space16),
+          child: topBarSection(),
         ),
       ),
     );
   }
 
   Widget topBarSection() {
-    return const ListViewHistoryOrders();
+    return const Expanded(
+        child: SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      child: ListViewHistoryOrders(),
+    ));
   }
 }

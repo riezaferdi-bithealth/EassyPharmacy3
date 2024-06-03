@@ -11,6 +11,12 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   String? idUser;
 
+  final oCcy = NumberFormat.currency(
+    locale: 'id',
+    symbol: 'Rp ',
+    decimalDigits: 0,
+  );
+
   _stateToken() async {
     idUser = await AccountHelper.getUserId();
     setState(() {});
@@ -22,7 +28,13 @@ class _CartPageState extends State<CartPage> {
     _stateToken();
   }
 
-  void showBottomSheetFilter(BuildContext contextMain) async {
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void showBottomSheetFilter(
+      BuildContext contextMain, List<dynamic> listItems) async {
     showModalBottomSheet(
       // isDismissible: false,
       // enableDrag: false,
@@ -75,14 +87,49 @@ class _CartPageState extends State<CartPage> {
                       ),
                       const RowDivider(padding: space8),
                       Expanded(
-                        child: GeneralButton.text(
-                          proceed,
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          buttonSize: ButtonSize.large,
-                          backgroundColor: systemPrimaryColor,
-                          width: double.infinity,
-                          circular: 8,
-                          onPressed: () {},
+                        child: BlocConsumer<OrderCartCubit, OrderCartState>(
+                          listener: (context, state) {
+                            if (state is NotLoadedOrderCart) {
+                              Commons().snackbarError(context, state.error);
+                            } else if (state is LoadedOrderCart) {
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const RoutingPage(isResize: true),
+                                ),
+                                (route) => false,
+                              );
+
+                              Commons().snackbarSuccess(
+                                context,
+                                orderSuccessful,
+                              );
+                              return;
+                            }
+                          },
+                          builder: (context, state) => state is LoadingOrderCart
+                              ? LoadingButton(
+                                  color: systemPrimaryColor,
+                                  height: space56,
+                                )
+                              : GeneralButton.text(
+                                  proceed,
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 12),
+                                  buttonSize: ButtonSize.large,
+                                  backgroundColor: systemPrimaryColor,
+                                  width: double.infinity,
+                                  circular: 8,
+                                  onPressed: () {
+                                    contextMain
+                                        .read<OrderCartCubit>()
+                                        .orderCart(listItems);
+                                    contextMain
+                                        .read<RemoveCartCubit>()
+                                        .removeCart(listItems);
+                                  },
+                                ),
                         ),
                       ),
                     ],
@@ -96,7 +143,6 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
-    // print("id user: $idUser");
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -106,8 +152,8 @@ class _CartPageState extends State<CartPage> {
           create: (context) => RemoveCartCubit()..removeCart([]),
         ),
         BlocProvider(
-          create: (context) => OrderCartCubit()..orderCart([]),
-        )
+          create: (context) => OrderCartCubit(),
+        ),
       ],
       child: Scaffold(
         appBar: AppBar(
@@ -122,7 +168,7 @@ class _CartPageState extends State<CartPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               topBarSection(),
-              bottomBarSection(),
+              bottomBarSection(context),
             ],
           ),
         ),
@@ -140,26 +186,43 @@ class _CartPageState extends State<CartPage> {
     );
   }
 
-  Widget bottomBarSection() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Text("TOTAL PRICE: Rp ${totalPriceGlobal.value},-"),
-        const ColumnDivider(padding: space8),
-        GeneralButton.text(
-          orderNow,
-          padding: const EdgeInsets.symmetric(vertical: space12),
-          buttonSize: ButtonSize.large,
-          backgroundColor: systemPrimaryColor,
-          width: double.infinity,
-          height: 56,
-          circular: space12,
-          onPressed: () {
-            showBottomSheetFilter(context);
-          },
-        ),
-        const ColumnDivider(padding: space8),
-      ],
+  Widget bottomBarSection(BuildContext context) {
+    return BlocConsumer<GetCartCubit, GetCartState>(
+      builder: (context, state) {
+        if (state is LoadingGetCart) {
+        } else if (state is NotLoadedGetCart) {
+        } else if (state is LoadedGetCart) {
+          var listItems = state.listData;
+          var totalPrice = state.totalPrice;
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              totalPrice == 0
+                  ? const SizedBox.shrink()
+                  : Text(
+                      "TOTAL PRICE: ${oCcy.format(totalPrice)}",
+                      style: p12.primary.medium,
+                    ),
+              const ColumnDivider(padding: space8),
+              GeneralButton.text(
+                orderNow,
+                padding: const EdgeInsets.symmetric(vertical: space12),
+                buttonSize: ButtonSize.large,
+                backgroundColor: systemPrimaryColor,
+                width: double.infinity,
+                height: 56,
+                circular: space12,
+                onPressed: () {
+                  showBottomSheetFilter(context, listItems);
+                },
+              ),
+              const ColumnDivider(padding: space8),
+            ],
+          );
+        }
+        return const SizedBox.shrink();
+      },
+      listener: (context, state) async {},
     );
   }
 }

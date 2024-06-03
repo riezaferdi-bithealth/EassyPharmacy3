@@ -12,8 +12,9 @@ class InitialGetCart extends GetCartState {}
 class LoadingGetCart extends GetCartState {}
 
 class LoadedGetCart extends GetCartState {
-  final CartModel listData;
-  const LoadedGetCart({required this.listData});
+  final List<CartItems> listData;
+  final int totalPrice;
+  const LoadedGetCart({required this.listData, required this.totalPrice});
 
   @override
   List<Object> get props => [listData];

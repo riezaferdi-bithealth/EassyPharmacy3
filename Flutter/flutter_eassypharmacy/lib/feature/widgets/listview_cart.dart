@@ -48,14 +48,14 @@ class _ListViewCartState extends State<ListViewCart> {
         } else if (state is NotLoadedGetCart) {
         } else if (state is LoadedGetCart) {
           //make container for list of medicines
-          return state.listData.data!.isEmpty
+          return state.listData.isEmpty
               ? const CartIsEmpty()
               : ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: state.listData.data!.length,
+                  itemCount: state.listData.length,
                   itemBuilder: (context, index) {
-                    var item = state.listData.data![index];
+                    var item = state.listData[index];
                     var newQty = item.qty!;
                     return Container(
                       color: systemPrimary50Color,

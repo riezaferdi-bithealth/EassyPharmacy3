@@ -42,7 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
       if (phoneController.text.length < 10) {
         Commons().snackbarError(context, phoneLengthMore10);
         return;
-      } else if (phoneController.text.length > 15){
+      } else if (phoneController.text.length > 15) {
         Commons().snackbarError(context, phoneLengthLess15);
         return;
       }
@@ -165,7 +165,12 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget bottomBarSection() {
     return Padding(
-      padding: const EdgeInsets.all(space16),
+      padding: const EdgeInsets.fromLTRB(
+        space16,
+        space16,
+        space16,
+        space8,
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

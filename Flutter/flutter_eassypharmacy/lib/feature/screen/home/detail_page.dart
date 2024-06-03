@@ -1,6 +1,5 @@
 import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
-import 'package:intl/intl.dart';
 
 class DetailPage extends StatefulWidget {
   final int? id;

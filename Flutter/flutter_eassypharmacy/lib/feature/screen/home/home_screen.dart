@@ -57,8 +57,22 @@ class _HomePageState extends State<HomePage>
         //       ),
         // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: Container(
-          color: systemWhiteColor,
+          // color: systemWhiteColor,
           height: double.infinity,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              stops: const [
+                0.7,
+                1,
+              ],
+              colors: [
+                systemWhiteColor,
+                Colors.blue.shade200,
+              ],
+            ),
+          ),
           child: Column(
             children: [
               const ColumnDivider(padding: topBarPadding),
@@ -79,13 +93,8 @@ class _HomePageState extends State<HomePage>
                   const RowDivider(padding: space8),
                   Padding(
                     padding: const EdgeInsets.only(right: 8.0),
-                    child: GeneralButton.custom(
-                      padding: const EdgeInsets.symmetric(vertical: space12),
-                      buttonSize: ButtonSize.small,
-                      width: MediaQuery.of(context).size.width / 3.7,
-                      // height: 56,
-                      circular: space12,
-                      onPressed: () {
+                    child: GestureDetector(
+                      onTap: () {
                         if (isViewTypeGrid == false) {
                           isViewTypeGrid = true;
                         } else {
@@ -94,20 +103,40 @@ class _HomePageState extends State<HomePage>
                         setState(() {});
                       },
                       child: Container(
-                        color: systemPrimaryColor,
-                        padding: const EdgeInsets.all(space8),
-                        child: Row(
-                          children: [
-                            Icon(
-                              isViewTypeGrid == true
-                                  ? Icons.grid_view_rounded
-                                  : Icons.list_rounded,
+                        width: MediaQuery.of(context).size.width / 4,
+                        height: MediaQuery.of(context).size.height / 18,
+                        // padding: const EdgeInsets.only(right: space8),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(space12),
+                          color: systemPrimaryColor,
+                          // color:
+                          //     isFilterOn == true ? systemPrimary50Color : systemWhiteColor,
+                          // border: Border.all(
+                          //   color: systemPrimaryColor,
+                          //   width: 1,
+                          // ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(space8),
+                          child: Container(
+                            color: systemPrimaryColor,
+                            // padding: const EdgeInsets.all(space8),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  isViewTypeGrid == true
+                                      ? Icons.grid_view_rounded
+                                      : Icons.list_rounded,
+                                  color: systemWhiteColor,
+                                ),
+                                const RowDivider(padding: space4),
+                                Text(
+                                  isViewTypeGrid == true ? gridView : listView,
+                                  style: p12.white.medium,
+                                ),
+                              ],
                             ),
-                            const RowDivider(padding: space4),
-                            Text(
-                              isViewTypeGrid == true ? gridView : listView,
-                            ),
-                          ],
+                          ),
                         ),
                       ),
                     ),
@@ -116,12 +145,15 @@ class _HomePageState extends State<HomePage>
               ),
               const ColumnDivider(padding: space8),
               Expanded(
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  child: isViewTypeGrid == true
-                      ? GridViewListMedicines(controller: _searchController)
-                      : ListViewListMedicines(controller: _searchController),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8.0, right:8),
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    child: isViewTypeGrid == true
+                        ? GridViewListMedicines(controller: _searchController)
+                        : ListViewListMedicines(controller: _searchController),
+                  ),
                 ),
               ),
             ],

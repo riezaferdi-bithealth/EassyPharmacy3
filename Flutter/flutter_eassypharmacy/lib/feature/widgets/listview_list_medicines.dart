@@ -74,14 +74,16 @@ class _ListViewListMedicinesState extends State<ListViewListMedicines> {
                         );
                       },
                       child: Container(
-                        color: systemPrimary50Color,
-                        margin: const EdgeInsets.fromLTRB(
-                          space16,
-                          space8,
-                          space16,
-                          space8,
-                        ),
                         padding: const EdgeInsets.all(space8),
+                        margin: const EdgeInsets.all(space8),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(space8),
+                          color: systemWhiteColor,
+                          border: Border.all(
+                            color: systemPrimaryColor,
+                            width: 1,
+                          ),
+                        ),
                         child: Column(
                           children: [
                             ListTile(
@@ -108,12 +110,12 @@ class _ListViewListMedicinesState extends State<ListViewListMedicines> {
                               ),
                               title: Text(
                                 item.name!,
-                                style: p16.black.semiBold,
+                                style: p16.primary.medium,
                                 maxLines: 2,
                               ),
                               subtitle: Text(
                                 "$stock ${item.stock}",
-                                style: p12.primary.normal,
+                                style: p14.primary.normal,
                               ),
                               leading: ClipRRect(
                                 borderRadius: const BorderRadius.all(

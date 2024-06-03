@@ -33,6 +33,7 @@ const String cartIsEmpty = "Cart is Empty";
 const String orderProceedMessage = "Are you sure want to proceed your orders?";
 const String cancel = "Cancel";
 const String proceed = "Proceed";
+const String orderSuccessful = "Order Successful!";
 
 //profile
 const String profile = "Profile";

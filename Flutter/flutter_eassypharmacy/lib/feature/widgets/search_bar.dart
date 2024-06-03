@@ -32,7 +32,7 @@ class _SearchTopBarState extends State<SearchTopBar> {
     return BlocConsumer<GetListMedicinesCubit, GetListMedicinesState>(
       builder: (context, state) {
         return Padding(
-          padding: const EdgeInsets.only(top: 0, left: 16.0, right: 16.0),
+          padding: const EdgeInsets.only(left: space16, right: space8),
           child: Form(
             child: TextFormField(
               // validator: _validatorForm,
@@ -45,9 +45,10 @@ class _SearchTopBarState extends State<SearchTopBar> {
               controller: widget.controller,
               style: p14.black.normal,
               decoration: InputDecoration(
-                //fillColor: systemAccent20Color,
+                fillColor: systemWhiteColor,
                 //hoverColor: systemWhiteColor,
                 // prefixIcon: Icon(Icons.search),
+                contentPadding: const EdgeInsets.symmetric(vertical: space12, horizontal: space12),
                 suffixIcon: Assets.search,
                 filled: true,
                 border:
@@ -57,12 +58,12 @@ class _SearchTopBarState extends State<SearchTopBar> {
                       color: systemPrimaryColor,
                       width: 2,
                     ),
-                    borderRadius: BorderRadius.circular(6)),
+                    borderRadius: BorderRadius.circular(space8)),
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: systemGreyColor,
                     ),
-                    borderRadius: BorderRadius.circular(6)),
+                    borderRadius: BorderRadius.circular(space8)),
                 hintStyle: p14.black.normal,
                 hintText: search,
                 isDense: true,

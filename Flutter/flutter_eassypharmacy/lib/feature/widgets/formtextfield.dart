@@ -19,7 +19,7 @@ class FormInput {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(id),
+        Text(id, style: p14.primary.medium),
         const ColumnDivider(padding: space8),
         TextFormField(
           // validator: _validatorForm,
@@ -28,7 +28,7 @@ class FormInput {
           // style: p14.black,
           keyboardType: TextInputType.text,
           decoration: InputDecoration(
-            fillColor: systemPrimary50Color,
+            fillColor: systemWhiteColor,
             //hoverColor: systemWhiteColor,
             filled: true,
             border: OutlineInputBorder(
@@ -64,7 +64,7 @@ class FormInput {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(id),
+        Text(id, style: p14.primary.medium),
         const ColumnDivider(padding: space8),
         TextFormField(
           // validator: _validatorForm,
@@ -73,7 +73,7 @@ class FormInput {
           // style: p14.black,
           keyboardType: TextInputType.number,
           decoration: InputDecoration(
-            fillColor: systemPrimary50Color,
+            fillColor: systemWhiteColor,
             //hoverColor: systemWhiteColor,
             filled: true,
             border: OutlineInputBorder(
@@ -132,7 +132,7 @@ class _FormInputPasswordState extends State<FormInputPassword> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(widget.id!),
+        Text(widget.id!, style: p14.primary.medium),
         const ColumnDivider(padding: space8),
         TextFormField(
           // validator: _validatorForm,
@@ -142,7 +142,7 @@ class _FormInputPasswordState extends State<FormInputPassword> {
           obscureText: !_passwordVisible,
           keyboardType: TextInputType.text,
           decoration: InputDecoration(
-            fillColor: systemPrimary50Color,
+            fillColor: systemWhiteColor,
             //hoverColor: systemWhiteColor,
             filled: true,
             border: OutlineInputBorder(
