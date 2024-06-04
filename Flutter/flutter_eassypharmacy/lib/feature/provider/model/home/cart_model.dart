@@ -27,7 +27,7 @@ class CartItems extends Model {
     this.name,
     this.price,
     this.image,
-    this.qty
+    this.qty,
   });
 
   factory CartItems.fromJson(Map<String, dynamic> json) => CartItems(
@@ -37,4 +37,8 @@ class CartItems extends Model {
         image: Model.castString(json['image']),
         qty: Model.castInt(json['qty']),
       );
+
+  void setQty(int? value) {
+    qty = value;
+  }
 }

@@ -62,7 +62,7 @@ class Cart extends VmsEngine {
     // String? nameItems,
     // int? priceItems,
   ) async {
-    print(listItems);
+    // print(listItems);
     final String jsonString = jsonEncode(listItems);
     String url = "${VmsEngine.url!}/orders/cart/item/$idUser/$jsonString";
 

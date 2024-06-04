@@ -49,13 +49,27 @@ class _AccountDetailsState extends State<AccountDetails> {
           },
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(space16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            topBarSection(),
-          ],
+      body: Container(
+        // color: systemWhiteColor,
+        // height: double.infinity,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: const [
+              0.7,
+              1,
+            ],
+            colors: [
+              systemWhiteColor,
+              systemBlueShade200Color,
+            ],
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(space16),
+          child: topBarSection(),
         ),
       ),
     );

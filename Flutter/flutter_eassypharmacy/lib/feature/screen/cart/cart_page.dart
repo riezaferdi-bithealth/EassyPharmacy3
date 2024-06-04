@@ -11,12 +11,6 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   String? idUser;
 
-  final oCcy = NumberFormat.currency(
-    locale: 'id',
-    symbol: 'Rp ',
-    decimalDigits: 0,
-  );
-
   _stateToken() async {
     idUser = await AccountHelper.getUserId();
     setState(() {});
@@ -86,50 +80,65 @@ class _CartPageState extends State<CartPage> {
                         ),
                       ),
                       const RowDivider(padding: space8),
-                      Expanded(
-                        child: BlocConsumer<OrderCartCubit, OrderCartState>(
-                          listener: (context, state) {
-                            if (state is NotLoadedOrderCart) {
-                              Commons().snackbarError(context, state.error);
-                            } else if (state is LoadedOrderCart) {
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const RoutingPage(isResize: true),
-                                ),
-                                (route) => false,
-                              );
+                      MultiBlocProvider(
+                        providers: [
+                          BlocProvider(
+                            create: (context) => RemoveCartCubit(),
+                          ),
+                          BlocProvider(
+                            create: (context) => OrderCartCubit(),
+                          ),
+                        ],
+                        // create: (context) => OrderCartCubit(),
+                        child: Expanded(
+                          child: BlocConsumer<OrderCartCubit, OrderCartState>(
+                            listener: (context, state) {
+                              if (state is NotLoadedOrderCart) {
+                                Commons().snackbarError(context, state.error);
+                              } else if (state is LoadedOrderCart) {
+                                tabIndex.value = 0;
 
-                              Commons().snackbarSuccess(
-                                context,
-                                orderSuccessful,
-                              );
-                              return;
-                            }
-                          },
-                          builder: (context, state) => state is LoadingOrderCart
-                              ? LoadingButton(
-                                  color: systemPrimaryColor,
-                                  height: space56,
-                                )
-                              : GeneralButton.text(
-                                  proceed,
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 12),
-                                  buttonSize: ButtonSize.large,
-                                  backgroundColor: systemPrimaryColor,
-                                  width: double.infinity,
-                                  circular: 8,
-                                  onPressed: () {
-                                    contextMain
-                                        .read<OrderCartCubit>()
-                                        .orderCart(listItems);
-                                    contextMain
-                                        .read<RemoveCartCubit>()
-                                        .removeCart(listItems);
-                                  },
-                                ),
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const RoutingPage(isResize: true),
+                                  ),
+                                  (route) => false,
+                                );
+
+                                Commons().snackbarSuccess(
+                                  context,
+                                  orderSuccessful,
+                                );
+
+                                return;
+                              }
+                            },
+                            builder: (context, state) =>
+                                state is LoadingOrderCart
+                                    ? LoadingButton(
+                                        color: systemPrimaryColor,
+                                        height: space56,
+                                      )
+                                    : GeneralButton.text(
+                                        proceed,
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 12),
+                                        buttonSize: ButtonSize.large,
+                                        backgroundColor: systemPrimaryColor,
+                                        width: double.infinity,
+                                        circular: 8,
+                                        onPressed: () {
+                                          context
+                                              .read<OrderCartCubit>()
+                                              .orderCart(listItems);
+                                          context
+                                              .read<RemoveCartCubit>()
+                                              .removeCart(listItems);
+                                        },
+                                      ),
+                          ),
                         ),
                       ),
                     ],
@@ -151,9 +160,9 @@ class _CartPageState extends State<CartPage> {
         BlocProvider(
           create: (context) => RemoveCartCubit()..removeCart([]),
         ),
-        BlocProvider(
-          create: (context) => OrderCartCubit(),
-        ),
+        // BlocProvider(
+        //   create: (context) => OrderCartCubit(),
+        // ),
       ],
       child: Scaffold(
         appBar: AppBar(
@@ -162,15 +171,12 @@ class _CartPageState extends State<CartPage> {
             style: p24.primary.semiBold,
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(space16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              topBarSection(),
-              bottomBarSection(context),
-            ],
-          ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            topBarSection(),
+            bottomBarSection(context),
+          ],
         ),
       ),
     );
@@ -178,11 +184,7 @@ class _CartPageState extends State<CartPage> {
 
   Widget topBarSection() {
     return const Expanded(
-      child: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        child: ListViewCart(),
-      ),
+      child: ListViewCart(),
     );
   }
 
@@ -192,33 +194,46 @@ class _CartPageState extends State<CartPage> {
         if (state is LoadingGetCart) {
         } else if (state is NotLoadedGetCart) {
         } else if (state is LoadedGetCart) {
-          var listItems = state.listData;
+          List<dynamic> listItems = [];
+          for (var item in state.listData) {
+            listItems.add({
+              "id": item.id,
+              "qty": item.qty,
+              "name": item.name,
+              "price": item.price,
+              "total_price": item.qty! * item.price!,
+            });
+          }
           var totalPrice = state.totalPrice;
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              totalPrice == 0
-                  ? const SizedBox.shrink()
-                  : Text(
-                      "TOTAL PRICE: ${oCcy.format(totalPrice)}",
-                      style: p12.primary.medium,
-                    ),
-              const ColumnDivider(padding: space8),
-              GeneralButton.text(
-                orderNow,
-                padding: const EdgeInsets.symmetric(vertical: space12),
-                buttonSize: ButtonSize.large,
-                backgroundColor: systemPrimaryColor,
-                width: double.infinity,
-                height: 56,
-                circular: space12,
-                onPressed: () {
-                  showBottomSheetFilter(context, listItems);
-                },
-              ),
-              const ColumnDivider(padding: space8),
-            ],
-          );
+          return state.listData.isEmpty
+              ? const SizedBox.shrink()
+              : Padding(
+                  padding: const EdgeInsets.all(space16),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "TOTAL PRICE: ${MathHelper().oCcy.format(totalPrice)}",
+                        style: p12.primary.medium,
+                      ),
+                      const ColumnDivider(padding: space8),
+                      GeneralButton.text(
+                        orderNow,
+                        padding: const EdgeInsets.symmetric(vertical: space12),
+                        buttonSize: ButtonSize.large,
+                        backgroundColor: systemPrimaryColor,
+                        width: double.infinity,
+                        height: 56,
+                        circular: space12,
+                        onPressed: () {
+                          // print(listItems);
+                          showBottomSheetFilter(context, listItems);
+                        },
+                      ),
+                      const ColumnDivider(padding: space8),
+                    ],
+                  ),
+                );
         }
         return const SizedBox.shrink();
       },

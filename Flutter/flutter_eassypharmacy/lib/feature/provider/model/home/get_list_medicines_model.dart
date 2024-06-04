@@ -40,8 +40,4 @@ class ListMedicines extends Model {
       price: Model.castInt(json['price']),
       stock: Model.castInt(json['stock']),
       image: Model.castString(json['image']));
-
-  void setQty(int? value) {
-    stock = value;
-  }
 }

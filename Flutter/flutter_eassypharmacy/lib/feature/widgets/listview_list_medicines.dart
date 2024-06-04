@@ -88,24 +88,28 @@ class _ListViewListMedicinesState extends State<ListViewListMedicines> {
                           children: [
                             ListTile(
                               trailing: GeneralButton.text(
-                                addToCart,
+                                item.stock == 0 ? outOfStock : addToCart,
                                 padding: const EdgeInsets.symmetric(
                                     vertical: space12),
                                 buttonSize: ButtonSize.small,
-                                backgroundColor: systemPrimaryColor,
+                                backgroundColor: item.stock == 0
+                                    ? systemRedColor
+                                    : systemPrimaryColor,
                                 width: MediaQuery.of(context).size.width / 4,
                                 // height: 56,
                                 circular: space12,
                                 onPressed: () {
-                                  onClickedAddtoCart(context, [
-                                    {
-                                      "id": item.id,
-                                      "name": item.name,
-                                      "price": item.price,
-                                      "image": item.image,
-                                      "qty": 1
-                                    }
-                                  ]);
+                                  if (item.stock! > 0) {
+                                    onClickedAddtoCart(context, [
+                                      {
+                                        "id": item.id,
+                                        "name": item.name,
+                                        "price": item.price,
+                                        "image": item.image,
+                                        "qty": 1
+                                      }
+                                    ]);
+                                  }
                                 },
                               ),
                               title: Text(

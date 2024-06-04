@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage>
               ],
               colors: [
                 systemWhiteColor,
-                Colors.blue.shade200,
+                systemBlueShade200Color,
               ],
             ),
           ),
@@ -146,7 +146,7 @@ class _HomePageState extends State<HomePage>
               const ColumnDivider(padding: space8),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0, right:8),
+                  padding: const EdgeInsets.only(left: 8.0, right: 8),
                   child: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,

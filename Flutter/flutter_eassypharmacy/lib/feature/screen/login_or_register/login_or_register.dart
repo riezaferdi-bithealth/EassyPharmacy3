@@ -33,7 +33,7 @@ class LoginOrRegisterPage extends StatelessWidget {
             ],
             colors: [
               systemWhiteColor,
-              Colors.blue.shade200,
+              systemBlueShade200Color,
             ],
           ),
         ),

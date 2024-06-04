@@ -48,17 +48,15 @@ class GetCartCubit extends Cubit<GetCartState> {
     }
   }
 
-  void addQty(CartItems value) async {
-    List<dynamic> data = [];
-    final item = data.firstWhere((element) => element.id == value.id);
-    item.setQty(item.stock! + 1);
+  void addQty(List<CartItems> newData, int idToAdd) async {
+    final item = newData.firstWhere((element) => element.id == newData[idToAdd].id);
+    item.setQty(item.qty! + 1);
   }
 
-  void subsQty(CartItems value) async {
-    List<dynamic> data = [];
-    final item = data.firstWhere((element) => element.id == value.id);
-    if (item.stock! > 1) {
-      item.setQty(item.stock! - 1);
+  void subsQty(List<CartItems> newData, int idToSubs) async {
+    final item = newData.firstWhere((element) => element.id == idToSubs);
+    if (item.qty! > 1) {
+      item.setQty(item.qty! - 1);
     }
   }
 

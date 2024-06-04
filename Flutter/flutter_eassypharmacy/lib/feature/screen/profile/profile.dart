@@ -52,10 +52,18 @@ class _ProfileState extends State<Profile> {
                     topLeft: Radius.circular(space30),
                     topRight: Radius.circular(space30)),
                 color: systemWhiteColor,
-                // border: Border.all(
-                //   color: systemPrimaryColor,
-                //   width: 1,
-                // ),
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  stops: const [
+                    0.7,
+                    1,
+                  ],
+                  colors: [
+                    systemWhiteColor,
+                    systemBlueShade200Color,
+                  ],
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

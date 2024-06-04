@@ -6,7 +6,8 @@ class HistoryOrderModel extends Model {
   List<StructModel>? data;
   HistoryOrderModel({this.status, this.message, this.data});
 
-  factory HistoryOrderModel.fromJson(Map<String, dynamic> json) => HistoryOrderModel(
+  factory HistoryOrderModel.fromJson(Map<String, dynamic> json) =>
+      HistoryOrderModel(
         status: Model.castBool(json["status"]),
         message: Model.castString(json['message']),
         data: Model.castList(json["data"])
@@ -21,12 +22,7 @@ class StructModel extends Model {
   String? dateOrder;
   List<CartItems>? data;
 
-  StructModel({
-    this.idStruct,
-    this.idUser,
-    this.dateOrder,
-    this.data
-  });
+  StructModel({this.idStruct, this.idUser, this.dateOrder, this.data});
 
   factory StructModel.fromJson(Map<String, dynamic> json) => StructModel(
         idStruct: Model.castInt(json['id_struct']),
@@ -44,20 +40,17 @@ class HistoryItems extends Model {
   int? price;
   String? image;
   int? qty;
+  int? totalPrice;
 
-  HistoryItems({
-    this.id,
-    this.name,
-    this.price,
-    this.image,
-    this.qty
-  });
+  HistoryItems(
+      {this.id, this.name, this.price, this.image, this.qty, this.totalPrice});
 
   factory HistoryItems.fromJson(Map<String, dynamic> json) => HistoryItems(
         id: Model.castInt(json['id']),
         name: Model.castString(json['name']),
+        qty: Model.castInt(json['qty']),
         price: Model.castInt(json['price']),
         image: Model.castString(json['image']),
-        qty: Model.castInt(json['qty']),
+        totalPrice: Model.castInt(json['total_price']),
       );
 }

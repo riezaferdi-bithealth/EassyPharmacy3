@@ -35,9 +35,25 @@ class _HistoryOrdersState extends State<HistoryOrders> {
             },
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.only(left: space16, right: space16),
-          child: topBarSection(),
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              stops: const [
+                0.7,
+                1,
+              ],
+              colors: [
+                systemWhiteColor,
+                systemBlueShade200Color,
+              ],
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(left: space16, right: space16),
+            child: topBarSection(),
+          ),
         ),
       ),
     );

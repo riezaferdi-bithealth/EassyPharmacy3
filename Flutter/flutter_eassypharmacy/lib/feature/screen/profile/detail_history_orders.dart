@@ -1,6 +1,5 @@
 import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
-import 'package:intl/intl.dart';
 
 class DetailHistoryOrdersPage extends StatefulWidget {
   final int? idOrder;
@@ -27,12 +26,6 @@ class _DetailHistoryOrdersPageState extends State<DetailHistoryOrdersPage> {
     totalPrice.add(price);
   }
 
-  final oCcy = NumberFormat.currency(
-    locale: 'id',
-    symbol: 'Rp ',
-    decimalDigits: 0,
-  );
-
   @override
   void initState() {
     super.initState();
@@ -52,13 +45,29 @@ class _DetailHistoryOrdersPageState extends State<DetailHistoryOrdersPage> {
           },
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(space16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            topBarSection(),
-          ],
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: const [
+              0.7,
+              1,
+            ],
+            colors: [
+              systemWhiteColor,
+              systemBlueShade200Color,
+            ],
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(space16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              topBarSection(),
+            ],
+          ),
         ),
       ),
     );
@@ -90,45 +99,49 @@ class _DetailHistoryOrdersPageState extends State<DetailHistoryOrdersPage> {
           ],
         ),
         rowLineProfileDivider(),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          // mainAxisSize: MainAxisSize.min,
-          children: List.generate(
-            widget.listOrder!.length,
-            (index) {
-              var items = widget.listOrder![index];
-              int? qtyItems = widget.listOrder![index].qty;
-              int? priceItems = widget.listOrder![index].price;
-              var totalItems = qtyItems! * priceItems!;
-              stateTotalPrice(totalItems);
-              return Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      // Text(items.name!),
-                      Text(items.id!.toString()),
-                      Text(qtyItems.toString()),
-                      Text(oCcy.format(priceItems)),
-                      Text(oCcy.format(totalItems)),
-                    ],
-                  ),
-                  rowLineProfileDivider(),
-                  // index + 1 == listOrderName.length
-                  // ? Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //   children: [
-                  //     const Text(""),
-                  //     const Text(""),
-                  //     const Text(""),
-                  //     Text("Rp ${totalPrice.reduce((a, b) => a + b)},-"),
-                  //   ],
-                  // )
-                  // : const SizedBox.shrink(),
-                ],
-              );
-            },
+        SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            // mainAxisSize: MainAxisSize.min,
+            children: List.generate(
+              widget.listOrder!.length,
+              (index) {
+                var items = widget.listOrder![index];
+                int? qtyItems = widget.listOrder![index].qty;
+                int? priceItems = widget.listOrder![index].price;
+                var totalItems = qtyItems! * priceItems!;
+                stateTotalPrice(totalItems);
+                return Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        // Text(items.name!),
+                        Text(items.id!.toString()),
+                        Text(qtyItems.toString()),
+                        Text(MathHelper().oCcy.format(priceItems)),
+                        Text(MathHelper().oCcy.format(totalItems)),
+                      ],
+                    ),
+                    rowLineProfileDivider(),
+                    // index + 1 == listOrderName.length
+                    // ? Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //   children: [
+                    //     const Text(""),
+                    //     const Text(""),
+                    //     const Text(""),
+                    //     Text("Rp ${totalPrice.reduce((a, b) => a + b)},-"),
+                    //   ],
+                    // )
+                    // : const SizedBox.shrink(),
+                  ],
+                );
+              },
+            ),
           ),
         ),
         Row(
@@ -138,7 +151,7 @@ class _DetailHistoryOrdersPageState extends State<DetailHistoryOrdersPage> {
             const Text(""),
             const Text(""),
             const Text(""),
-            Text(oCcy.format(totalPrice.reduce((a, b) => a + b))),
+            Text(MathHelper().oCcy.format(totalPrice.reduce((a, b) => a + b))),
           ],
         ),
       ],
