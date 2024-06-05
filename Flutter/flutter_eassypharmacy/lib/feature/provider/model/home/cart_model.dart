@@ -38,7 +38,19 @@ class CartItems extends Model {
         qty: Model.castInt(json['qty']),
       );
 
-  void setQty(int? value) {
-    qty = value;
+  CartItems copyWith({
+    int? idNew,
+    String? nameNew,
+    int? priceNew,
+    String? imageNew,
+    int? qtyNew,
+  }) {
+    return CartItems(
+      id: idNew ?? id,
+      name: nameNew ?? name,
+      price: priceNew ?? price,
+      image: imageNew ?? image,
+      qty: qtyNew ?? qty,
+    );
   }
 }

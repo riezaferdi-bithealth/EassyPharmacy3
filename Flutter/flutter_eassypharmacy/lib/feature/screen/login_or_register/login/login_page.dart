@@ -1,6 +1,6 @@
 import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
-import 'package:flutter_eassypharmacy/feature/screen/login_or_register/register/register.dart';
+import 'package:flutter_eassypharmacy/feature/screen/login_or_register/register/register_page.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -89,9 +89,6 @@ class LoginPage extends StatelessWidget {
           message: passwordMessage,
           controller: passwordController,
         ),
-        // const ColumnDivider(padding: space8),
-        // Text(passwordRequirements, style: p12.primary.normal),
-        // Center(child: Text("Or Login Using Phone Number"),),
       ],
     );
   }

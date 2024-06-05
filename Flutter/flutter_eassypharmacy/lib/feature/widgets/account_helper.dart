@@ -1,11 +1,5 @@
 import 'package:flutter_eassypharmacy/feature/features.dart';
 
-// const String kLoginUserEmail = "login.user.email";
-// const String kUserId = "user.id";
-// const String kUserPhone = "user.phone";
-// const String kFcmToken = "fcm.token";
-
-//login
 const String kIdUserLogin = "login.id";
 const String kFullNameUserLogin = "login.fullName";
 const String kPhoneNumberUserLogin = "login.phoneNumber";
@@ -13,11 +7,6 @@ const String kEmailUserLogin = "login.email";
 const String kFcmTokenUserLogin = "login.fcmToken";
 
 class AccountHelper {
-  // static Future<void> saveUserInfo(String email, String password) async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   prefs.setString(kLoginUserEmail, email);
-  // }
-
   static Future<void> saveUserInfoFromLogin(LoginModel verifiedModel) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(kIdUserLogin, verifiedModel.data!.id.toString());

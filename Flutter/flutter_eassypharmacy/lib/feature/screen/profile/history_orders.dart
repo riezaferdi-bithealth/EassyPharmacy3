@@ -36,6 +36,7 @@ class _HistoryOrdersState extends State<HistoryOrders> {
           ),
         ),
         body: Container(
+          width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
@@ -52,7 +53,11 @@ class _HistoryOrdersState extends State<HistoryOrders> {
           ),
           child: Padding(
             padding: const EdgeInsets.only(left: space16, right: space16),
-            child: topBarSection(),
+            child: Column(
+              children: [
+                topBarSection(),
+              ],
+            ),
           ),
         ),
       ),
@@ -61,10 +66,11 @@ class _HistoryOrdersState extends State<HistoryOrders> {
 
   Widget topBarSection() {
     return const Expanded(
-        child: SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
-      scrollDirection: Axis.vertical,
-      child: ListViewHistoryOrders(),
-    ));
+      child: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        child: ListViewHistoryOrders(),
+      ),
+    );
   }
 }

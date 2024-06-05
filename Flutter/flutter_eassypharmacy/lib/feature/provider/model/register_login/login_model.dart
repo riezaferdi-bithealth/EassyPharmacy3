@@ -27,20 +27,17 @@ class UserModel {
     this.fullName,
     this.email,
     this.phone,
-    // this.mobileFcmToken,
   });
 
   int? id;
   String? fullName;
   String? email;
   String? phone;
-  // String? mobileFcmToken;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         id: Model.castInt(json["id"]),
         fullName: Model.castString(json["fullname"]),
         email: Model.castString(json["email"]),
         phone: Model.castString(json["phoneNumber"]),
-        // mobileFcmToken: Model.castString(json["mobile_fcm_token"]),
       );
 }

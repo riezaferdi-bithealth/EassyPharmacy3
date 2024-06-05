@@ -105,7 +105,6 @@ class _DetailHistoryOrdersPageState extends State<DetailHistoryOrdersPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
-            // mainAxisSize: MainAxisSize.min,
             children: List.generate(
               widget.listOrder!.length,
               (index) {
@@ -119,7 +118,6 @@ class _DetailHistoryOrdersPageState extends State<DetailHistoryOrdersPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        // Text(items.name!),
                         Text(items.id!.toString()),
                         Text(qtyItems.toString()),
                         Text(MathHelper().oCcy.format(priceItems)),
@@ -127,17 +125,6 @@ class _DetailHistoryOrdersPageState extends State<DetailHistoryOrdersPage> {
                       ],
                     ),
                     rowLineProfileDivider(),
-                    // index + 1 == listOrderName.length
-                    // ? Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //   children: [
-                    //     const Text(""),
-                    //     const Text(""),
-                    //     const Text(""),
-                    //     Text("Rp ${totalPrice.reduce((a, b) => a + b)},-"),
-                    //   ],
-                    // )
-                    // : const SizedBox.shrink(),
                   ],
                 );
               },
@@ -146,7 +133,6 @@ class _DetailHistoryOrdersPageState extends State<DetailHistoryOrdersPage> {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          // crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             const Text(""),
             const Text(""),

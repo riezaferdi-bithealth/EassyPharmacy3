@@ -1,6 +1,6 @@
 import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
-import 'package:flutter_eassypharmacy/feature/screen/login_or_register/login/login.dart';
+import 'package:flutter_eassypharmacy/feature/screen/login_or_register/login/login_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -62,13 +62,6 @@ class _RegisterPageState extends State<RegisterPage> {
           passwordController.text,
           emailController.text,
         );
-
-    // GetRegisterCubit().getRegister(
-    //   nameController.text,
-    //   emailController.text,
-    //   phoneController.text,
-    //   passwordController.text,
-    // );
   }
 
   bool _validateEmail(String value) {

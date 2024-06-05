@@ -12,7 +12,6 @@ class ListViewHistoryOrders extends StatefulWidget {
 }
 
 class _ListViewHistoryOrdersState extends State<ListViewHistoryOrders> {
-
   @override
   void initState() {
     super.initState();
@@ -27,7 +26,7 @@ class _ListViewHistoryOrdersState extends State<ListViewHistoryOrders> {
         } else if (state is LoadedGetHistoryOrder) {
           //make container for list of medicines
           return state.listData.isEmpty
-              ? const SearchNotFound()
+              ? const SizedBox.shrink()
               : ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),

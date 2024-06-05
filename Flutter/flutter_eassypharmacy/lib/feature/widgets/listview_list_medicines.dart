@@ -48,7 +48,6 @@ class _ListViewListMedicinesState extends State<ListViewListMedicines> {
         if (state is LoadingGetListMedicines) {
         } else if (state is NotLoadedGetListMedicines) {
         } else if (state is LoadedGetListMedicines) {
-          //make container for list of medicines
           return state.listData.isEmpty
               ? const SearchNotFound()
               : ListView.builder(
@@ -96,7 +95,6 @@ class _ListViewListMedicinesState extends State<ListViewListMedicines> {
                                     ? systemRedColor
                                     : systemPrimaryColor,
                                 width: MediaQuery.of(context).size.width / 4,
-                                // height: 56,
                                 circular: space12,
                                 onPressed: () {
                                   if (item.stock! > 0) {
@@ -127,10 +125,9 @@ class _ListViewListMedicinesState extends State<ListViewListMedicines> {
                                 child: CachedNetworkImage(
                                   imageUrl: item.image!,
                                   fit: BoxFit.fill,
-                                  height: MediaQuery.of(context).size.height /
-                                      10, //70
-                                  width: MediaQuery.of(context).size.width /
-                                      5, //120
+                                  height:
+                                      MediaQuery.of(context).size.height / 10,
+                                  width: MediaQuery.of(context).size.width / 5,
                                   placeholder: (context, url) => const Center(
                                     child: SizedBox(
                                       height: space20,

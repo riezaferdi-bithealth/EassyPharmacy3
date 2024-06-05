@@ -23,8 +23,6 @@ class _FilterButtonState extends State<FilterButton> {
 
   void showBottomSheetFilter(BuildContext contextMain) async {
     showModalBottomSheet(
-      // isDismissible: false,
-      // enableDrag: false,
       useSafeArea: true,
       isScrollControlled: true,
       backgroundColor: systemWhiteColor,
@@ -54,15 +52,6 @@ class _FilterButtonState extends State<FilterButton> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // GestureDetector(
-                      //   onTap: () {
-                      //     Navigator.pop(context);
-                      //   },
-                      //   child: const Icon(
-                      //     Assets.close,
-                      //     size: space20,
-                      //   ),
-                      // ),
                       Text(
                         filter,
                         style: p16.semiBold,
@@ -90,15 +79,6 @@ class _FilterButtonState extends State<FilterButton> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // GestureDetector(
-                      //   onTap: () {
-                      //     Navigator.pop(context);
-                      //   },
-                      //   child: const Icon(
-                      //     Assets.close,
-                      //     size: space20,
-                      //   ),
-                      // ),
                       Text(
                         sort,
                         style: p16.semiBold,
@@ -109,7 +89,6 @@ class _FilterButtonState extends State<FilterButton> {
                 const ColumnDivider(padding: space30),
                 Column(
                   mainAxisSize: MainAxisSize.min,
-                  //divider: const ColumnDivider(padding: space18),
                   children: [
                     Row(
                       children: [
@@ -147,13 +126,6 @@ class _FilterButtonState extends State<FilterButton> {
                       width: double.infinity,
                       circular: 8,
                       onPressed: () {
-                        print(isFilterByStockAvail);
-                        print(isFilterByStockUnavail);
-                        print(isSortByNameAsc);
-                        print(isSortByNameDesc);
-                        print(isSortByStockAsc);
-                        print(isSortByStockDesc);
-
                         if (isFilterByStockAvail == true ||
                             isFilterByStockUnavail == true ||
                             isSortByNameAsc == true ||
@@ -164,7 +136,7 @@ class _FilterButtonState extends State<FilterButton> {
                         } else {
                           isFilterOn = false;
                         }
-                        // setState(() {});
+
                         contextMain
                             .read<GetListMedicinesCubit>()
                             .getListMedicines(
@@ -194,23 +166,14 @@ class _FilterButtonState extends State<FilterButton> {
       builder: (context, state) {
         return GestureDetector(
           onTap: () {
-            // if (isFilterOn == false) {
-            // isFilterOn = true;
             showBottomSheetFilter(context);
-            // } else {
-            //   isFilterOn = false;
-            // }
-            // setState(() {});
           },
           child: Container(
             width: MediaQuery.of(context).size.width / 5.5,
             height: MediaQuery.of(context).size.height / 18,
-            // padding: const EdgeInsets.only(right: space8),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(space8),
               color: systemWhiteColor,
-              // color:
-              //     isFilterOn == true ? systemPrimary50Color : systemWhiteColor,
               border: Border.all(
                 color: systemPrimaryColor,
                 width: 1,
@@ -231,37 +194,7 @@ class _FilterButtonState extends State<FilterButton> {
                       size: 20,
                     )
                   ],
-                )
-                // child: isFilterOn == true
-                //     ? Row(
-                //         children: [
-                //           Text(
-                //             filterOn,
-                //             style: p12.black.normal,
-                //           ),
-                //           const RowDivider(padding: space4),
-                //           const Icon(
-                //             Assets.filterOn,
-                //             color: Colors.black,
-                //             size: 20,
-                //           )
-                //         ],
-                //       )
-                //     : Row(
-                //         children: [
-                //           Text(
-                //             filterOff,
-                //             style: p12.grey.normal,
-                //           ),
-                //           const RowDivider(padding: space4),
-                //           const Icon(
-                //             Assets.filterOff,
-                //             color: Colors.black,
-                //             size: 20,
-                //           )
-                //         ],
-                //       ),
-                ),
+                )),
           ),
         );
       },
@@ -290,7 +223,6 @@ class _FilterButtonState extends State<FilterButton> {
               child: Container(
                 width: MediaQuery.of(context).size.width / 5,
                 height: MediaQuery.of(context).size.height / 20,
-                // padding: const EdgeInsets.only(right: space8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(space8),
                   color: isFilterByStockAvail == true
@@ -327,7 +259,6 @@ class _FilterButtonState extends State<FilterButton> {
               child: Container(
                 width: MediaQuery.of(context).size.width / 4.6,
                 height: MediaQuery.of(context).size.height / 20,
-                // padding: const EdgeInsets.only(right: space8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(space8),
                   color: isFilterByStockUnavail == true
@@ -374,7 +305,6 @@ class _FilterButtonState extends State<FilterButton> {
               child: Container(
                 width: MediaQuery.of(context).size.width / 5,
                 height: MediaQuery.of(context).size.height / 18,
-                // padding: const EdgeInsets.only(right: space8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(space8),
                   color: isSortByNameAsc == true
@@ -421,7 +351,6 @@ class _FilterButtonState extends State<FilterButton> {
               child: Container(
                 width: MediaQuery.of(context).size.width / 5,
                 height: MediaQuery.of(context).size.height / 18,
-                // padding: const EdgeInsets.only(right: space8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(space8),
                   color: isSortByNameDesc == true
@@ -478,7 +407,6 @@ class _FilterButtonState extends State<FilterButton> {
               child: Container(
                 width: MediaQuery.of(context).size.width / 5,
                 height: MediaQuery.of(context).size.height / 18,
-                // padding: const EdgeInsets.only(right: space8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(space8),
                   color: isSortByStockAsc == true
@@ -494,7 +422,7 @@ class _FilterButtonState extends State<FilterButton> {
                   child: Row(
                     children: [
                       Text(
-                        oneHundred,
+                        zeroHundred,
                         style: p12.black.normal,
                       ),
                       const RowDivider(padding: space4),
@@ -525,7 +453,6 @@ class _FilterButtonState extends State<FilterButton> {
               child: Container(
                 width: MediaQuery.of(context).size.width / 5,
                 height: MediaQuery.of(context).size.height / 18,
-                // padding: const EdgeInsets.only(right: space8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(space8),
                   color: isSortByStockDesc == true
@@ -541,7 +468,7 @@ class _FilterButtonState extends State<FilterButton> {
                   child: Row(
                     children: [
                       Text(
-                        hundredOne,
+                        hundredZero,
                         style: p12.black.normal,
                       ),
                       const RowDivider(padding: space4),

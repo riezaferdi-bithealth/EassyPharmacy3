@@ -5,24 +5,17 @@ class Login extends VmsEngine {
   String get tag => '';
 
   Future<BaseModel<LoginModel>>? submitLogin(
-    // String? phoneNumber,
     String? email,
     String? password,
   ) async {
-    // final response =
-    //     await rootBundle.loadString('assets/json/login.json');
-    // final result = await json.decode(response);
     String url = "${VmsEngine.url!}/user/login";
 
     var uri = Uri.parse(url);
 
     var param = jsonEncode({
-       // "phone_number": phoneNumber,
       "email": email,
       "password": password,
     });
-
-    print("param ${param}");
 
     var result = await _process(
       url: uri.toString(),
@@ -36,8 +29,8 @@ class Login extends VmsEngine {
     if (result['status'] == true) {
       return BaseModel(
         status: result['status'],
-        value:
-            result != null ? LoginModel.fromJson(result) : null,
+        message: result['message'],
+        value: result != null ? LoginModel.fromJson(result) : null,
       );
     } else {
       return BaseModel(

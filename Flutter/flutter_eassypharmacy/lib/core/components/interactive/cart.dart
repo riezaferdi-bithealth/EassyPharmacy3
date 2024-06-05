@@ -4,34 +4,15 @@ class Cart extends VmsEngine {
   @override
   String get tag => '';
 
-//   import "dart:convert";
-
-// "id_struct": MathHelper().getRandomString(uidLength),
-
   Future<BaseModel<CartModel>>? addCart(
     int? idUser,
     List<dynamic>? listItems,
-    // int? idItems,
-    // String? nameItems,
-    // int? priceItems,
   ) async {
     String url = "${VmsEngine.url!}/orders/cart";
 
     var uri = Uri.parse(url);
 
-    var param = jsonEncode({
-      "id_user": idUser,
-      "list_medicines": listItems
-      // [
-      //   {
-      //     "id": idItems,
-      //     "name": nameItems,
-      //     "price": priceItems,
-      //   }
-      // ]
-    });
-
-    print("param ${param}");
+    var param = jsonEncode({"id_user": idUser, "list_medicines": listItems});
 
     var result = await _process(
       url: uri.toString(),
@@ -58,29 +39,13 @@ class Cart extends VmsEngine {
   Future<BaseModel<CartModel>>? removeCart(
     int? idUser,
     List<dynamic>? listItems,
-    // int? idItems,
-    // String? nameItems,
-    // int? priceItems,
   ) async {
-    // print(listItems);
     final String jsonString = jsonEncode(listItems);
     String url = "${VmsEngine.url!}/orders/cart/item/$idUser/$jsonString";
 
     var uri = Uri.parse(url);
 
-    var param = jsonEncode({
-      // "id_user": idUser,
-      // "list_medicines": listItems
-      // [
-      //   {
-      //     "id": idItems,
-      //     "name": nameItems,
-      //     "price": priceItems,
-      //   }
-      // ]
-    });
-
-    print("url $url");
+    var param = jsonEncode({});
 
     var result = await _process(
       url: uri.toString(),
@@ -107,27 +72,12 @@ class Cart extends VmsEngine {
   Future<BaseModel<CartModel>>? orderCart(
     int? idUser,
     List<dynamic>? listItems,
-    // int? idItems,
-    // String? nameItems,
-    // int? priceItems,
   ) async {
     String url = "${VmsEngine.url!}/orders/checkout";
 
     var uri = Uri.parse(url);
 
-    var param = jsonEncode({
-      "id_user": idUser,
-      "list_medicines": listItems
-      // [
-      //   {
-      //     "id": idItems,
-      //     "name": nameItems,
-      //     "price": priceItems,
-      //   }
-      // ]
-    });
-
-    print("param ${param}");
+    var param = jsonEncode({"id_user": idUser, "list_medicines": listItems});
 
     var result = await _process(
       url: uri.toString(),

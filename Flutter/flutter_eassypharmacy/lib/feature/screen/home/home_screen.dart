@@ -41,23 +41,7 @@ class _HomePageState extends State<HomePage>
         )
       ],
       child: Scaffold(
-        // floatingActionButton: listsAddToCart.isEmpty
-        //     ? const SizedBox.shrink()
-        //     : FloatingActionButton.extended(
-        //         backgroundColor: systemPrimaryColor,
-        //         // tooltip: 'Increment',
-        //         onPressed: () {
-        //           onClickedCart(context);
-        //         },
-        //         label: Text(
-        //           checkOrders,
-        //           style: p14.white.bold,
-        //         ),
-        //         icon: const Icon(Icons.list_alt, color: Colors.white, size: 28),
-        //       ),
-        // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: Container(
-          // color: systemWhiteColor,
           height: double.infinity,
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -85,7 +69,6 @@ class _HomePageState extends State<HomePage>
                 style: p16.primary.medium,
               ),
               const ColumnDivider(padding: space16),
-              //search button
               Row(
                 children: [
                   Expanded(child: SearchTopBar(controller: _searchController)),
@@ -105,22 +88,14 @@ class _HomePageState extends State<HomePage>
                       child: Container(
                         width: MediaQuery.of(context).size.width / 4,
                         height: MediaQuery.of(context).size.height / 18,
-                        // padding: const EdgeInsets.only(right: space8),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(space12),
                           color: systemPrimaryColor,
-                          // color:
-                          //     isFilterOn == true ? systemPrimary50Color : systemWhiteColor,
-                          // border: Border.all(
-                          //   color: systemPrimaryColor,
-                          //   width: 1,
-                          // ),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(space8),
                           child: Container(
                             color: systemPrimaryColor,
-                            // padding: const EdgeInsets.all(space8),
                             child: Row(
                               children: [
                                 Icon(

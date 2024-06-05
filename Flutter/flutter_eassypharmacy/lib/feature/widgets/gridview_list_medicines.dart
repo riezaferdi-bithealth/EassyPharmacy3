@@ -46,14 +46,12 @@ class _GridViewListMedicinesState extends State<GridViewListMedicines>
 
   @override
   Widget build(BuildContext context) {
-    //make container for list of medicines
     return BlocConsumer<GetListMedicinesCubit, GetListMedicinesState>(
       builder: (context, state) {
         if (state is LoadingGetListMedicines) {
           return shimmerGridView();
         } else if (state is NotLoadedGetListMedicines) {
         } else if (state is LoadedGetListMedicines) {
-          // print("ada: ${widget.controller!.text}");
           return state.listData.isEmpty
               ? const SearchNotFound()
               : GridView.count(
@@ -91,7 +89,6 @@ class _GridViewListMedicinesState extends State<GridViewListMedicines>
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          // mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             ClipRRect(
                               borderRadius: const BorderRadius.all(

@@ -9,8 +9,7 @@ class Assets {
   static const String noNetworkImage = "assets/images/no_image.jpg";
   static const String searchNotFoundImage =
       "assets/images/search_not_found.png";
-  static const String cartIsEmptyImage =
-      "assets/images/cart_is_empty.png";
+  static const String cartIsEmptyImage = "assets/images/cart_is_empty.png";
 
   //Home
   static const Icon cartIcon = Icon(Icons.shopping_cart);

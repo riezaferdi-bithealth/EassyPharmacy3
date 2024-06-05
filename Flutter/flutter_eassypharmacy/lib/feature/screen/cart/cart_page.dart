@@ -30,8 +30,6 @@ class _CartPageState extends State<CartPage> {
   void showBottomSheetFilter(
       BuildContext contextMain, List<dynamic> listItems) async {
     showModalBottomSheet(
-      // isDismissible: false,
-      // enableDrag: false,
       useSafeArea: true,
       isScrollControlled: true,
       backgroundColor: systemWhiteColor,
@@ -89,13 +87,23 @@ class _CartPageState extends State<CartPage> {
                             create: (context) => OrderCartCubit(),
                           ),
                         ],
-                        // create: (context) => OrderCartCubit(),
                         child: Expanded(
                           child: BlocConsumer<OrderCartCubit, OrderCartState>(
                             listener: (context, state) {
                               if (state is NotLoadedOrderCart) {
                                 Commons().snackbarError(context, state.error);
                               } else if (state is LoadedOrderCart) {
+                                for (var item in state.listData.data!) {
+                                  List<dynamic> listItems = [];
+                                  listItems.add({
+                                    "id": item.id,
+                                    "price": item.price,
+                                  });
+                                  context
+                                      .read<RemoveCartCubit>()
+                                      .removeCart(listItems);
+                                }
+                                
                                 tabIndex.value = 0;
 
                                 Navigator.pushAndRemoveUntil(
@@ -133,9 +141,6 @@ class _CartPageState extends State<CartPage> {
                                           context
                                               .read<OrderCartCubit>()
                                               .orderCart(listItems);
-                                          context
-                                              .read<RemoveCartCubit>()
-                                              .removeCart(listItems);
                                         },
                                       ),
                           ),
@@ -160,9 +165,6 @@ class _CartPageState extends State<CartPage> {
         BlocProvider(
           create: (context) => RemoveCartCubit()..removeCart([]),
         ),
-        // BlocProvider(
-        //   create: (context) => OrderCartCubit(),
-        // ),
       ],
       child: Scaffold(
         appBar: AppBar(
@@ -226,7 +228,6 @@ class _CartPageState extends State<CartPage> {
                         height: 56,
                         circular: space12,
                         onPressed: () {
-                          // print(listItems);
                           showBottomSheetFilter(context, listItems);
                         },
                       ),

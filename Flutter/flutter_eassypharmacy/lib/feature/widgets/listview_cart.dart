@@ -13,23 +13,23 @@ class _ListViewCartState extends State<ListViewCart> {
   int num = 1;
   final List<int> totalPrice = [];
 
-  void sumTotalPrice() {
-    setState(() {
-      totalPriceGlobal.value = totalPrice.reduce((a, b) => a + b);
-    });
+  void removeCartData(List<dynamic> listToRemove) {
+    context.read<RemoveCartCubit>().removeCart(listToRemove);
+    Commons().snackbarError(context, itemRemoved);
+    _handleRefresh();
   }
 
-  void removeCartData(List<dynamic> listToRemove) {
-    // List<dynamic> listRemove = [];
-    // listRemove.add(listToRemove);
-    context.read<RemoveCartCubit>().removeCart(listToRemove);
-    context.read<GetCartCubit>().getCart([]);
-    Commons().snackbarError(context, itemRemoved);
+  Future<void> _handleRefresh() async {
+    // Simulate a network request delay
+    await Future.delayed(const Duration(seconds: delayRefreshCart));
+
+    setState(() {
+      context.read<GetCartCubit>().getCart([]);
+    });
   }
 
   stateTotalPrice(int qty, int price) {
     totalPrice.add(qty * price);
-    // sumTotalPrice();
     return MathHelper().oCcy.format(qty * price);
   }
 
@@ -45,7 +45,6 @@ class _ListViewCartState extends State<ListViewCart> {
         if (state is LoadingGetCart) {
         } else if (state is NotLoadedGetCart) {
         } else if (state is LoadedGetCart) {
-          //make container for list of medicines
           return state.listData.isEmpty
               ? Container(
                   height: double.infinity,
@@ -76,7 +75,6 @@ class _ListViewCartState extends State<ListViewCart> {
                     itemCount: state.listData.length,
                     itemBuilder: (context, index) {
                       var item = state.listData[index];
-                      var newQty = item.qty!;
                       return Container(
                         padding: const EdgeInsets.all(space8),
                         margin: const EdgeInsets.all(space8),
@@ -172,34 +170,30 @@ class _ListViewCartState extends State<ListViewCart> {
                                               children: [
                                                 GestureDetector(
                                                   onTap: () {
-                                                    newQty++;
-                                                    item.qty = newQty;
-                                                    // context
-                                                    //     .read<GetCartCubit>()
-                                                    //     .addQty(
-                                                    //       state.listData,
-                                                    //       item.id!,
-                                                    //     );
+                                                    context
+                                                        .read<GetCartCubit>()
+                                                        .addQty(
+                                                          state.listData,
+                                                          item.id!,
+                                                        );
                                                     setState(() {});
                                                   },
                                                   child:
                                                       const Icon(Assets.addQty),
                                                 ),
                                                 Text(
-                                                  newQty.toString(),
+                                                  item.qty.toString(),
                                                   style: p18.primary.normal,
                                                 ),
                                                 GestureDetector(
                                                   onTap: () {
-                                                    if (newQty > 1) {
-                                                      newQty--;
-                                                      item.qty = newQty;
-                                                      // context
-                                                      //     .read<GetCartCubit>()
-                                                      //     .subsQty(
-                                                      //       state.listData,
-                                                      //       item.id!,
-                                                      //     );
+                                                    if (item.qty! > 1) {
+                                                      context
+                                                          .read<GetCartCubit>()
+                                                          .subsQty(
+                                                            state.listData,
+                                                            item.id!,
+                                                          );
                                                     }
                                                     setState(() {});
                                                   },
@@ -210,7 +204,7 @@ class _ListViewCartState extends State<ListViewCart> {
                                             ),
                                           ),
                                           Text(
-                                            "Total: ${stateTotalPrice(newQty, item.price!)}",
+                                            "Total: ${stateTotalPrice(item.qty!, item.price!)}",
                                             style: p18.primary.normal,
                                           ),
                                         ],

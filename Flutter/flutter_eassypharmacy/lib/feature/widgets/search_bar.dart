@@ -35,7 +35,6 @@ class _SearchTopBarState extends State<SearchTopBar> {
           padding: const EdgeInsets.only(left: space16, right: space8),
           child: Form(
             child: TextFormField(
-              // validator: _validatorForm,
               onChanged: (value) {
                 setState(() {
                   query = value;
@@ -46,9 +45,8 @@ class _SearchTopBarState extends State<SearchTopBar> {
               style: p14.black.normal,
               decoration: InputDecoration(
                 fillColor: systemWhiteColor,
-                //hoverColor: systemWhiteColor,
-                // prefixIcon: Icon(Icons.search),
-                contentPadding: const EdgeInsets.symmetric(vertical: space12, horizontal: space12),
+                contentPadding: const EdgeInsets.symmetric(
+                    vertical: space12, horizontal: space12),
                 suffixIcon: Assets.search,
                 filled: true,
                 border:
@@ -67,8 +65,6 @@ class _SearchTopBarState extends State<SearchTopBar> {
                 hintStyle: p14.black.normal,
                 hintText: search,
                 isDense: true,
-                // contentPadding: ,
-                // errorText: "Value Can't Be Empty",
               ),
             ),
           ),

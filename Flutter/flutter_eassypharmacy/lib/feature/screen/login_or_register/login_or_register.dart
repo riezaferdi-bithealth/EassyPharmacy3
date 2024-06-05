@@ -1,7 +1,7 @@
 import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
-import 'login/login.dart';
-import 'register/register.dart';
+import 'login/login_page.dart';
+import 'register/register_page.dart';
 
 class LoginOrRegisterPage extends StatelessWidget {
   const LoginOrRegisterPage({super.key});
@@ -21,7 +21,6 @@ class LoginOrRegisterPage extends StatelessWidget {
         ),
       ),
       body: Container(
-        // color: systemWhiteColor,
         height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -43,13 +42,11 @@ class LoginOrRegisterPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // const ColumnDivider(padding: topBarPadding),
               Image.asset(
                 Assets.landingPageLogo,
                 height: splashHeight,
                 width: splashWidth,
               ),
-              // Text(loginOrRegister, style: p30.primary.bold),
               const ColumnDivider(padding: space30),
               GeneralButton.text(
                 login,

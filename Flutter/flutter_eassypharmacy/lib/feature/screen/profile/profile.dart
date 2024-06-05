@@ -67,10 +67,7 @@ class _ProfileState extends State<Profile> {
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                // mainAxisAlignment: MainAxisAlignment.center,
-                // mainAxisSize: MainAxisSize.min,
                 children: [
-                  // const ColumnDivider(padding: space8),
                   Center(
                     child: Text(
                       "Hello, ${getFirstName(userName ?? '')}",

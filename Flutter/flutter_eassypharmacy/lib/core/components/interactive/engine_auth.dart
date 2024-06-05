@@ -655,7 +655,6 @@ abstract class VmsEngine {
 
     var result = await dio.download(url, savePath,
         options: options, cancelToken: token, onReceiveProgress: (rec, total) {
-      // logger.d(" Progress Precentage ${(rec / total * 100).toStringAsFixed(0)} %");
       logger.d(" 1 1 Rec: $rec , Total: $total");
     }).catchError((error) async {
       return _handleDownloadError(
@@ -669,8 +668,6 @@ abstract class VmsEngine {
         tokenType,
       );
     });
-
-    // print("result ${result.toString()}");
 
     return result.statusCode == 200;
   }
@@ -738,53 +735,6 @@ abstract class VmsEngine {
         logger.d("$processName from: $url");
         logger.d(result.data);
       }
-      // else if (result.statusCode == 401 || result.statusCode == 402) {
-      //   loggerError.e("Endpoint $processName : $url");
-      //   loggerError.e("Data : ${result?.data ?? ""}");
-      //   // loggerError.e("Msg : ${result.data['message'][0]}");
-      //   //tabIndex.value = 0;
-      //   showDialog<String>(
-      //     context: context!,
-      //     barrierDismissible: false,
-      //     builder: (BuildContext context) {
-      //       String title = "session_end";
-      //       String message = "please_login";
-      //       //String btnLabel = "Update Sekarang";
-      //       return WillPopScope(
-      //           onWillPop: null,
-      //           child: AlertDialog(
-      //             title:
-      //                 Center(child: Text(title, style: p16.semiBold.primary)),
-      //             content: Text(
-      //               message,
-      //               style: p12,
-      //               textAlign: TextAlign.center,
-      //             ),
-      //             actions: <Widget>[
-      //               Container(
-      //                 margin: EdgeInsets.only(left: 16, right: 16, bottom: 16),
-      //                 child: GeneralButton.text(
-      //                   'Ok',
-      //                   //height: 42,
-      //                   padding: EdgeInsets.symmetric(vertical: 6),
-      //                   backgroundColor: systemPrimaryColor,
-      //                   buttonSize: ButtonSize.large,
-      //                   width: double.infinity,
-      //                   circular: 10,
-      //                   onPressed: () {
-      //                     context!
-      //                         .read<AuthenticationCubit>()
-      //                         .logoutWithoutHitApi();
-      //                     Routing.pushAndRemoveUntil(
-      //                         context!, InitContainer(), (route) => false);
-      //                   },
-      //                 ),
-      //               ),
-      //             ],
-      //           ));
-      //     },
-      //   );
-      // }
       else {
         loggerError.e("$processName from: $url");
         loggerError.e(result.data);
@@ -836,9 +786,6 @@ abstract class VmsEngine {
         logger.d("$sent $total");
       },
     ).catchError((error) {
-      // logger.d("Options ${options.headers}");
-      // logger.d("Param $param");
-      // logger.d("Error lagi $error");
       return _handleError(context, counter, refreshCounter, error, url, token!,
           tokenType, RequestType.post,
           param: param);

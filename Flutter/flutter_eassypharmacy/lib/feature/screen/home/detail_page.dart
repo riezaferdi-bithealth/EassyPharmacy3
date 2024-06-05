@@ -100,7 +100,6 @@ class _DetailPageState extends State<DetailPage> {
                   child: Image.network(
                     widget.image!,
                     fit: BoxFit.fill,
-                    // scale: imageScaleListMedicine,
                     height: MediaQuery.of(context).size.height / 3,
                     width: MediaQuery.of(context).size.width / 1.5,
                   ),
@@ -156,7 +155,6 @@ class _DetailPageState extends State<DetailPage> {
                               ? systemRedColor
                               : systemPrimaryColor,
                           width: double.infinity,
-                          // height: 56,
                           circular: space12,
                           onPressed: () {
                             if (widget.stocks! > 0) {

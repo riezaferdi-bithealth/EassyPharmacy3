@@ -50,8 +50,6 @@ class _AccountDetailsState extends State<AccountDetails> {
         ),
       ),
       body: Container(
-        // color: systemWhiteColor,
-        // height: double.infinity,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           gradient: LinearGradient(

@@ -1,15 +1,6 @@
 import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
 
-// class Form extends StatelessWidget {
-//   const Form({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const Placeholder();
-//   }
-// }
-
 class FormInput {
   Widget text(
     String id,
@@ -22,14 +13,10 @@ class FormInput {
         Text(id, style: p14.primary.medium),
         const ColumnDivider(padding: space8),
         TextFormField(
-          // validator: _validatorForm,
-          // initialValue: "tes",
           controller: controller,
-          // style: p14.black,
           keyboardType: TextInputType.text,
           decoration: InputDecoration(
             fillColor: systemWhiteColor,
-            //hoverColor: systemWhiteColor,
             filled: true,
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(space12)),
@@ -48,8 +35,6 @@ class FormInput {
             hintStyle: p14.grey,
             hintText: message,
             isDense: true,
-            // contentPadding: paddingTextField,
-            // errorText: "Value Can't Be Empty",
           ),
         ),
       ],
@@ -67,14 +52,10 @@ class FormInput {
         Text(id, style: p14.primary.medium),
         const ColumnDivider(padding: space8),
         TextFormField(
-          // validator: _validatorForm,
-          // initialValue: "tes",
           controller: controller,
-          // style: p14.black,
           keyboardType: TextInputType.number,
           decoration: InputDecoration(
             fillColor: systemWhiteColor,
-            //hoverColor: systemWhiteColor,
             filled: true,
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(space12)),
@@ -93,8 +74,6 @@ class FormInput {
             hintStyle: p14.grey,
             hintText: message,
             isDense: true,
-            // contentPadding: paddingTextField,
-            // errorText: "Value Can't Be Empty",
           ),
         ),
       ],
@@ -135,15 +114,11 @@ class _FormInputPasswordState extends State<FormInputPassword> {
         Text(widget.id!, style: p14.primary.medium),
         const ColumnDivider(padding: space8),
         TextFormField(
-          // validator: _validatorForm,
-          // initialValue: "tes",
           controller: widget.controller,
-          // style: p14.black,
           obscureText: !_passwordVisible,
           keyboardType: TextInputType.text,
           decoration: InputDecoration(
             fillColor: systemWhiteColor,
-            //hoverColor: systemWhiteColor,
             filled: true,
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(space12)),
@@ -164,19 +139,15 @@ class _FormInputPasswordState extends State<FormInputPassword> {
             isDense: true,
             suffixIcon: IconButton(
               icon: Icon(
-                // Based on _passwordVisible state choose the icon
                 _passwordVisible ? Assets.passVisible : Assets.passNotVisible,
                 color: systemBlackColor,
               ),
               onPressed: () async {
-                // Update the state i.e. toogle the state of _passwordVisible variable
                 setState(() {
                   _passwordVisible = !_passwordVisible;
                 });
               },
             ),
-            // contentPadding: paddingTextField,
-            // errorText: "Value Can't Be Empty",
           ),
         ),
       ],
