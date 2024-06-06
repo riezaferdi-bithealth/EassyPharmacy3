@@ -6,7 +6,7 @@ part 'get_cart_state.dart';
 
 class GetCartCubit extends Cubit<GetCartState> {
   GetCartCubit() : super(InitialGetCart());
-  int totalPriceItems = 0;
+  late int totalPriceItems;
 
   void getCart(List<dynamic>? listItems) async {
     try {
@@ -22,6 +22,7 @@ class GetCartCubit extends Cubit<GetCartState> {
       logger.d(result!.value!);
 
       if (result.status == true) {
+        totalPriceItems = 0;
         logger.d(result.value);
         var listItems = result.value!.data!;
         for (var item in listItems) {
