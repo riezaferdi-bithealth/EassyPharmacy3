@@ -6,10 +6,14 @@ class Register extends VmsEngine {
 
   Future<BaseModel<RegisterModel>>? submitRegister(
     String? fullName,
+    // String? idNumber,
     String? phoneNumber,
     String? password,
     String? email,
   ) async {
+    // final response =
+    //     await rootBundle.loadString('assets/json/register.json');
+    // final result = await json.decode(response);
 
     String url = "${VmsEngine.url!}/user/register";
 
@@ -21,6 +25,8 @@ class Register extends VmsEngine {
       "password": password,
       "phoneNumber": phoneNumber,
     });
+
+    print("param ${param}");
 
     var result = await _process(
       url: uri.toString(),
@@ -34,7 +40,6 @@ class Register extends VmsEngine {
     if (result['status'] == true) {
       return BaseModel(
         status: result['status'],
-        message: result['message'],
         value: result['data'] != null ? RegisterModel.fromJson(result) : null,
       );
     } else {

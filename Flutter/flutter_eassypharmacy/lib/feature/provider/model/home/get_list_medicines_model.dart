@@ -23,7 +23,7 @@ class ListMedicines extends Model {
   int? price;
   int? stock;
   String? image;
-
+  
   ListMedicines({
     this.id,
     this.name,

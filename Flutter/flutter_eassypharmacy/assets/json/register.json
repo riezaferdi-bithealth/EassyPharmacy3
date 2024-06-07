@@ -1,0 +1,10 @@
+{
+  "status": true,
+  "message": "success",
+  "data": {
+    "id": 1,
+    "fullName": "zafer",
+    "email": "zafer@mail.com",
+    "phoneNumber": "081143215678"
+  }
+}

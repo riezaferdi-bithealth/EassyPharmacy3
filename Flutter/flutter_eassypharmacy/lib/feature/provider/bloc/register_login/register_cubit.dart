@@ -14,23 +14,28 @@ class GetRegisterCubit extends Cubit<GetRegisterState> {
     String? email,
   ) async {
     try {
+      // print("masuk try");
       emit(LoadingGetRegister());
-
+      // print("mau masuk result");
       final result = await APIRequest.register.submitRegister(
         fullName,
         phoneNumber,
         password,
         email,
       );
-
-      if (result!.message! != "success") {
-        logger.d(result);
-        emit(NotLoadedGetRegister(error: result.message!.toString()));
-      } else if (result.status == true) {
+      // print("mau logger ");
+      logger.d(result!.value!);
+      // print("mau masuk ");
+      if (result.status == true) {
         logger.d(result.value);
         emit(LoadedGetRegister());
+        // print("selesai IF");
+      } else {
+        logger.d(result);
+        emit(NotLoadedGetRegister(error: result.message!.toString()));
       }
     } catch (_) {
+      // print("Masuk catch");
       logger.d(_);
       emit(const NotLoadedGetRegister(error: '$systemError$unknown'));
     }

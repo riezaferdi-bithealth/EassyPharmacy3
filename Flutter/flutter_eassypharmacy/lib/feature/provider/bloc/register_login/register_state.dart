@@ -12,8 +12,13 @@ class InitialGetRegister extends GetRegisterState {}
 class LoadingGetRegister extends GetRegisterState {}
 
 class LoadedGetRegister extends GetRegisterState {
+  // final RegisterModel listData;
+  // const LoadedGetRegister({required this.listData});
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [
+        // listData,
+      ];
 }
 
 class NotLoadedGetRegister extends GetRegisterState {

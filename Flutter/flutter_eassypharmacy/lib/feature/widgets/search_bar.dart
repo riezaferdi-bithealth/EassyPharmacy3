@@ -22,8 +22,6 @@ class _SearchTopBarState extends State<SearchTopBar> {
           false,
           false,
           false,
-          false,
-          false,
         );
   }
 
@@ -32,9 +30,10 @@ class _SearchTopBarState extends State<SearchTopBar> {
     return BlocConsumer<GetListMedicinesCubit, GetListMedicinesState>(
       builder: (context, state) {
         return Padding(
-          padding: const EdgeInsets.only(left: space16, right: space8),
+          padding: const EdgeInsets.only(top: 0, left: 16.0, right: 16.0),
           child: Form(
             child: TextFormField(
+              // validator: _validatorForm,
               onChanged: (value) {
                 setState(() {
                   query = value;
@@ -44,9 +43,9 @@ class _SearchTopBarState extends State<SearchTopBar> {
               controller: widget.controller,
               style: p14.black.normal,
               decoration: InputDecoration(
-                fillColor: systemWhiteColor,
-                contentPadding: const EdgeInsets.symmetric(
-                    vertical: space12, horizontal: space12),
+                //fillColor: systemAccent20Color,
+                //hoverColor: systemWhiteColor,
+                // prefixIcon: Icon(Icons.search),
                 suffixIcon: Assets.search,
                 filled: true,
                 border:
@@ -56,15 +55,17 @@ class _SearchTopBarState extends State<SearchTopBar> {
                       color: systemPrimaryColor,
                       width: 2,
                     ),
-                    borderRadius: BorderRadius.circular(space8)),
+                    borderRadius: BorderRadius.circular(6)),
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: systemGreyColor,
                     ),
-                    borderRadius: BorderRadius.circular(space8)),
+                    borderRadius: BorderRadius.circular(6)),
                 hintStyle: p14.black.normal,
                 hintText: search,
                 isDense: true,
+                // contentPadding: ,
+                // errorText: "Value Can't Be Empty",
               ),
             ),
           ),

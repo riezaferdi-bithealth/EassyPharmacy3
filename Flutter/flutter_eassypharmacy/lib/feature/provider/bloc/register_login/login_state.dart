@@ -12,8 +12,13 @@ class InitialGetLogin extends GetLoginState {}
 class LoadingGetLogin extends GetLoginState {}
 
 class LoadedGetLogin extends GetLoginState {
+  // final LoginModel listData;
+  // const LoadedGetLogin({required this.listData});
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [
+        // listData,
+      ];
 }
 
 class NotLoadedGetLogin extends GetLoginState {

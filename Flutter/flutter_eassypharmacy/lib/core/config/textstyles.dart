@@ -161,15 +161,51 @@ class TextStyleExtension extends TextStyle {
 
   get black => copyWithFunct(color: systemBlackColor);
 
+  // get blackGrey => copyWithFunct(color: systemBlackGreyColor);
+
   get red => copyWithFunct(color: systemRedColor);
+
+  // get darkRed => copyWithFunct(color: systemDarkerRedColor);
+
+  // get lightBlue => copyWithFunct(color: systemLightBlueColor);
+
+  // get blue => copyWithFunct(color: systemBlueColor);
+
+  // get darkBlue => copyWithFunct(color: systemAccent900Color);
+
+  // get mintGreen => copyWithFunct(color: systemMintGreenColor);
+
+  // get green => copyWithFunct(color: systemGreenColor);
+
+  // get darkGreen => copyWithFunct(color: systemDarkGreenColor);
 
   get primary => copyWithFunct(color: systemPrimaryColor);
 
+  // get primary100 => copyWithFunct(color: systemPrimary100Color);
+
+  // get primary500 => copyWithFunct(color: systemPrimary500Color);
+  
+  // get primary900 => copyWithFunct(color: systemPrimary900Color);
+
+  // get primary1000 => copyWithFunct(color: systemPrimary1000Color);
+
   get accent => copyWithFunct(color: systemAccentColor);
 
+  // get accentDarkest => copyWithFunct(color: systemAccent900Color);
+
+  // get accentLightest => copyWithFunct(color: systemAccent50Color);
+
   get grey => copyWithFunct(color: systemGreyColor);
+
+  // get darkerGrey => copyWithFunct(color: systemDarkerGreyColor);
+
+  // get lightGrey => copyWithFunct(color: systemLightGreyColor);
 
   get yellow => copyWithFunct(color: systemYellowColor);
 
   get orange => copyWithFunct(color: systemOrangeColor);
+  
+  // get gold => copyWithFunct(color: systemGoldColor);
+
+  // get darkestGrey => copyWithFunct(color: systemDarkestGreyColor);
 }

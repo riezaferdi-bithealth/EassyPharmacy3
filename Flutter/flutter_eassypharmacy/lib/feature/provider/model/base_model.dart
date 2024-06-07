@@ -10,6 +10,6 @@ class BaseModel<T> {
   factory BaseModel.fromJson(Map<String, dynamic> json) => BaseModel(
         value: json["data"],
         status: Model.castBool(json["status"]),
-        message: Model.castString(json["message"]),
+        message: Model.castString(json['message']),
       );
 }

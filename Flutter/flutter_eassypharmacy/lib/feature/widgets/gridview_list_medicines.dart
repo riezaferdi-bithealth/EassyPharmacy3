@@ -14,18 +14,17 @@ class GridViewListMedicines extends StatefulWidget {
 class _GridViewListMedicinesState extends State<GridViewListMedicines>
     with SingleTickerProviderStateMixin {
   String? isLogin;
-  String? idUser;
 
   _stateToken() async {
     isLogin = await AccountHelper.getAuthToken();
-    idUser = await AccountHelper.getUserId();
-    setState(() {});
   }
 
-  onClickedAddToCart(BuildContext context, List<dynamic> listToAdd) {
+  onClickedAddToCart(BuildContext context, ListMedicines listToAdd) {
+    _stateToken();
+
     if (isLogin != null) {
-      context.read<GetCartCubit>().getCart(listToAdd);
-      Commons().snackbarSuccess(context, itemAdded);
+      listsAddToCart.add(listToAdd);
+      print("masuk----------");
     } else {
       Navigator.push(
         context,
@@ -46,12 +45,14 @@ class _GridViewListMedicinesState extends State<GridViewListMedicines>
 
   @override
   Widget build(BuildContext context) {
+    //make container for list of medicines
     return BlocConsumer<GetListMedicinesCubit, GetListMedicinesState>(
       builder: (context, state) {
         if (state is LoadingGetListMedicines) {
           return shimmerGridView();
         } else if (state is NotLoadedGetListMedicines) {
         } else if (state is LoadedGetListMedicines) {
+          // print("ada: ${widget.controller!.text}");
           return state.listData.isEmpty
               ? const SearchNotFound()
               : GridView.count(
@@ -81,7 +82,7 @@ class _GridViewListMedicinesState extends State<GridViewListMedicines>
                         padding: const EdgeInsets.all(space8),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(space8),
-                          color: systemWhiteColor,
+                          color: systemPrimary50Color,
                           border: Border.all(
                             color: systemPrimaryColor,
                             width: 1,
@@ -89,6 +90,7 @@ class _GridViewListMedicinesState extends State<GridViewListMedicines>
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
+                          // mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             ClipRRect(
                               borderRadius: const BorderRadius.all(
@@ -111,7 +113,7 @@ class _GridViewListMedicinesState extends State<GridViewListMedicines>
                             ),
                             Text(
                               item.name!,
-                              style: p16.primary.medium,
+                              style: p16.primary.normal,
                             ),
                             const ColumnDivider(padding: space4),
                             Row(
@@ -136,19 +138,11 @@ class _GridViewListMedicinesState extends State<GridViewListMedicines>
                                   ? systemRedColor
                                   : systemPrimaryColor,
                               width: double.infinity,
-                              height: 38.0,
+                              // height: 56,
                               circular: space12,
                               onPressed: () {
                                 if (item.stock! > 0) {
-                                  onClickedAddToCart(context, [
-                                    {
-                                      "id": item.id,
-                                      "name": item.name,
-                                      "price": item.price,
-                                      "image": item.image,
-                                      "qty": 1
-                                    }
-                                  ]);
+                                  onClickedAddToCart(context, item);
                                 }
                               },
                             ),

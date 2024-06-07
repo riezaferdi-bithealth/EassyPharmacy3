@@ -33,7 +33,7 @@ const UserController = {
         password: hashedPassword,
         phoneNumber
       });
-    console.log(newUser)
+    // console.log(newUser)
     let result = {
         status:true,
         message:"success",
