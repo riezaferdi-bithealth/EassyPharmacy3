@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_eassypharmacy/core/core.dart';
 
 const int _primaryPrimaryValue = 0xff0D4D8B;
 const int _accentPrimaryValue = 0xff5f842b;
@@ -75,7 +75,8 @@ Color systemBlackColor = Colors.black;
 Color systemWhiteColor = Colors.white;
 
 Color systemGreyColor = Colors.grey;
-// Color? systemGrey50Color = Colors.grey[500];
+
+Color systemLightGreyColor = const Color.fromARGB(255, 231, 231, 231);
 
 Color systemRedColor = Colors.red;
 

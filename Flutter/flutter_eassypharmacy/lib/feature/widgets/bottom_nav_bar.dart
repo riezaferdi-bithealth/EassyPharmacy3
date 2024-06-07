@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_eassypharmacy/core/core.dart';
 
 class BottomBar extends StatelessWidget {
@@ -23,6 +22,10 @@ class BottomBar extends StatelessWidget {
         BottomNavigationBarItem(
           label: home,
           icon: Assets.homeIcon,
+        ),
+        BottomNavigationBarItem(
+          label: cart,
+          icon: Assets.cartIcon,
         ),
         BottomNavigationBarItem(
           label: profile,

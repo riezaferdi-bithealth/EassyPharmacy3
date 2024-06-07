@@ -1,93 +1,146 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_eassypharmacy/core/core.dart';
+import 'package:flutter_eassypharmacy/feature/features.dart';
 
 import '../screen/home/detail_page.dart';
 
-// FIXME NOT PROPERLY CLEAN CODE
-// TODO MAKE PROPER UI LISTVIEW
-class ListViewListMedicines extends StatelessWidget {
-  const ListViewListMedicines({super.key});
+class ListViewListMedicines extends StatefulWidget {
+  final TextEditingController? controller;
+  const ListViewListMedicines({this.controller, super.key});
+
+  @override
+  State<ListViewListMedicines> createState() => _ListViewListMedicinesState();
+}
+
+class _ListViewListMedicinesState extends State<ListViewListMedicines> {
+  String? isLogin;
+
+  _stateToken() async {
+    isLogin = await AccountHelper.getAuthToken();
+  }
+
+  onClickedAddtoCart(BuildContext context) {
+    _stateToken();
+
+    if (isLogin != null) {
+      // Navigator.push(context, MaterialPageRoute(builder: (context) {
+      //   return const Blank();
+      // }));
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return const LoginOrRegisterPage();
+          },
+        ),
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _stateToken();
+  }
 
   @override
   Widget build(BuildContext context) {
-    //make container for list of medicines
-    return ListView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      scrollDirection: Axis.vertical,
-      itemBuilder: (context, index) {
-        return ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: listMedicinePharm.length,
-          itemBuilder: (context, index) {
-            var items = listMedicinePharm[index];
-            var stocks = stockMedicines[index];
-            return GestureDetector(
-              onTap: () {
-                // if (snapshot.hasData) {
-                //   newsProviders.selectArticles(
-                //     data![index],
-                //   );
-                // }
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const DetailPage(),
-                  ),
-                );
-              },
-              child: Container(
-                color: Colors.grey,
-                child: Column(
-                  children: [
-                    ListTile(
-                      title: Text(
-                        // data![index].title ?? '_',
-                        items,
-                        style: p20.black.semiBold,
-                        maxLines: 2,
-                      ),
-                      subtitle: Text(
-                        // "Stock: ${data[index].source ?? '_'}",
-                        "Stock: $stocks",
-                        style: p12.white.normal,
-                      ),
-                      leading: Container(
-                        width: 70,
-                        height: 120,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: NetworkImage(
-                              "https://picsum.photos/250?image=$index",
-                              // data[index].urlToImage ??
-                              //     'https://istow.id/wp-content/themes/trix/assets/images/no-image/No-Image-Found-400x264.png',
+    return BlocConsumer<GetListMedicinesCubit, GetListMedicinesState>(
+      builder: (context, state) {
+        if (state is LoadingGetListMedicines) {
+        } else if (state is NotLoadedGetListMedicines) {
+        } else if (state is LoadedGetListMedicines) {
+          //make container for list of medicines
+          return state.listData.isEmpty
+              ? const SearchNotFound()
+              : ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: state.listData.length,
+                  itemBuilder: (context, index) {
+                    var item = state.listData[index];
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetailPage(
+                              id: item.id,
+                              name: item.name,
+                              image: item.image,
+                              prices: item.price,
+                              stocks: item.stock,
+                              desc: item.desc,
                             ),
                           ),
+                        );
+                      },
+                      child: Container(
+                        color: systemPrimary50Color,
+                        margin: const EdgeInsets.fromLTRB(
+                          space16,
+                          space8,
+                          space16,
+                          space8,
+                        ),
+                        padding: const EdgeInsets.all(space8),
+                        child: Column(
+                          children: [
+                            ListTile(
+                              trailing: GeneralButton.text(
+                                addToCart,
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: space12),
+                                buttonSize: ButtonSize.small,
+                                backgroundColor: systemPrimaryColor,
+                                width: MediaQuery.of(context).size.width / 4,
+                                // height: 56,
+                                circular: space12,
+                                onPressed: () {
+                                  onClickedAddtoCart(context);
+                                },
+                              ),
+                              title: Text(
+                                item.name!,
+                                style: p16.black.semiBold,
+                                maxLines: 2,
+                              ),
+                              subtitle: Text(
+                                "$stock ${item.stock}",
+                                style: p12.primary.normal,
+                              ),
+                              leading: ClipRRect(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(space12)),
+                                child: CachedNetworkImage(
+                                  imageUrl: item.image!,
+                                  fit: BoxFit.fill,
+                                  height: MediaQuery.of(context).size.height /
+                                      10, //70
+                                  width: MediaQuery.of(context).size.width /
+                                      5, //120
+                                  placeholder: (context, url) => const Center(
+                                    child: SizedBox(
+                                      height: space20,
+                                      width: space20,
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  ),
+                                  errorWidget: (context, url, error) =>
+                                      Image.asset(Assets.noNetworkImage),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      // trailing: Text(
-                      //   "${data[index].author ?? '_'}",
-                      //   style: const TextStyle(
-                      //     fontSize: 12,
-                      //     color: Colors.white,
-                      //   ),
-                      //   maxLines: 2,
-                      // ),
-                    ),
-                    Container(
-                      height: 10,
-                      color: Colors.white,
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        );
+                    );
+                  },
+                );
+        }
+        return const SizedBox.shrink();
       },
+      listener: (context, state) async {},
     );
   }
 }

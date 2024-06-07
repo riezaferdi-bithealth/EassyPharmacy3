@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_eassypharmacy/core/config/theme_helper.dart';
+import 'package:flutter_eassypharmacy/core/core.dart';
 
 class Commons {
   void snackbarError(
@@ -9,7 +8,7 @@ class Commons {
     final snackBar = SnackBar(
       content: Text(message),
       backgroundColor: systemRedColor,
-      duration: const Duration(milliseconds: 2500),
+      duration: const Duration(milliseconds: snackbarTime),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
@@ -21,7 +20,7 @@ class Commons {
     final snackBar = SnackBar(
       content: Text(message),
       backgroundColor: systemAccent500Color,
-      duration: const Duration(milliseconds: 2500),
+      duration: const Duration(milliseconds: snackbarTime),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }

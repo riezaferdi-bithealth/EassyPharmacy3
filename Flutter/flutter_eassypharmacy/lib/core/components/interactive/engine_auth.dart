@@ -1,21 +1,19 @@
-// ignore_for_file: invalid_return_type_for_catch_error
+// ignore_for_file: invalid_return_type_for_catch_error, unused_element
 
 library engine;
 
-import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:dio/io.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_eassypharmacy/core/components/components.dart';
+import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
 import 'package:logger/logger.dart';
 
 part 'home.dart';
 part 'register.dart';
-part 'user.dart';
+part 'login.dart';
+part 'cart.dart';
 
 const int kLimitPerPage = 10;
 
@@ -31,9 +29,10 @@ enum TokenType {
 enum ContentType { none, json, urlEncoded, mutipart }
 
 class APIRequest {
-  static User user = User();
   static Home home = Home();
   static Register register = Register();
+  static Login login = Login();
+  static Cart cart = Cart();
 }
 
 abstract class VmsEngine {
@@ -647,8 +646,7 @@ abstract class VmsEngine {
 
     var options = await _getDioDownloadOptions(context,
         tokenType: tokenType, contentType: contentTypeString);
-    (dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient =
-        (client) {
+    (dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = (client) {
       client.badCertificateCallback =
           (X509Certificate cert, String host, int port) => true;
       return client;

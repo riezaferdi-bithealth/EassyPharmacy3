@@ -1,7 +1,4 @@
-import 'dart:async';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_eassypharmacy/core/config/theme_helper.dart';
+import 'package:flutter_eassypharmacy/core/core.dart';
 
 const double kToastBottomMargin = 80.0;
 const double kToastHorizontalMargin = 16.0;

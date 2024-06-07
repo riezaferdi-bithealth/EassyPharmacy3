@@ -1,20 +1,20 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
+import 'package:logger/logger.dart';
 
 void main() {
-  runApp(
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: splashNav,
-      routes: {
-        splashNav: (context) => const SplashPage(),
-        homeNav: (context) => const MainApp(),
-        // Add other routes for your app screens here
-      },
-    ),
-  );
+  WidgetsFlutterBinding.ensureInitialized();
+
+  application.flavor =
+      flavorDev; //flavorDev; ; //flavorBeta; //flavorProduction
+  runApp(const MainApp());
 }
+
+var logger = Logger(
+  filter: null, // Use the default LogFilter (-> only log in debug mode)
+  printer: PrettyPrinter(methodCount: 0),
+  output: null, // Use the default LogOutput (-> send everything to console)
+);
 
 class MainApp extends StatefulWidget {
   const MainApp({super.key});
@@ -23,27 +23,28 @@ class MainApp extends StatefulWidget {
   State<MainApp> createState() => _MainAppState();
 }
 
-class _MainAppState extends State<MainApp> {
-  List<Widget> screens = [
-    const HomePage(),
-    const Profile(),
-  ];
-
-  void onClicked(int index) {
-    setState(() {
-      indexStart = index;
-    });
+class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: screens.elementAt(indexStart),
-        bottomNavigationBar: BottomBar(
-          selectedIndex: indexStart,
-          onClicked: onClicked,
+    return BlocProvider(
+      create: (context) => AuthenticationCubit()..isHasToken(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: BlocBuilder<AuthenticationCubit, AuthenticationState>(
+          builder: (context, state) {
+            if (state is AuthenticationInitial) {
+              return const SplashPage();
+            } else if (state is Authenticated) {
+              return const RoutingPage(isResize: true);
+            } else {
+              return const RoutingPage(isResize: false);
+            }
+          },
         ),
       ),
     );

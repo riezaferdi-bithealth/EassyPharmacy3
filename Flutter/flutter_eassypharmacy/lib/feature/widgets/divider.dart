@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_eassypharmacy/core/core.dart';
 
 class RowDivider extends StatelessWidget {
   final double padding;

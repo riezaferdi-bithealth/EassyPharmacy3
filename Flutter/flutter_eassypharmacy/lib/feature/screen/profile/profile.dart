@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
-import 'package:flutter_eassypharmacy/feature/screen/profile/blank.dart';
+import 'package:flutter_eassypharmacy/feature/screen/profile/account_details.dart';
+import 'package:flutter_eassypharmacy/feature/screen/profile/history_orders.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -11,6 +11,19 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  String? userName;
+
+  getToken() async {
+    userName = await AccountHelper.getUserFullName();
+    setState(() {});
+  }
+
+  @override
+  initState() {
+    super.initState();
+    getToken();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,12 +36,12 @@ class _ProfileState extends State<Profile> {
           children: [
             const ColumnDivider(padding: topBarPadding),
             Text(
-              hello,
+              "Hello, $userName",
               style: p30.primary.bold,
             ),
             rowLineProfileDivider(),
             profileSection(
-              const Blank(),
+              const AccountDetails(),
               Assets.profileDetailIcon,
               systemPrimaryColor,
               profileDetail,
@@ -36,15 +49,15 @@ class _ProfileState extends State<Profile> {
             ),
             rowLineProfileDivider(),
             profileSection(
-              const Blank(),
+              const HistoryOrders(),
               Assets.listOrderIcon,
               systemPrimaryColor,
-              listOrder,
+              historyOrders,
               p24.primary.medium,
             ),
             rowLineProfileDivider(),
             profileSection(
-              const Blank(),
+              const RoutingPage(isResize: false),
               Assets.logoutIcon,
               systemRedColor,
               logout,
@@ -78,13 +91,27 @@ class _ProfileState extends State<Profile> {
     TextStyle styleId,
   ) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => routingPage,
-          ),
-        );
+      onTap: () async {
+        if (id == logout) {
+          tabIndex.value = 0;
+          await AccountHelper.removeUserInfo();
+
+          if (!mounted) return;
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => routingPage,
+            ),
+            (route) => false,
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => routingPage,
+            ),
+          );
+        }
       },
       child: Row(
         children: [
