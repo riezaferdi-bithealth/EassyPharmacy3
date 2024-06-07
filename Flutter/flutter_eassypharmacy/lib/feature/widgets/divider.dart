@@ -7,7 +7,6 @@ class RowDivider extends StatelessWidget {
     required this.padding,
   });
 
-  // int index = 0;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -23,7 +22,6 @@ class ColumnDivider extends StatelessWidget {
     required this.padding,
   });
 
-  // int index = 0;
   @override
   Widget build(BuildContext context) {
     return SizedBox(

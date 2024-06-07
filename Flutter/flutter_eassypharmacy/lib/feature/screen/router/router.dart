@@ -1,6 +1,6 @@
 import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
-import 'package:flutter_eassypharmacy/feature/screen/home/list_order.dart';
+import 'package:flutter_eassypharmacy/feature/screen/cart/cart_page.dart';
 
 class RoutingPage extends StatefulWidget {
   final bool? isResize;
@@ -13,7 +13,7 @@ class RoutingPage extends StatefulWidget {
 class _RoutingPageState extends State<RoutingPage> {
   List<Widget> screens = [
     const HomePage(),
-    const ListOrder(),
+    const CartPage(),
     const Profile(),
   ];
 
@@ -25,8 +25,6 @@ class _RoutingPageState extends State<RoutingPage> {
   }
 
   onClicked(int index, BuildContext context) {
-    _stateToken();
-
     if (index == 0) {
       setState(() {
         tabIndex.value = index;

@@ -5,8 +5,10 @@ import 'package:logger/logger.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  application.flavor =
-      flavorDev; //flavorDev; ; //flavorBeta; //flavorProduction
+  application.flavor = flavorProduction;
+  //flavorDev;
+  //flavorBeta;
+  //flavorProduction;
   runApp(const MainApp());
 }
 

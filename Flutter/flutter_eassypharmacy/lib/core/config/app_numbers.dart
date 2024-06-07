@@ -1,5 +1,4 @@
 //list
-// int indexStart = 0;
 
 //padding
 const space4 = 4.0;
@@ -21,6 +20,7 @@ const splashWidth = 120.0;
 //timer
 const splashTimer = 5;
 const snackbarTime = 3000;
+const delayRefreshCart = 2;
 
 //icon profile size
 const iconProfileSize = 36.0;

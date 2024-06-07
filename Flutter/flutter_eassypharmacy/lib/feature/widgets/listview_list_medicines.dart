@@ -16,15 +16,13 @@ class _ListViewListMedicinesState extends State<ListViewListMedicines> {
 
   _stateToken() async {
     isLogin = await AccountHelper.getAuthToken();
+    setState(() {});
   }
 
-  onClickedAddtoCart(BuildContext context) {
-    _stateToken();
-
+  onClickedAddtoCart(BuildContext context, List<dynamic> listToAdd) {
     if (isLogin != null) {
-      // Navigator.push(context, MaterialPageRoute(builder: (context) {
-      //   return const Blank();
-      // }));
+      context.read<GetCartCubit>().getCart(listToAdd);
+      Commons().snackbarSuccess(context, itemAdded);
     } else {
       Navigator.push(
         context,
@@ -50,7 +48,6 @@ class _ListViewListMedicinesState extends State<ListViewListMedicines> {
         if (state is LoadingGetListMedicines) {
         } else if (state is NotLoadedGetListMedicines) {
         } else if (state is LoadedGetListMedicines) {
-          //make container for list of medicines
           return state.listData.isEmpty
               ? const SearchNotFound()
               : ListView.builder(
@@ -76,38 +73,51 @@ class _ListViewListMedicinesState extends State<ListViewListMedicines> {
                         );
                       },
                       child: Container(
-                        color: systemPrimary50Color,
-                        margin: const EdgeInsets.fromLTRB(
-                          space16,
-                          space8,
-                          space16,
-                          space8,
-                        ),
                         padding: const EdgeInsets.all(space8),
+                        margin: const EdgeInsets.all(space8),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(space8),
+                          color: systemWhiteColor,
+                          border: Border.all(
+                            color: systemPrimaryColor,
+                            width: 1,
+                          ),
+                        ),
                         child: Column(
                           children: [
                             ListTile(
                               trailing: GeneralButton.text(
-                                addToCart,
+                                item.stock == 0 ? outOfStock : addToCart,
                                 padding: const EdgeInsets.symmetric(
                                     vertical: space12),
                                 buttonSize: ButtonSize.small,
-                                backgroundColor: systemPrimaryColor,
+                                backgroundColor: item.stock == 0
+                                    ? systemRedColor
+                                    : systemPrimaryColor,
                                 width: MediaQuery.of(context).size.width / 4,
-                                // height: 56,
                                 circular: space12,
                                 onPressed: () {
-                                  onClickedAddtoCart(context);
+                                  if (item.stock! > 0) {
+                                    onClickedAddtoCart(context, [
+                                      {
+                                        "id": item.id,
+                                        "name": item.name,
+                                        "price": item.price,
+                                        "image": item.image,
+                                        "qty": 1
+                                      }
+                                    ]);
+                                  }
                                 },
                               ),
                               title: Text(
                                 item.name!,
-                                style: p16.black.semiBold,
+                                style: p16.primary.medium,
                                 maxLines: 2,
                               ),
                               subtitle: Text(
                                 "$stock ${item.stock}",
-                                style: p12.primary.normal,
+                                style: p14.primary.normal,
                               ),
                               leading: ClipRRect(
                                 borderRadius: const BorderRadius.all(
@@ -115,10 +125,9 @@ class _ListViewListMedicinesState extends State<ListViewListMedicines> {
                                 child: CachedNetworkImage(
                                   imageUrl: item.image!,
                                   fit: BoxFit.fill,
-                                  height: MediaQuery.of(context).size.height /
-                                      10, //70
-                                  width: MediaQuery.of(context).size.width /
-                                      5, //120
+                                  height:
+                                      MediaQuery.of(context).size.height / 10,
+                                  width: MediaQuery.of(context).size.width / 5,
                                   placeholder: (context, url) => const Center(
                                     child: SizedBox(
                                       height: space20,

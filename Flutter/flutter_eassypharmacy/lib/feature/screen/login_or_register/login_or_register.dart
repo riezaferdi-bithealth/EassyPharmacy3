@@ -1,7 +1,7 @@
 import 'package:flutter_eassypharmacy/core/core.dart';
 import 'package:flutter_eassypharmacy/feature/features.dart';
-import 'login/login.dart';
-import 'register/register.dart';
+import 'login/login_page.dart';
+import 'register/register_page.dart';
 
 class LoginOrRegisterPage extends StatelessWidget {
   const LoginOrRegisterPage({super.key});
@@ -20,50 +20,65 @@ class LoginOrRegisterPage extends StatelessWidget {
           },
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(space16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // const ColumnDivider(padding: topBarPadding),
-            Image.asset(
-              Assets.landingPageLogo,
-              height: splashHeight,
-              width: splashWidth,
-            ),
-            Text(loginOrRegister, style: p30.primary.bold),
-            const ColumnDivider(padding: space16),
-            GeneralButton.text(
-              login,
-              padding: const EdgeInsets.symmetric(vertical: space12),
-              buttonSize: ButtonSize.large,
-              backgroundColor: systemPrimaryColor,
-              width: double.infinity,
-              height: 56,
-              circular: space12,
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return LoginPage();
-                }));
-              },
-            ),
-            const ColumnDivider(padding: space16),
-            GeneralButton.text(
-              register,
-              padding: const EdgeInsets.symmetric(vertical: space12),
-              buttonSize: ButtonSize.large,
-              backgroundColor: systemPrimaryColor,
-              width: double.infinity,
-              height: 56,
-              circular: space12,
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return RegisterPage();
-                }));
-              },
-            ),
-          ],
+      body: Container(
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: const [
+              0.7,
+              1,
+            ],
+            colors: [
+              systemWhiteColor,
+              systemBlueShade200Color,
+            ],
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(space16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                Assets.landingPageLogo,
+                height: splashHeight,
+                width: splashWidth,
+              ),
+              const ColumnDivider(padding: space30),
+              GeneralButton.text(
+                login,
+                padding: const EdgeInsets.symmetric(vertical: space12),
+                buttonSize: ButtonSize.large,
+                backgroundColor: systemPrimaryColor,
+                width: double.infinity,
+                height: 56,
+                circular: space12,
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return LoginPage();
+                  }));
+                },
+              ),
+              const ColumnDivider(padding: space16),
+              GeneralButton.text(
+                register,
+                padding: const EdgeInsets.symmetric(vertical: space12),
+                buttonSize: ButtonSize.large,
+                backgroundColor: systemPrimaryColor,
+                width: double.infinity,
+                height: 56,
+                circular: space12,
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return RegisterPage();
+                  }));
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

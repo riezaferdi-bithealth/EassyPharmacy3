@@ -9,14 +9,12 @@ class BottomBar extends StatelessWidget {
     required this.onClicked,
   });
 
-  // int index = 0;
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       currentIndex: selectedIndex,
       onTap: onClicked,
       selectedItemColor: systemPrimaryColor,
-      // backgroundColor: Colors.blue,
       unselectedItemColor: systemBlackColor,
       items: const [
         BottomNavigationBarItem(

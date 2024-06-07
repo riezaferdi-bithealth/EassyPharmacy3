@@ -6,6 +6,7 @@ export 'home/cart_model.dart';
 export 'base_model.dart';
 export 'register_login/register_model.dart';
 export 'register_login/login_model.dart';
+export 'account/history_orders_model.dart';
 
 abstract class Model {
   static String? castString(var object, [String? defaultValue]) {

@@ -9,27 +9,32 @@ class GetListMedicinesCubit extends Cubit<GetListMedicinesState> {
 
   void getListMedicines(
     String? searchKey,
+    bool? isFilterByStockAvail,
+    bool? isFilterByStockUnavail,
     bool? filterNameAsc,
     bool? filterNameDesc,
     bool? filterStockAsc,
     bool? filterStockDesc,
   ) async {
     try {
-      // print("masuk try");
       emit(LoadingGetListMedicines());
-      // print("mau masuk result");
+
       final result = await APIRequest.home.getListMedicines(searchKey);
-      // print("mau logger ");
+
       logger.d(result!.value!);
-      // print("mau masuk ");
+
       if (result.status == true) {
         logger.d(result.value);
-        if (filterNameAsc == true ||
+        if (isFilterByStockAvail == true ||
+            isFilterByStockUnavail == true ||
+            filterNameAsc == true ||
             filterNameDesc == true ||
             filterStockAsc == true ||
             filterStockDesc == true) {
-              
           var listItems = result.value!.data!;
+          if (isFilterByStockAvail == true || isFilterByStockUnavail == true) {
+            filterMedicinesByStock(listItems, isFilterByStockAvail);
+          }
           if (filterNameAsc == true || filterNameDesc == true) {
             sortMedicinesByName(listItems, filterNameAsc);
           }
@@ -41,16 +46,21 @@ class GetListMedicinesCubit extends Cubit<GetListMedicinesState> {
         } else {
           emit(LoadedGetListMedicines(listData: result.value!.data!));
         }
-
-        // print("selesai IF");
       } else {
         logger.d(result);
         emit(NotLoadedGetListMedicines(error: result.message!.toString()));
       }
     } catch (_) {
-      // print("Masuk catch");
       logger.d(_);
       emit(const NotLoadedGetListMedicines(error: '$systemError$unknown'));
+    }
+  }
+
+  void filterMedicinesByStock(List<ListMedicines> listItems, bool? available) {
+    if (available == true) {
+      listItems.removeWhere((element) => element.stock! == 0);
+    } else {
+      listItems.removeWhere((element) => element.stock! > 0);
     }
   }
 

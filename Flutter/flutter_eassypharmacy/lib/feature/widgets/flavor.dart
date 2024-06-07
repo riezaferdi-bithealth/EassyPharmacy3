@@ -21,3 +21,10 @@ FlavorConfig flavorDev = FlavorConfig(
     flavor: Flavor.dev,
     registerUrl: "",
     globalToken: "");
+
+FlavorConfig flavorProduction = FlavorConfig(
+    endPoint: "http://103.146.202.22:3000",
+    imageEndPoint: "",
+    flavor: Flavor.production,
+    registerUrl: "",
+    globalToken: "");
