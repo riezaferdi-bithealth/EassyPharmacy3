@@ -1,0 +1,11 @@
+[
+    {
+        "id_user": 1,
+        "list_medicines": [
+            {
+                "id": 3,
+                "price": 7500
+            }
+        ]
+    }
+]
